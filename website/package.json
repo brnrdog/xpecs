@@ -1,0 +1,28 @@
+{
+  "name": "ux-archetypes-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "registry": "node scripts/generate-registry.mjs",
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:dev": "rescript -w",
+    "dev": "npm run registry && npm run res:build && vite",
+    "build": "npm run registry && npm run res:build && vite build",
+    "preview": "vite preview",
+    "smoke": "node scripts/smoke-all.mjs"
+  },
+  "dependencies": {
+    "rescript-signals": "3.1.1",
+    "xote": "7.0.0"
+  },
+  "devDependencies": {
+    "@rescript/core": "1.6.1",
+    "@tailwindcss/vite": "4.1.14",
+    "playwright-core": "1.56",
+    "rescript": "12.3.0",
+    "tailwindcss": "4.1.14",
+    "vite": "7.1.12"
+  }
+}

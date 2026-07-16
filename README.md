@@ -192,6 +192,13 @@ See [`INDEX.md`](INDEX.md) for the full, current list of archetypes.
 
 ---
 
+## Website
+
+An interactive catalogue lives in [`website/`](website/): it lists every
+archetype and renders a **live example** of each, built with Vite, ReScript,
+[Xote](https://xote.dev), and Tailwind CSS in a monochrome theme. See
+[`website/README.md`](website/README.md) to run it.
+
 ## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md). In short: copy the template, fill in
