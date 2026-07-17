@@ -13,6 +13,7 @@ usedBy: [button, navbar, sidebar, toggle, data-table]
 related: [hover-card, popover, kbd]
 traits: [anchored]
 maintainers: [brnrdog]
+implementation: Tooltip.res
 ---
 
 # Tooltip

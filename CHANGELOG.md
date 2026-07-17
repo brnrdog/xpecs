@@ -29,6 +29,13 @@ released.
   five (button, badge, icon-button, link, separator) are **compiler-enforced** —
   the component annotates its props with the generated `Contracts.*` types, so an
   enum value that drifts from the spec fails to compile.
+- **Interactive components extracted and mapped.** `alert`, `tabs`, `accordion`,
+  `collapsible`, `tooltip`, `dialog`, and `select` are now real reusable
+  components (`Alert.res`, `Tabs.res`, …) that their live examples consume,
+  rather than one-off inline demos — each mapped to its contract and
+  conformance-checked (17 components checked in total; `alert`/`tabs`/`accordion`
+  enums compiler-enforced). `Accordion` genuinely implements both `single` and
+  `multiple` from its `type` prop.
 - `INDEX.md` is now **generated** from the specs' frontmatter (`npm run index`),
   so the registry can no longer drift from the archetypes.
 

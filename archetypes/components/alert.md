@@ -12,6 +12,7 @@ aliases: [callout, banner, notice, inline-message]
 usedBy: [form, card, dashboard, settings]
 related: [toast, alert-dialog, badge]
 maintainers: [brnrdog]
+implementation: Alert.res
 ---
 
 # Alert

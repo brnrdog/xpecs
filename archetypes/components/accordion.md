@@ -12,6 +12,7 @@ aliases: [expander, disclosure-group]
 usedBy: [landing-page, settings, sidebar]
 related: [collapsible, tabs]
 maintainers: [brnrdog]
+implementation: Accordion.res
 ---
 
 # Accordion

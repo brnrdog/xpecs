@@ -13,6 +13,7 @@ usedBy: [form, field, data-table, pagination]
 related: [combobox, dropdown-menu, radio-group]
 traits: [dismissible, anchored, roving-focus, typeahead]
 maintainers: [brnrdog]
+implementation: Select.res
 ---
 
 # Select

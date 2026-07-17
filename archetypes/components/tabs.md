@@ -13,6 +13,7 @@ usedBy: [dashboard, settings, card]
 related: [accordion, toggle-group, navigation-menu]
 traits: [roving-focus]
 maintainers: [brnrdog]
+implementation: Tabs.res
 ---
 
 # Tabs

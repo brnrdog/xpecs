@@ -432,121 +432,63 @@ module Card = {
     </div>
 }
 
-module Alert = {
+module AlertEx = {
   @jsx.component
-  let make = () => {
-    let row = "flex gap-3 rounded-lg border p-4 text-sm"
+  let make = () =>
     <div class="max-w-md space-y-3">
-      <div class={row ++ " border-neutral-200 bg-neutral-50 text-neutral-700"}>
-        <span class="font-semibold"> <View.Text> "i" </View.Text> </span>
-        <div>
-          <p class="font-medium text-neutral-900"> <View.Text> "Heads up" </View.Text> </p>
-          <p class="text-neutral-600"> <View.Text> "Your trial ends in 3 days." </View.Text> </p>
-        </div>
-      </div>
-      <div class={row ++ " border-neutral-900 bg-neutral-900 text-neutral-100"}>
-        <span class="font-semibold"> <View.Text> "!" </View.Text> </span>
-        <div>
-          <p class="font-medium text-white"> <View.Text> "Payment failed" </View.Text> </p>
-          <p class="text-neutral-300"> <View.Text> "Update your card to keep your subscription active." </View.Text> </p>
-        </div>
-      </div>
+      <Alert variant=#info icon="i" title="Heads up" description="Your trial ends in 3 days." />
+      <Alert
+        variant=#danger
+        icon="!"
+        title="Payment failed"
+        description="Update your card to keep your subscription active."
+      />
     </div>
-  }
 }
 
-module Tabs = {
+module TabsEx = {
   @jsx.component
   let make = () => {
-    let active = Signal.make(0)
-    let tabs = [(0, "Account"), (1, "Password"), (2, "Team")]
+    let value = Signal.make("account")
+    let tabs = [("account", "Account"), ("password", "Password"), ("team", "Team")]
     let content = Computed.make(() =>
-      switch Signal.get(active) {
-      | 0 => "Manage your account details and profile information."
-      | 1 => "Change your password and configure two-factor authentication."
+      switch Signal.get(value) {
+      | "account" => "Manage your account details and profile information."
+      | "password" => "Change your password and configure two-factor authentication."
       | _ => "Invite teammates and manage their roles and access."
       }
     )
     <div class="w-96">
-      <div class="flex gap-1 border-b border-neutral-200">
-        <View.For
-          each={Prop.static(tabs)}
-          render={item => {
-            let (idx, label) = item
-            let cls = Computed.make(() =>
-              "-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors " ++ (
-                Signal.get(active) == idx
-                  ? "border-neutral-900 text-neutral-900"
-                  : "border-transparent text-neutral-500 hover:text-neutral-800"
-              )
-            )
-            <button class={Prop.signal(cls)} onClick={_ => Signal.set(active, idx)}>
-              <View.Text> {label} </View.Text>
-            </button>
-          }}
-        />
-      </div>
+      <Tabs value tabs />
       <p class="p-4 text-sm text-neutral-600"> <View.Text> {content} </View.Text> </p>
     </div>
   }
 }
 
-module Accordion = {
+module AccordionEx = {
   @jsx.component
   let make = () => {
-    let openId = Signal.make(0)
+    let value = Signal.make(["what"])
     let items = [
-      (0, "What is an archetype?", "A technology-agnostic definition of a UI pattern, described in words."),
-      (1, "Is it tied to a framework?", "No. Each archetype maps onto any stack — this site happens to use Xote."),
-      (2, "Can I contribute?", "Yes. Copy the template, fill every section, and open a pull request."),
+      ("what", "What is an archetype?", "A technology-agnostic definition of a UI pattern, described in words."),
+      ("framework", "Is it tied to a framework?", "No. Each archetype maps onto any stack — this site happens to use Xote."),
+      ("contribute", "Can I contribute?", "Yes. Copy the template, fill every section, and open a pull request."),
     ]
-    <div class="w-96 divide-y divide-neutral-200 rounded-lg border border-neutral-200">
-      <View.For
-        each={Prop.static(items)}
-        render={item => {
-          let (idx, q, aText) = item
-          let isOpen = Computed.make(() => Signal.get(openId) == idx)
-          let mark = Computed.make(() => Signal.get(openId) == idx ? "−" : "+")
-          <div>
-            <button
-              class="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-neutral-800 hover:bg-neutral-50"
-              onClick={_ => Signal.update(openId, cur => cur == idx ? -1 : idx)}>
-              <View.Text> {q} </View.Text>
-              <span class="text-neutral-400"> <View.Text> {mark} </View.Text> </span>
-            </button>
-            <View.Show when_={Prop.signal(isOpen)}>
-              <p class="px-4 pb-3 text-sm text-neutral-500"> <View.Text> {aText} </View.Text> </p>
-            </View.Show>
-          </div>
-        }}
-      />
-    </div>
+    <Accordion value items />
   }
 }
 
-module Collapsible = {
+module CollapsibleEx = {
   @jsx.component
   let make = () => {
     let open_ = Signal.make(false)
-    let mark = Computed.make(() => Signal.get(open_) ? "Hide details" : "Show details")
-    <div class="w-80 space-y-2">
-      <Button
-        variant=#secondary
-        extraClass="w-full justify-between"
-        onClick={_ => Signal.update(open_, v => !v)}>
-        <View.Text> {mark} </View.Text>
-        <span class="text-neutral-400"> <View.Text> "⌄" </View.Text> </span>
-      </Button>
-      <View.Show when_={Prop.signal(open_)}>
-        <div class="rounded-md border border-neutral-200 p-3 text-sm text-neutral-600">
-          <View.Text> "Secondary content revealed on demand, pushing the layout below it." </View.Text>
-        </div>
-      </View.Show>
-    </div>
+    <Collapsible open_ label="Show details">
+      <View.Text> "Secondary content revealed on demand, pushing the layout below it." </View.Text>
+    </Collapsible>
   }
 }
 
-module Dialog = {
+module DialogEx = {
   @jsx.component
   let make = () => {
     let open_ = Signal.make(false)
@@ -554,24 +496,17 @@ module Dialog = {
       <Button variant=#primary onClick={_ => Signal.set(open_, true)}>
         <View.Text> "Edit profile" </View.Text>
       </Button>
-      <View.Show when_={Prop.signal(open_)}>
-        <div class="absolute inset-0 z-10 flex items-center justify-center">
-          <div class="absolute inset-0 bg-neutral-900/40" onClick={_ => Signal.set(open_, false)} />
-          <div class="relative z-20 w-80 rounded-lg border border-neutral-200 bg-white p-5 shadow-2xl">
-            <h3 class="text-lg font-semibold text-neutral-900"> <View.Text> "Edit profile" </View.Text> </h3>
-            <p class="mt-1 text-sm text-neutral-500"> <View.Text> "Make changes and save when you're done." </View.Text> </p>
-            <div class="mt-4">
-              <Field label="Name" for_="dlg-name">
-                <Input id="dlg-name" value="Ada Lovelace" />
-              </Field>
-            </div>
-            <div class="mt-5 flex justify-end gap-2">
-              <Button variant=#secondary onClick={_ => Signal.set(open_, false)}> <View.Text> "Cancel" </View.Text> </Button>
-              <Button variant=#primary onClick={_ => Signal.set(open_, false)}> <View.Text> "Save" </View.Text> </Button>
-            </div>
-          </div>
+      <Dialog open_ title="Edit profile" description="Make changes and save when you're done.">
+        <div class="mt-4">
+          <Field label="Name" for_="dlg-name">
+            <Input id="dlg-name" value="Ada Lovelace" />
+          </Field>
         </div>
-      </View.Show>
+        <div class="mt-5 flex justify-end gap-2">
+          <Button variant=#secondary onClick={_ => Signal.set(open_, false)}> <View.Text> "Cancel" </View.Text> </Button>
+          <Button variant=#primary onClick={_ => Signal.set(open_, false)}> <View.Text> "Save" </View.Text> </Button>
+        </div>
+      </Dialog>
     </div>
   }
 }
@@ -601,24 +536,14 @@ module AlertDialog = {
   }
 }
 
-module Tooltip = {
+module TooltipEx = {
   @jsx.component
-  let make = () => {
-    let open_ = Signal.make(false)
+  let make = () =>
     <div class="flex h-24 items-center justify-center">
-      <span
-        class="relative inline-block"
-        onMouseEnter={_ => Signal.set(open_, true)}
-        onMouseLeave={_ => Signal.set(open_, false)}>
+      <Tooltip content="Add to library">
         <Button variant=#secondary> <View.Text> "Hover me" </View.Text> </Button>
-        <View.Show when_={Prop.signal(open_)}>
-          <span class="absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-neutral-900 px-2 py-1 text-xs text-white">
-            <View.Text> "Add to library" </View.Text>
-          </span>
-        </View.Show>
-      </span>
+      </Tooltip>
     </div>
-  }
 }
 
 module Breadcrumb = {
@@ -760,42 +685,11 @@ module InputGroup = {
     </div>
 }
 
-module Select = {
+module SelectEx = {
   @jsx.component
   let make = () => {
-    let open_ = Signal.make(false)
     let value = Signal.make("Medium")
-    let opts = ["Small", "Medium", "Large", "Extra large"]
-    <div class="relative w-56">
-      <button
-        class={Ui.inputBase ++ " flex items-center justify-between"}
-        onClick={_ => Signal.update(open_, v => !v)}>
-        <View.Text> {value} </View.Text>
-        <span class="text-neutral-400"> <View.Text> "⌄" </View.Text> </span>
-      </button>
-      <View.Show when_={Prop.signal(open_)}>
-        <Backdrop onClose={() => Signal.set(open_, false)} />
-        <ul class="absolute z-20 mt-1 w-full rounded-md border border-neutral-200 bg-white py-1 shadow-lg">
-          <View.For
-            each={Prop.static(opts)}
-            render={o => {
-              let mark = Computed.make(() => Signal.get(value) == o ? "✓" : "")
-              <li>
-                <button
-                  class="flex w-full items-center justify-between px-3 py-1.5 text-left text-sm text-neutral-700 hover:bg-neutral-100"
-                  onClick={_ => {
-                    Signal.set(value, o)
-                    Signal.set(open_, false)
-                  }}>
-                  <View.Text> {o} </View.Text>
-                  <span class="text-neutral-900"> <View.Text> {mark} </View.Text> </span>
-                </button>
-              </li>
-            }}
-          />
-        </ul>
-      </View.Show>
-    </div>
+    <Select value options=["Small", "Medium", "Large", "Extra large"] />
   }
 }
 
@@ -2116,13 +2010,13 @@ let get = (id: string): option<View.node> =>
   | "scroll-area" => Some(<ScrollArea />)
   | "input-otp" => Some(<InputOtp />)
   | "card" => Some(<Card />)
-  | "alert" => Some(<Alert />)
-  | "tabs" => Some(<Tabs />)
-  | "accordion" => Some(<Accordion />)
-  | "collapsible" => Some(<Collapsible />)
-  | "dialog" => Some(<Dialog />)
+  | "alert" => Some(<AlertEx />)
+  | "tabs" => Some(<TabsEx />)
+  | "accordion" => Some(<AccordionEx />)
+  | "collapsible" => Some(<CollapsibleEx />)
+  | "dialog" => Some(<DialogEx />)
   | "alert-dialog" => Some(<AlertDialog />)
-  | "tooltip" => Some(<Tooltip />)
+  | "tooltip" => Some(<TooltipEx />)
   | "breadcrumb" => Some(<Breadcrumb />)
   | "pagination" => Some(<Pagination />)
   | "empty-state" => Some(<EmptyState />)
@@ -2130,7 +2024,7 @@ let get = (id: string): option<View.node> =>
   | "form" => Some(<Form />)
   | "button-group" => Some(<ButtonGroup />)
   | "input-group" => Some(<InputGroup />)
-  | "select" => Some(<Select />)
+  | "select" => Some(<SelectEx />)
   | "dropdown-menu" => Some(<DropdownMenu />)
   | "context-menu" => Some(<ContextMenu />)
   | "popover" => Some(<Popover />)

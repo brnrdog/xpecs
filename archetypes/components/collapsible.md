@@ -12,6 +12,7 @@ aliases: [disclosure, expandable, show-more]
 usedBy: [accordion, sidebar, card, form]
 related: [accordion, popover]
 maintainers: [brnrdog]
+implementation: Collapsible.res
 ---
 
 # Collapsible
