@@ -4,6 +4,23 @@ All notable changes to this collection are documented here. The collection
 follows [Semantic Versioning](https://semver.org/) and the format of
 [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.3.0] - 2026-07-17
+
+### Added
+
+- New **element** archetypes: `link`, `icon-button`.
+- New **component** archetypes: `toolbar`, `list`, `footer`.
+- New **page** archetypes: `dashboard`, `settings`, `sign-in`, `pricing`.
+- Design tokens (`tokens/tokens.json`, W3C DTCG format) with a monochrome
+  baseline, documented in `tokens/README.md`; the website generates its theme
+  from them.
+
+### Fixed
+
+- Corrected dangling composition references: `navbar` → `breadcrumb` (was
+  `breadcrumbs`) and `dropdown-menu` (was `menu`); `button` → `dialog` (was
+  `modal`).
+
 ## [0.2.0] - 2026-07-16
 
 ### Changed

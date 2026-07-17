@@ -34,8 +34,8 @@ src/ExampleSource.res         each example's source, shown in the Code tab
         │
         ▼
 src/App.res                   sidebar + router (Xote Router) + Preview/Code
-src/{Button,Badge,Input,Field,Avatar,Switch,Spinner,Kbd,Separator,Backdrop}.res
-                              reusable components, one per file, referenced
+src/{Button,Badge,Input,Field,Avatar,Switch,Spinner,Kbd,Separator,Backdrop,
+     Link,IconButton}.res     reusable components, one per file, referenced
                               directly as <Button/> etc.
 src/Ui.res                    shared monochrome class tokens + helpers
 src/Main.res                  entry: Router.init + View.mountById

@@ -9,9 +9,9 @@ since: 0.1.0
 updated: 2026-07-16
 tags: [navigation, header, layout, wayfinding]
 aliases: [navbar, top-nav, header, app-bar]
-composedOf: [button, input, link, logo, menu, avatar]
+composedOf: [button, input, link, logo, dropdown-menu, avatar]
 usedBy: [landing-page, dashboard, settings]
-related: [sidebar, tabs, breadcrumbs, footer]
+related: [sidebar, tabs, breadcrumb, footer]
 maintainers: [brnrdog]
 ---
 

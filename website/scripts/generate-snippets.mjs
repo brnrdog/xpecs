@@ -17,6 +17,7 @@ const outFile = join(srcDir, "ExampleSource.res");
 const COMPONENTS = [
   "Button", "Badge", "Input", "Field", "Avatar",
   "Switch", "Spinner", "Kbd", "Separator", "Backdrop",
+  "Link", "IconButton",
 ];
 
 // Read a component file and drop its leading // comment block.

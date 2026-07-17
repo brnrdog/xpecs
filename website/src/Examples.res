@@ -1448,6 +1448,243 @@ module LandingPage = {
     </div>
 }
 
+module LinkEx = {
+  @jsx.component
+  let make = () =>
+    <div class="max-w-sm space-y-3 text-sm text-neutral-700">
+      <p>
+        <View.Text> "Read our " </View.Text>
+        <Link href="#"> <View.Text> "getting-started guide" </View.Text> </Link>
+        <View.Text> " to begin." </View.Text>
+      </p>
+      <div class="flex gap-4">
+        <Link href="#" variant=#muted> <View.Text> "Docs" </View.Text> </Link>
+        <Link href="#" variant=#muted> <View.Text> "Pricing" </View.Text> </Link>
+        <Link href="#" newTab=true> <View.Text> "Changelog ↗" </View.Text> </Link>
+      </div>
+    </div>
+}
+
+module IconButtonEx = {
+  @jsx.component
+  let make = () =>
+    <div class="flex items-center gap-2">
+      <IconButton label="Edit"> <View.Text> "✎" </View.Text> </IconButton>
+      <IconButton label="Copy"> <View.Text> "⧉" </View.Text> </IconButton>
+      <IconButton label="Delete"> <View.Text> "🗑" </View.Text> </IconButton>
+      <IconButton label="More options" variant=#solid> <View.Text> "⋯" </View.Text> </IconButton>
+    </div>
+}
+
+module Toolbar = {
+  @jsx.component
+  let make = () =>
+    <div class="flex w-full max-w-xl items-center gap-1 rounded-lg border border-neutral-200 bg-white p-1">
+      <IconButton label="Bold"> <span class="font-bold"> <View.Text> "B" </View.Text> </span> </IconButton>
+      <IconButton label="Italic"> <span class="italic"> <View.Text> "I" </View.Text> </span> </IconButton>
+      <IconButton label="Underline"> <span class="underline"> <View.Text> "U" </View.Text> </span> </IconButton>
+      <Separator orientation=#vertical extraClass="mx-1" />
+      <IconButton label="Align left"> <View.Text> "⇤" </View.Text> </IconButton>
+      <IconButton label="Align center"> <View.Text> "↔" </View.Text> </IconButton>
+      <IconButton label="Align right"> <View.Text> "⇥" </View.Text> </IconButton>
+      <div class="ml-auto">
+        <Button variant=#primary> <View.Text> "Share" </View.Text> </Button>
+      </div>
+    </div>
+}
+
+module List = {
+  @jsx.component
+  let make = () => {
+    let people = [
+      ("Ada Lovelace", "@ada", "Owner", "AL"),
+      ("Grace Hopper", "@grace", "Admin", "GH"),
+      ("Alan Turing", "@alan", "Member", "AT"),
+    ]
+    <div class="w-80 divide-y divide-neutral-100 rounded-lg border border-neutral-200 bg-white">
+      <View.For
+        each={Prop.static(people)}
+        render={p => {
+          let (name, handle, role, initials) = p
+          <div class="flex items-center gap-3 px-4 py-3">
+            <Avatar initials size="size-9 text-xs" />
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-medium text-neutral-900"> <View.Text> {name} </View.Text> </p>
+              <p class="text-xs text-neutral-500"> <View.Text> {handle} </View.Text> </p>
+            </div>
+            <Badge variant=#soft> <View.Text> {role} </View.Text> </Badge>
+            <IconButton label="More"> <View.Text> "⋯" </View.Text> </IconButton>
+          </div>
+        }}
+      />
+    </div>
+  }
+}
+
+module Footer = {
+  @jsx.component
+  let make = () => {
+    let col = (title, items) =>
+      <div class="space-y-2">
+        <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500"> <View.Text> {title} </View.Text> </p>
+        <View.For
+          each={Prop.static(items)}
+          render={i =>
+            <p> <Link href="#" variant=#muted extraClass="text-sm"> <View.Text> {i} </View.Text> </Link> </p>}
+        />
+      </div>
+    <div class="w-full max-w-2xl rounded-lg border border-neutral-200 bg-white p-6">
+      <div class="grid grid-cols-3 gap-6">
+        {col("Product", ["Features", "Pricing", "Changelog"])}
+        {col("Company", ["About", "Blog", "Careers"])}
+        {col("Legal", ["Privacy", "Terms"])}
+      </div>
+      <Separator extraClass="my-5" />
+      <div class="flex items-center justify-between text-xs text-neutral-500">
+        <View.Text> "© 2026 Acme, Inc." </View.Text>
+        <div class="flex gap-3">
+          <Link href="#" variant=#muted> <View.Text> "Twitter" </View.Text> </Link>
+          <Link href="#" variant=#muted> <View.Text> "GitHub" </View.Text> </Link>
+        </div>
+      </div>
+    </div>
+  }
+}
+
+module Dashboard = {
+  @jsx.component
+  let make = () => {
+    let stat = (label, value, delta) =>
+      <div class={Ui.card ++ " p-4"}>
+        <p class="text-xs text-neutral-500"> <View.Text> {label} </View.Text> </p>
+        <p class="mt-1 text-2xl font-bold text-neutral-900"> <View.Text> {value} </View.Text> </p>
+        <p class="mt-1 text-xs text-neutral-400"> <View.Text> {delta} </View.Text> </p>
+      </div>
+    let bars = [50, 72, 40, 88, 63, 45, 70]
+    <div class="w-full max-w-2xl space-y-4">
+      <div class="grid grid-cols-3 gap-4">
+        {stat("Revenue", "$48.2k", "+12% MoM")}
+        {stat("Active users", "3,190", "+4% MoM")}
+        {stat("Churn", "1.8%", "−0.3% MoM")}
+      </div>
+      <div class={Ui.card ++ " p-4"}>
+        <div class="mb-3 flex items-center justify-between">
+          <p class="text-sm font-medium text-neutral-900"> <View.Text> "Signups this week" </View.Text> </p>
+          <Badge variant=#soft> <View.Text> "Live" </View.Text> </Badge>
+        </div>
+        <div class="flex h-24 items-end gap-2">
+          <View.For
+            each={Prop.static(bars)}
+            render={v => <div class="flex-1 rounded-t bg-neutral-900" style={"height:" ++ Int.toString(v) ++ "%"} />}
+          />
+        </div>
+      </div>
+    </div>
+  }
+}
+
+module Settings = {
+  @jsx.component
+  let make = () => {
+    let notifications = Signal.make(true)
+    let marketing = Signal.make(false)
+    let row = (text, sig) =>
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-neutral-800"> <View.Text> {text} </View.Text> </span>
+        <Switch on={sig} />
+      </div>
+    <div class="w-full max-w-lg space-y-5 rounded-lg border border-neutral-200 bg-white p-6">
+      <div>
+        <h3 class="text-sm font-semibold text-neutral-900"> <View.Text> "Profile" </View.Text> </h3>
+        <p class="text-xs text-neutral-500"> <View.Text> "Update your account details." </View.Text> </p>
+      </div>
+      <Field label="Display name" for_="set-name">
+        <Input id="set-name" value="Ada Lovelace" />
+      </Field>
+      <Separator />
+      <div class="space-y-3">
+        {row("Product notifications", notifications)}
+        {row("Marketing emails", marketing)}
+      </div>
+      <div class="flex justify-end gap-2">
+        <Button variant=#ghost> <View.Text> "Cancel" </View.Text> </Button>
+        <Button variant=#primary> <View.Text> "Save changes" </View.Text> </Button>
+      </div>
+    </div>
+  }
+}
+
+module SignIn = {
+  @jsx.component
+  let make = () => {
+    let remember = Signal.make(true)
+    <div class="w-full max-w-sm space-y-5 rounded-lg border border-neutral-200 bg-white p-6">
+      <div class="text-center">
+        <div class="mx-auto mb-2 flex size-9 items-center justify-center rounded-md bg-neutral-900 text-sm font-bold text-white">
+          <View.Text> "U" </View.Text>
+        </div>
+        <h3 class="text-lg font-semibold text-neutral-900"> <View.Text> "Welcome back" </View.Text> </h3>
+        <p class="text-sm text-neutral-500"> <View.Text> "Sign in to your account" </View.Text> </p>
+      </div>
+      <Field label="Email" for_="si-email">
+        <Input id="si-email" type_="email" placeholder="you@example.com" />
+      </Field>
+      <Field label="Password" for_="si-pass">
+        <Input id="si-pass" type_="password" placeholder="••••••••" />
+      </Field>
+      <div class="flex items-center justify-between text-sm">
+        <div class="flex items-center gap-2">
+          <input
+            type_="checkbox"
+            checked={Prop.signal(remember)}
+            class="size-4 accent-neutral-900"
+            onChange={e => Signal.set(remember, Ui.checked(e))}
+          />
+          <span class="text-neutral-700"> <View.Text> "Remember me" </View.Text> </span>
+        </div>
+        <Link href="#"> <View.Text> "Forgot?" </View.Text> </Link>
+      </div>
+      <Button variant=#primary extraClass="w-full"> <View.Text> "Sign in" </View.Text> </Button>
+      <p class="text-center text-sm text-neutral-500">
+        <View.Text> "No account? " </View.Text>
+        <Link href="#"> <View.Text> "Create one" </View.Text> </Link>
+      </p>
+    </div>
+  }
+}
+
+module Pricing = {
+  @jsx.component
+  let make = () => {
+    let plan = (name, price, feats, recommended) => {
+      let cardCls = recommended ? Ui.card ++ " p-5 ring-2 ring-neutral-900" : Ui.card ++ " p-5"
+      <div class={cardCls}>
+        <div class="flex items-center justify-between">
+          <p class="text-sm font-semibold text-neutral-900"> <View.Text> {name} </View.Text> </p>
+          {recommended ? <Badge variant=#solid> <View.Text> "Popular" </View.Text> </Badge> : View.null()}
+        </div>
+        <p class="mt-2">
+          <span class="text-3xl font-bold text-neutral-900"> <View.Text> {price} </View.Text> </span>
+          <span class="text-sm text-neutral-500"> <View.Text> "/mo" </View.Text> </span>
+        </p>
+        <ul class="mt-3 space-y-1 text-sm text-neutral-600">
+          <View.For each={Prop.static(feats)} render={f => <li> <View.Text> {"✓ " ++ f} </View.Text> </li>} />
+        </ul>
+        <div class="mt-4">
+          <Button variant={recommended ? #primary : #secondary} extraClass="w-full">
+            <View.Text> "Choose" </View.Text>
+          </Button>
+        </div>
+      </div>
+    }
+    <div class="grid w-full max-w-2xl grid-cols-3 gap-4">
+      {plan("Starter", "$0", ["1 project", "Community support"], false)}
+      {plan("Pro", "$12", ["Unlimited projects", "Priority support", "Analytics"], true)}
+      {plan("Team", "$29", ["Everything in Pro", "SSO", "Audit log"], false)}
+    </div>
+  }
+}
+
 let get = (id: string): option<View.node> =>
   switch id {
   | "button" => Some(<ButtonEx />)
@@ -1508,5 +1745,14 @@ let get = (id: string): option<View.node> =>
   | "navigation-menu" => Some(<NavigationMenu />)
   | "sidebar" => Some(<Sidebar />)
   | "landing-page" => Some(<LandingPage />)
+  | "link" => Some(<LinkEx />)
+  | "icon-button" => Some(<IconButtonEx />)
+  | "toolbar" => Some(<Toolbar />)
+  | "list" => Some(<List />)
+  | "footer" => Some(<Footer />)
+  | "dashboard" => Some(<Dashboard />)
+  | "settings" => Some(<Settings />)
+  | "sign-in" => Some(<SignIn />)
+  | "pricing" => Some(<Pricing />)
   | _ => None
   }

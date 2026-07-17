@@ -10,7 +10,7 @@ updated: 2026-07-16
 tags: [action, control, interactive, form, cta]
 aliases: [btn, cta]
 composedOf: []
-usedBy: [input, navbar, card, form, modal, landing-page]
+usedBy: [input, navbar, card, form, dialog, landing-page]
 related: [link, icon-button]
 maintainers: [brnrdog]
 ---
@@ -109,7 +109,7 @@ touch targets, honor the minimum target size regardless of visual size.
 
 **Composed of:** Not applicable — a button is a primitive element.
 
-**Used by:** input (as an inline action), navbar, card, form, modal, landing-page.
+**Used by:** input (as an inline action), navbar, card, form, dialog, landing-page.
 
 ## Do / Don't
 
