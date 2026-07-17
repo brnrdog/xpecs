@@ -4,6 +4,19 @@ All notable changes to this collection are documented here. The collection
 follows [Semantic Versioning](https://semver.org/) and the format of
 [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.1] - 2026-07-17
+
+### Changed
+
+- Design tokens: a softer, more modern radius scale (`radius.*` bumped, added
+  `radius.3xl`). Flows through the website's Tailwind theme automatically.
+
+### Website
+
+- New app shell: a topbar with a **spotlight search** (⌘K / Ctrl+K) that filters
+  and jumps to any archetype, a **collapsible sidebar**, and a **fullscreen** view
+  for any live example (Escape to exit).
+
 ## [0.4.0] - 2026-07-17
 
 ### Added
