@@ -147,6 +147,7 @@ module Sidebar = {
         <SidebarGroup layer="element" title="Elements" />
         <SidebarGroup layer="component" title="Components" />
         <SidebarGroup layer="page" title="Pages" />
+        <SidebarGroup layer="flow" title="Flows" />
       </nav>
     </aside>
 }
@@ -175,10 +176,11 @@ module Home = {
         </a>
         <View.Text> "." </View.Text>
       </p>
-      <div class="mt-10 grid grid-cols-3 gap-4">
+      <div class="mt-10 grid grid-cols-4 gap-4">
         {stat("element", "Elements")}
         {stat("component", "Components")}
         {stat("page", "Pages")}
+        {stat("flow", "Flows")}
       </div>
       <p class="mt-10 text-sm text-neutral-500">
         <View.Text> "Pick a pattern from the left to get started — try " </View.Text>

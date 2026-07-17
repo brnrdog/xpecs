@@ -13,11 +13,14 @@ add, rename, or change the status of an archetype.
 | [Button](archetypes/elements/button.md) | `button` | 1.0.0 | stable | An interactive control that triggers an action or event when activated. |
 | [Checkbox](archetypes/elements/checkbox.md) | `checkbox` | 1.0.0 | stable | A control for toggling a single option on or off, or selecting several from a set. |
 | [Icon Button](archetypes/elements/icon-button.md) | `icon-button` | 1.0.0 | stable | A compact, icon-only button that triggers an action where space is tight. |
+| [Icon](archetypes/elements/icon.md) | `icon` | 1.0.0 | stable | A small pictographic symbol that conveys meaning or reinforces a label compactly. |
 | [One-Time-Code Input](archetypes/elements/input-otp.md) | `input-otp` | 1.0.0 | stable | A segmented field for entering a short verification code one character per slot. |
 | [Text Input](archetypes/elements/input.md) | `input` | 1.0.0 | stable | A single-line field that lets a person enter and edit a short piece of text. |
 | [Keyboard Key](archetypes/elements/kbd.md) | `kbd` | 1.0.0 | stable | An inline representation of a key or key combination the user can press. |
 | [Label](archetypes/elements/label.md) | `label` | 1.0.0 | stable | A short caption that names a form control and is programmatically bound to it. |
+| [Legend](archetypes/elements/legend.md) | `legend` | 1.0.0 | stable | A key that maps a chart's colors or symbols to the series they represent. |
 | [Link](archetypes/elements/link.md) | `link` | 1.0.0 | stable | A navigational control that takes the user to another location or resource. |
+| [Logo](archetypes/elements/logo.md) | `logo` | 1.0.0 | stable | A brand mark that identifies the product or organization and usually links home. |
 | [Progress](archetypes/elements/progress.md) | `progress` | 1.0.0 | stable | A visual indicator of how far a task has advanced toward completion. |
 | [Radio Group](archetypes/elements/radio-group.md) | `radio-group` | 1.0.0 | stable | A set of mutually exclusive options from which exactly one can be selected. |
 | [Scroll Area](archetypes/elements/scroll-area.md) | `scroll-area` | 1.0.0 | stable | A container that scrolls overflowing content with consistent, styleable scrollbars. |
@@ -47,16 +50,21 @@ add, rename, or change the status of an archetype.
 | [Collapsible](archetypes/components/collapsible.md) | `collapsible` | 1.0.0 | stable | A single region that expands and collapses to show or hide its content. |
 | [Combobox](archetypes/components/combobox.md) | `combobox` | 1.0.0 | stable | A text input paired with a filtered list of suggestions for selecting a value. |
 | [Command Palette](archetypes/components/command.md) | `command` | 1.0.0 | stable | A searchable list of commands and destinations for fast, keyboard-driven navigation and action. |
+| [Comment](archetypes/components/comment.md) | `comment` | 1.0.0 | stable | A single unit of user-authored discussion, with author, content, and actions. |
 | [Context Menu](archetypes/components/context-menu.md) | `context-menu` | 1.0.0 | stable | A menu of actions relevant to a specific element, opened by right-click or long-press. |
+| [CTA Section](archetypes/components/cta-section.md) | `cta-section` | 1.0.0 | stable | A focused section that restates the primary action to drive conversion. |
 | [Data Table](archetypes/components/data-table.md) | `data-table` | 1.0.0 | stable | An interactive table for exploring rows of structured data with sorting, filtering, and paging. |
 | [Date Picker](archetypes/components/date-picker.md) | `date-picker` | 1.0.0 | stable | A field that lets users enter or choose a date (or range) via typing and a calendar. |
 | [Dialog](archetypes/components/dialog.md) | `dialog` | 1.0.0 | stable | A modal overlay that focuses the user on a self-contained task or piece of content. |
 | [Drawer](archetypes/components/drawer.md) | `drawer` | 1.0.0 | stable | A panel that slides in from a screen edge, often swipe-driven, for content or actions. |
 | [Dropdown Menu](archetypes/components/dropdown-menu.md) | `dropdown-menu` | 1.0.0 | stable | A button-triggered menu of actions, revealed in a floating list. |
 | [Empty State](archetypes/components/empty-state.md) | `empty-state` | 1.0.0 | stable | A placeholder shown when there is no content yet, guiding the user toward a first action. |
+| [FAQ](archetypes/components/faq.md) | `faq` | 1.0.0 | stable | A list of common questions with expandable answers that removes last-mile objections. |
+| [Feature Grid](archetypes/components/feature-grid.md) | `feature-grid` | 1.0.0 | stable | A grid of concise, icon-led items that communicate a product's key features or benefits. |
 | [Field](archetypes/components/field.md) | `field` | 1.0.0 | stable | A wrapper that pairs a form control with its label, help text, and validation message. |
 | [Footer](archetypes/components/footer.md) | `footer` | 1.0.0 | stable | A page-closing region with secondary navigation, legal, and trust information. |
 | [Form](archetypes/components/form.md) | `form` | 1.0.0 | stable | A structured set of fields that collects, validates, and submits user input toward a goal. |
+| [Hero](archetypes/components/hero.md) | `hero` | 1.0.0 | stable | A prominent opening section that states the value proposition and the primary call to action. |
 | [Hover Card](archetypes/components/hover-card.md) | `hover-card` | 1.0.0 | stable | A rich preview surface revealed when a pointer rests on a trigger. |
 | [Input Group](archetypes/components/input-group.md) | `input-group` | 1.0.0 | stable | An input combined with adjacent add-ons or controls that act as one composite control. |
 | [List](archetypes/components/list.md) | `list` | 1.0.0 | stable | A vertical sequence of related items, each a compact row of content and actions. |
@@ -65,12 +73,16 @@ add, rename, or change the status of an archetype.
 | [Navigation Menu](archetypes/components/navigation-menu.md) | `navigation-menu` | 1.0.0 | stable | A primary navigation control whose items can open rich flyout panels of links. |
 | [Pagination](archetypes/components/pagination.md) | `pagination` | 1.0.0 | stable | Controls for moving through content split across multiple pages. |
 | [Popover](archetypes/components/popover.md) | `popover` | 1.0.0 | stable | A floating surface anchored to a trigger, holding contextual content or controls. |
+| [Pricing Table](archetypes/components/pricing-table.md) | `pricing-table` | 1.0.0 | stable | A side-by-side comparison of plans and their features to help a visitor choose. |
 | [Resizable Panels](archetypes/components/resizable.md) | `resizable` | 1.0.0 | stable | Adjacent panels separated by draggable handles that let users redistribute space. |
+| [Search](archetypes/components/search.md) | `search` | 1.0.0 | stable | An input-led pattern for querying content, with suggestions, clearing, and results. |
 | [Select](archetypes/components/select.md) | `select` | 1.0.0 | stable | A control that opens a list for choosing one option (or several) from a defined set. |
 | [Sheet](archetypes/components/sheet.md) | `sheet` | 1.0.0 | stable | A panel that slides in from a screen edge for secondary content or tasks alongside the page. |
 | [Sidebar](archetypes/components/sidebar.md) | `sidebar` | 1.0.0 | stable | A persistent vertical navigation region alongside the main content of an application. |
+| [Stat](archetypes/components/stat.md) | `stat` | 1.0.0 | stable | A compact display of a single key metric with its label and optional trend. |
 | [Table](archetypes/components/table.md) | `table` | 1.0.0 | stable | A grid of rows and columns for presenting structured, comparable data. |
 | [Tabs](archetypes/components/tabs.md) | `tabs` | 1.0.0 | stable | A set of labeled sections where selecting a tab reveals its associated panel in place. |
+| [Testimonial](archetypes/components/testimonial.md) | `testimonial` | 1.0.0 | stable | A customer quote with attribution that builds trust through credible social proof. |
 | [Toast](archetypes/components/toast.md) | `toast` | 1.0.0 | stable | A brief, self-dismissing message that confirms an action or reports a background event. |
 | [Toolbar](archetypes/components/toolbar.md) | `toolbar` | 1.0.0 | stable | A grouped row of controls that act on the current view or selection. |
 | [Tooltip](archetypes/components/tooltip.md) | `tooltip` | 1.0.0 | stable | A brief text label that appears on hover or focus to clarify an element. |
@@ -87,4 +99,8 @@ add, rename, or change the status of an archetype.
 
 ## Flows
 
-_None yet. Flows describe multi-page journeys (onboarding, checkout, auth)._
+| Archetype | id | Version | Status | Summary |
+| --------- | -- | ------- | ------ | ------- |
+| [Authentication](archetypes/flows/authentication.md) | `authentication` | 1.0.0 | stable | A multi-step journey that verifies a user's identity to grant access to the product. |
+| [Checkout](archetypes/flows/checkout.md) | `checkout` | 1.0.0 | stable | A step-by-step flow that collects the details needed to complete a purchase. |
+| [Onboarding](archetypes/flows/onboarding.md) | `onboarding` | 1.0.0 | stable | A guided sequence that gets a new user from first login to first meaningful value. |

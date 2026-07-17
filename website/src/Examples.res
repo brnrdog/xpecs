@@ -1685,6 +1685,413 @@ module Pricing = {
   }
 }
 
+module Hero = {
+  @jsx.component
+  let make = () =>
+    <div class="w-full max-w-2xl rounded-lg border border-neutral-200 bg-white px-8 py-12 text-center">
+      <Badge variant=#outline> <View.Text> "New · v2 is here" </View.Text> </Badge>
+      <h2 class="mx-auto mt-4 max-w-lg text-4xl font-bold tracking-tight text-neutral-900">
+        <View.Text> "Ship your product faster" </View.Text>
+      </h2>
+      <p class="mx-auto mt-3 max-w-md text-neutral-600">
+        <View.Text> "The all-in-one toolkit to design, build, and launch — without the busywork." </View.Text>
+      </p>
+      <div class="mt-6 flex justify-center gap-3">
+        <Button variant=#primary> <View.Text> "Get started" </View.Text> </Button>
+        <Button variant=#secondary> <View.Text> "Book a demo" </View.Text> </Button>
+      </div>
+      <p class="mt-4 text-xs text-neutral-400"> <View.Text> "Trusted by 4,000+ teams · No credit card required" </View.Text> </p>
+    </div>
+}
+
+module FeatureGrid = {
+  @jsx.component
+  let make = () => {
+    let feats = [
+      ("⚡", "Fast", "Ship in minutes with sensible defaults."),
+      ("🔒", "Secure", "Encryption and SSO out of the box."),
+      ("📈", "Scalable", "Grows from prototype to production."),
+    ]
+    <div class="grid w-full max-w-2xl grid-cols-3 gap-4">
+      <View.For
+        each={Prop.static(feats)}
+        render={item => {
+          let (ic, title, desc) = item
+          <div class={Ui.card ++ " p-5"}>
+            <div class="flex size-9 items-center justify-center rounded-md bg-neutral-100 text-lg"> <View.Text> {ic} </View.Text> </div>
+            <p class="mt-3 text-sm font-semibold text-neutral-900"> <View.Text> {title} </View.Text> </p>
+            <p class="mt-1 text-sm text-neutral-500"> <View.Text> {desc} </View.Text> </p>
+          </div>
+        }}
+      />
+    </div>
+  }
+}
+
+module Testimonial = {
+  @jsx.component
+  let make = () =>
+    <div class={Ui.card ++ " w-full max-w-lg p-6"}>
+      <p class="text-lg leading-relaxed text-neutral-800">
+        <View.Text> "“The first tool our whole team actually enjoys using. It paid for itself in a week.”" </View.Text>
+      </p>
+      <div class="mt-4 flex items-center gap-3">
+        <Avatar initials="GH" size="size-10 text-sm" />
+        <div>
+          <p class="text-sm font-medium text-neutral-900"> <View.Text> "Grace Hopper" </View.Text> </p>
+          <p class="text-xs text-neutral-500"> <View.Text> "VP Engineering, Acme" </View.Text> </p>
+        </div>
+      </div>
+    </div>
+}
+
+module PricingTable = {
+  @jsx.component
+  let make = () => {
+    let rows = [
+      ("Projects", "1", "Unlimited", "Unlimited"),
+      ("Support", "Community", "Priority", "Dedicated"),
+      ("SSO", "–", "–", "✓"),
+      ("Audit log", "–", "✓", "✓"),
+    ]
+    <div class="w-full max-w-2xl overflow-hidden rounded-lg border border-neutral-200">
+      <table class="w-full text-sm">
+        <thead class="bg-neutral-50">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs uppercase tracking-wide text-neutral-500"> <View.Text> "Feature" </View.Text> </th>
+            <th class="px-4 py-3 text-center font-medium"> <View.Text> "Starter" </View.Text> </th>
+            <th class="px-4 py-3 text-center font-medium">
+              <div class="flex items-center justify-center gap-2">
+                <View.Text> "Pro" </View.Text>
+                <Badge variant=#solid> <View.Text> "Popular" </View.Text> </Badge>
+              </div>
+            </th>
+            <th class="px-4 py-3 text-center font-medium"> <View.Text> "Team" </View.Text> </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-100 text-neutral-700">
+          <View.For
+            each={Prop.static(rows)}
+            render={r => {
+              let (feat, a, b, c) = r
+              <tr>
+                <td class="px-4 py-2 font-medium text-neutral-900"> <View.Text> {feat} </View.Text> </td>
+                <td class="px-4 py-2 text-center"> <View.Text> {a} </View.Text> </td>
+                <td class="px-4 py-2 text-center"> <View.Text> {b} </View.Text> </td>
+                <td class="px-4 py-2 text-center"> <View.Text> {c} </View.Text> </td>
+              </tr>
+            }}
+          />
+          <tr>
+            <td class="px-4 py-3" />
+            <td class="px-4 py-3 text-center"> <Button variant=#secondary> <View.Text> "Choose" </View.Text> </Button> </td>
+            <td class="px-4 py-3 text-center"> <Button variant=#primary> <View.Text> "Choose" </View.Text> </Button> </td>
+            <td class="px-4 py-3 text-center"> <Button variant=#secondary> <View.Text> "Choose" </View.Text> </Button> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  }
+}
+
+module Faq = {
+  @jsx.component
+  let make = () => {
+    let openId = Signal.make(0)
+    let items = [
+      (0, "Can I cancel anytime?", "Yes — cancel in one click, no questions asked."),
+      (1, "Do you offer refunds?", "We offer a 30-day money-back guarantee."),
+      (2, "Is there a free plan?", "Yes, the Starter plan is free forever."),
+    ]
+    <div class="w-full max-w-xl divide-y divide-neutral-200 rounded-lg border border-neutral-200">
+      <View.For
+        each={Prop.static(items)}
+        render={item => {
+          let (idx, q, a) = item
+          let isOpen = Computed.make(() => Signal.get(openId) == idx)
+          let mark = Computed.make(() => Signal.get(openId) == idx ? "−" : "+")
+          <div>
+            <button
+              class="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-neutral-800 hover:bg-neutral-50"
+              onClick={_ => Signal.update(openId, c => c == idx ? -1 : idx)}>
+              <View.Text> {q} </View.Text>
+              <span class="text-neutral-400"> <View.Text> {mark} </View.Text> </span>
+            </button>
+            <View.Show when_={Prop.signal(isOpen)}>
+              <p class="px-4 pb-3 text-sm text-neutral-500"> <View.Text> {a} </View.Text> </p>
+            </View.Show>
+          </div>
+        }}
+      />
+    </div>
+  }
+}
+
+module CtaSection = {
+  @jsx.component
+  let make = () =>
+    <div class="w-full max-w-2xl rounded-lg bg-neutral-900 px-8 py-10 text-center text-white">
+      <h2 class="text-2xl font-bold"> <View.Text> "Start building today" </View.Text> </h2>
+      <p class="mt-2 text-sm text-neutral-300"> <View.Text> "Join thousands of teams shipping faster. Free for 14 days." </View.Text> </p>
+      <div class="mx-auto mt-5 flex max-w-md gap-2">
+        <input
+          class="flex-1 rounded-md border border-neutral-700 bg-neutral-800 px-3 py-2 text-sm text-white placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          placeholder="you@example.com"
+        />
+        <button class="rounded-md bg-white px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-200">
+          <View.Text> "Get started" </View.Text>
+        </button>
+      </div>
+    </div>
+}
+
+module IconEx = {
+  @jsx.component
+  let make = () => {
+    let icons = ["🔍", "✎", "🗑", "⚙", "★", "♥", "⬇", "↗"]
+    <div class="flex flex-wrap items-center gap-3 text-neutral-700">
+      <View.For
+        each={Prop.static(icons)}
+        render={g =>
+          <span class="flex size-9 items-center justify-center rounded-md border border-neutral-200 text-base"> <View.Text> {g} </View.Text> </span>}
+      />
+    </div>
+  }
+}
+
+module LogoEx = {
+  @jsx.component
+  let make = () =>
+    <div class="flex flex-wrap items-center gap-8">
+      <div class="flex items-center gap-2">
+        <span class="flex size-8 items-center justify-center rounded-md bg-neutral-900 text-sm font-bold text-white"> <View.Text> "U" </View.Text> </span>
+        <span class="text-lg font-semibold tracking-tight text-neutral-900"> <View.Text> "Untitled" </View.Text> </span>
+      </div>
+      <span class="flex size-9 items-center justify-center rounded-lg bg-neutral-900 font-bold text-white"> <View.Text> "U" </View.Text> </span>
+      <span class="text-xl font-bold tracking-tight text-neutral-900"> <View.Text> "ACME" </View.Text> </span>
+    </div>
+}
+
+module LegendEx = {
+  @jsx.component
+  let make = () => {
+    let series = [("Revenue", "bg-neutral-900"), ("Costs", "bg-neutral-400"), ("Profit", "bg-neutral-600")]
+    <div class="flex items-center gap-5 text-sm text-neutral-700">
+      <View.For
+        each={Prop.static(series)}
+        render={s => {
+          let (label, sw) = s
+          <div class="flex items-center gap-2">
+            <span class={"size-3 rounded-sm " ++ sw} />
+            <View.Text> {label} </View.Text>
+          </div>
+        }}
+      />
+    </div>
+  }
+}
+
+module StatEx = {
+  @jsx.component
+  let make = () => {
+    let spark = [40, 55, 45, 70, 60, 80, 72]
+    <div class={Ui.card ++ " w-64 p-4"}>
+      <div class="flex items-center justify-between">
+        <p class="text-xs text-neutral-500"> <View.Text> "Monthly revenue" </View.Text> </p>
+        <Badge variant=#soft> <View.Text> "▲ 12%" </View.Text> </Badge>
+      </div>
+      <p class="mt-1 text-3xl font-bold text-neutral-900"> <View.Text> "$48.2k" </View.Text> </p>
+      <div class="mt-3 flex h-8 items-end gap-1">
+        <View.For
+          each={Prop.static(spark)}
+          render={v => <div class="flex-1 rounded-sm bg-neutral-300" style={"height:" ++ Int.toString(v) ++ "%"} />}
+        />
+      </div>
+    </div>
+  }
+}
+
+module SearchEx = {
+  @jsx.component
+  let make = () => {
+    let query = Signal.make("")
+    let open_ = Signal.make(false)
+    let all = ["Dashboard", "Settings", "Billing", "Team members", "API keys"]
+    let filtered = Computed.make(() => {
+      let q = Signal.get(query)->String.toLowerCase
+      all->Array.filter(o => o->String.toLowerCase->String.includes(q))
+    })
+    let hasQuery = Computed.make(() => Signal.get(query) != "")
+    <div class="relative w-72">
+      <div class="flex items-center gap-2 rounded-md border border-neutral-300 bg-white pl-3 pr-1">
+        <span class="text-neutral-400"> <View.Text> "🔍" </View.Text> </span>
+        <input
+          class="flex-1 bg-transparent py-2 text-sm focus:outline-none"
+          placeholder="Search…"
+          onFocus={_ => Signal.set(open_, true)}
+          onInput={e => {
+            Signal.set(query, Ui.inputValue(e))
+            Signal.set(open_, true)
+          }}
+        />
+        <View.Show when_={Prop.signal(hasQuery)}>
+          <IconButton label="Clear search" onClick={_ => Signal.set(query, "")}> <View.Text> "×" </View.Text> </IconButton>
+        </View.Show>
+      </div>
+      <View.Show when_={Prop.signal(open_)}>
+        <Backdrop onClose={() => Signal.set(open_, false)} />
+        <ul class="absolute z-20 mt-1 w-full rounded-md border border-neutral-200 bg-white py-1 shadow-lg">
+          <View.For
+            each={Prop.signal(filtered)}
+            render={o =>
+              <li>
+                <button
+                  class="block w-full px-3 py-1.5 text-left text-sm text-neutral-700 hover:bg-neutral-100"
+                  onClick={_ => {
+                    Signal.set(query, o)
+                    Signal.set(open_, false)
+                  }}>
+                  <View.Text> {o} </View.Text>
+                </button>
+              </li>}
+          />
+        </ul>
+      </View.Show>
+    </div>
+  }
+}
+
+module CommentEx = {
+  @jsx.component
+  let make = () => {
+    let liked = Signal.make(false)
+    let likeLabel = Computed.make(() => Signal.get(liked) ? "♥ Liked" : "♡ Like")
+    <div class="w-full max-w-lg">
+      <div class="flex gap-3">
+        <Avatar initials="AT" size="size-9 text-xs" />
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-neutral-900"> <View.Text> "Alan Turing" </View.Text> </span>
+            <Badge variant=#soft> <View.Text> "Author" </View.Text> </Badge>
+            <span class="text-xs text-neutral-400"> <View.Text> "2h ago" </View.Text> </span>
+          </div>
+          <p class="mt-1 text-sm text-neutral-700">
+            <View.Text> "Great write-up — the section on reuse really clicked for me. Shipping this to my team." </View.Text>
+          </p>
+          <div class="mt-2 flex gap-3 text-xs text-neutral-500">
+            <button class="hover:text-neutral-900" onClick={_ => Signal.update(liked, v => !v)}> <View.Text> {likeLabel} </View.Text> </button>
+            <button class="hover:text-neutral-900"> <View.Text> "Reply" </View.Text> </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
+
+module AuthenticationEx = {
+  @jsx.component
+  let make = () => {
+    let step = Signal.make(1)
+    let stepLabel = Computed.make(() => "Step " ++ Int.toString(Signal.get(step)) ++ " of 2")
+    let onStep1 = Computed.make(() => Signal.get(step) == 1)
+    <div class="w-full max-w-sm rounded-lg border border-neutral-200 bg-white p-6">
+      <p class="text-xs text-neutral-400"> <View.Text> {stepLabel} </View.Text> </p>
+      <View.Show
+        when_={Prop.signal(onStep1)}
+        fallback={
+          <div class="mt-2 space-y-4">
+            <h3 class="text-lg font-semibold text-neutral-900"> <View.Text> "Enter your code" </View.Text> </h3>
+            <p class="text-sm text-neutral-500"> <View.Text> "We sent a 6-digit code to your email." </View.Text> </p>
+            <Field label="Verification code" for_="auth-code"> <Input id="auth-code" placeholder="123456" /> </Field>
+            <Button variant=#primary extraClass="w-full" onClick={_ => Signal.set(step, 1)}> <View.Text> "Verify" </View.Text> </Button>
+          </div>
+        }>
+        <div class="mt-2 space-y-4">
+          <h3 class="text-lg font-semibold text-neutral-900"> <View.Text> "Sign in" </View.Text> </h3>
+          <Field label="Email" for_="auth-email"> <Input id="auth-email" type_="email" placeholder="you@example.com" /> </Field>
+          <Field label="Password" for_="auth-pass"> <Input id="auth-pass" type_="password" placeholder="••••••••" /> </Field>
+          <Button variant=#primary extraClass="w-full" onClick={_ => Signal.set(step, 2)}> <View.Text> "Continue" </View.Text> </Button>
+        </div>
+      </View.Show>
+    </div>
+  }
+}
+
+module OnboardingEx = {
+  @jsx.component
+  let make = () => {
+    let step = Signal.make(1)
+    let total = 3
+    let pct = Computed.make(() => "height:100%;width:" ++ Int.toString(Signal.get(step) * 100 / total) ++ "%")
+    let title = Computed.make(() =>
+      switch Signal.get(step) {
+      | 1 => "Welcome to Acme"
+      | 2 => "Set up your workspace"
+      | _ => "Invite your team"
+      }
+    )
+    let body = Computed.make(() =>
+      switch Signal.get(step) {
+      | 1 => "Let's get you set up in a couple of steps."
+      | 2 => "Name your workspace and pick a theme."
+      | _ => "Add teammates to collaborate. You can skip this."
+      }
+    )
+    let nextLabel = Computed.make(() => Signal.get(step) == total ? "Finish" : "Next")
+    <div class="w-full max-w-md rounded-lg border border-neutral-200 bg-white p-6">
+      <div class="h-1.5 w-full overflow-hidden rounded-full bg-neutral-200">
+        <div class="rounded-full bg-neutral-900 transition-all" style={Prop.signal(pct)} />
+      </div>
+      <h3 class="mt-4 text-lg font-semibold text-neutral-900"> <View.Text> {title} </View.Text> </h3>
+      <p class="mt-1 text-sm text-neutral-500"> <View.Text> {body} </View.Text> </p>
+      <div class="mt-5 flex justify-between">
+        <Button variant=#ghost onClick={_ => Signal.update(step, s => s > 1 ? s - 1 : 1)}> <View.Text> "Back" </View.Text> </Button>
+        <Button variant=#primary onClick={_ => Signal.update(step, s => s < total ? s + 1 : 1)}>
+          <View.Text> {nextLabel} </View.Text>
+        </Button>
+      </div>
+    </div>
+  }
+}
+
+module CheckoutEx = {
+  @jsx.component
+  let make = () => {
+    let items = [("Pro plan (annual)", "$120.00"), ("Add-on: Analytics", "$24.00")]
+    <div class="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
+      <div class="space-y-4 rounded-lg border border-neutral-200 bg-white p-5">
+        <h3 class="text-sm font-semibold text-neutral-900"> <View.Text> "Payment details" </View.Text> </h3>
+        <Field label="Card number" for_="co-card"> <Input id="co-card" placeholder="4242 4242 4242 4242" /> </Field>
+        <div class="grid grid-cols-2 gap-3">
+          <Field label="Expiry" for_="co-exp"> <Input id="co-exp" placeholder="MM/YY" /> </Field>
+          <Field label="CVC" for_="co-cvc"> <Input id="co-cvc" placeholder="123" /> </Field>
+        </div>
+        <Button variant=#primary extraClass="w-full"> <View.Text> "Pay $144.00" </View.Text> </Button>
+      </div>
+      <div class="space-y-3 rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+        <h3 class="text-sm font-semibold text-neutral-900"> <View.Text> "Order summary" </View.Text> </h3>
+        <ul class="space-y-2 text-sm">
+          <View.For
+            each={Prop.static(items)}
+            render={it => {
+              let (name, price) = it
+              <li class="flex justify-between text-neutral-700">
+                <View.Text> {name} </View.Text>
+                <span class="tabular-nums"> <View.Text> {price} </View.Text> </span>
+              </li>
+            }}
+          />
+        </ul>
+        <Separator />
+        <div class="flex justify-between text-sm font-semibold text-neutral-900">
+          <View.Text> "Total" </View.Text>
+          <span class="tabular-nums"> <View.Text> "$144.00" </View.Text> </span>
+        </div>
+      </div>
+    </div>
+  }
+}
+
 let get = (id: string): option<View.node> =>
   switch id {
   | "button" => Some(<ButtonEx />)
@@ -1754,5 +2161,20 @@ let get = (id: string): option<View.node> =>
   | "settings" => Some(<Settings />)
   | "sign-in" => Some(<SignIn />)
   | "pricing" => Some(<Pricing />)
+  | "hero" => Some(<Hero />)
+  | "feature-grid" => Some(<FeatureGrid />)
+  | "testimonial" => Some(<Testimonial />)
+  | "pricing-table" => Some(<PricingTable />)
+  | "faq" => Some(<Faq />)
+  | "cta-section" => Some(<CtaSection />)
+  | "icon" => Some(<IconEx />)
+  | "logo" => Some(<LogoEx />)
+  | "legend" => Some(<LegendEx />)
+  | "stat" => Some(<StatEx />)
+  | "search" => Some(<SearchEx />)
+  | "comment" => Some(<CommentEx />)
+  | "authentication" => Some(<AuthenticationEx />)
+  | "onboarding" => Some(<OnboardingEx />)
+  | "checkout" => Some(<CheckoutEx />)
   | _ => None
   }

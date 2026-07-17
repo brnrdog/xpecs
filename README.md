@@ -48,11 +48,7 @@ layer, one Markdown file per archetype.
 | **Element**    | `archetypes/elements/`   | An indivisible UI unit with a single responsibility. | button, input, badge, avatar, icon, checkbox, spinner |
 | **Component**  | `archetypes/components/` | A self-contained pattern composed of elements. | navbar, card, form, modal, data-table, tabs |
 | **Page**       | `archetypes/pages/`      | A full-screen archetype composing components toward one goal. | landing-page, dashboard, sign-in, pricing, settings |
-
-> **Extension point — Flows.** A sequence of pages toward an outcome
-> (onboarding, checkout, auth). Flows are a natural fourth layer
-> (`archetypes/flows/`) and follow the same document pattern; add them when you
-> start describing multi-page journeys rather than single screens.
+| **Flow**       | `archetypes/flows/`      | A sequence of pages/steps toward an outcome (a multi-page journey). | authentication, onboarding, checkout |
 
 The layer of an archetype is declared in its metadata (`layer:`) **and**
 reflected by the directory it lives in. Keeping both in sync is the only

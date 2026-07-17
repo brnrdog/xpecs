@@ -4,6 +4,24 @@ All notable changes to this collection are documented here. The collection
 follows [Semantic Versioning](https://semver.org/) and the format of
 [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.4.0] - 2026-07-17
+
+### Added
+
+- **Flows** — the fourth layer is now populated: `authentication`, `onboarding`,
+  `checkout` (under `archetypes/flows/`).
+- Landing-page **section** components: `hero`, `feature-grid`, `testimonial`,
+  `pricing-table`, `faq`, `cta-section`.
+- Additional primitives and patterns: `icon`, `logo`, `legend` (elements);
+  `stat`, `search`, `comment` (components).
+- Live Xote examples on the website for all new archetypes; the site now
+  renders the Flows layer in the sidebar.
+
+### Changed
+
+- The composition graph is now **fully closed** — every `composedOf` / `usedBy`
+  / `related` reference resolves to an existing archetype.
+
 ## [0.3.0] - 2026-07-17
 
 ### Added
