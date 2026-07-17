@@ -255,6 +255,7 @@ module Topbar = {
         extraClass="hidden text-sm sm:block">
         <View.Text> "GitHub ↗" </View.Text>
       </Link>
+      <Settings.Trigger />
     </header>
 }
 
@@ -634,6 +635,11 @@ module TraitDetail = {
 let make = () => {
   // Global ⌘K opens the spotlight search.
   Effect.run(() => Some(Ui.onCmdK(() => Signal.set(spotlightOpen, true))))
+  // Apply any persisted theme settings on startup.
+  Effect.run(() => {
+    Settings.load()
+    None
+  })
   let routes = Router.routes([
     {pattern: "/", render: _ => <Home />},
     {pattern: "/a/:id", render: params => <Detail id={params->Dict.get("id")->Option.getOr("")} />},
@@ -646,5 +652,6 @@ let make = () => {
       <main class="min-w-0 flex-1 overflow-y-auto"> {routes} </main>
     </div>
     <Spotlight />
+    <Settings.Panel />
   </div>
 }
