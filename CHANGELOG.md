@@ -132,11 +132,15 @@ released.
   token's Tailwind `@theme` variable so they cascade through the entire site
   (colors, radius, shadow, fonts, weight, and spacing base), persist locally, and
   reset. The `@theme` mapping was widened so more token groups drive utilities.
-- **Six theme presets.** The topbar's theme popup offers Monochrome, Indigo,
-  Forest, Editorial, Terminal, and Sunset — each a named bundle of token
-  overrides (neutral ramp + radius + font, and Terminal also a semantic `action`
-  override for green buttons). Presets and per-token edits share one override
-  store, so they persist, appear in the editor, and reset together.
+- **Nine theme presets, including functional palettes.** The topbar's theme
+  popup offers Monochrome, Indigo, Forest, Editorial, Terminal, and Sunset (ramp
+  tints), plus **Vibrant, Ocean, and Coral** which also set the *functional*
+  intent colors — the primary `action` and the four `status` roles
+  (info / success / warning / danger) — shown as multi-color swatches. Those
+  roles are now consumed across components (all four `Alert` variants, the
+  archetype status badge), so a functional preset gives every feedback surface a
+  purposeful color. Presets and per-token edits share one override store, so they
+  persist, appear in the editor, and reset together.
 - New app shell: a topbar with a **spotlight search** (⌘K / Ctrl+K) that filters
   and jumps to any archetype, a **collapsible sidebar**, and a **fullscreen** view
   for any live example (Escape to exit).

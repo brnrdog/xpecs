@@ -437,6 +437,8 @@ module AlertEx = {
   let make = () =>
     <div class="max-w-md space-y-3">
       <Alert variant=#info icon="i" title="Heads up" description="Your trial ends in 3 days." />
+      <Alert variant=#success icon="✓" title="Changes saved" description="Your profile has been updated." />
+      <Alert variant=#warning icon="!" title="Storage almost full" description="You've used 90% of your quota." />
       <Alert
         variant=#danger
         icon="!"

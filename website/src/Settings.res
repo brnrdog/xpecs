@@ -104,47 +104,95 @@ let radiusPairs = id =>
   | _ => [("radius.sm", "0.375rem"), ("radius.md", "0.5rem"), ("radius.lg", "0.75rem"), ("radius.xl", "1rem"), ("radius.2xl", "1.25rem"), ("radius.3xl", "1.75rem")]
   }
 let fontPair = stack => [("font.family.sans", stack)]
+// Functional (intent) colors used across components: the primary action and the
+// four feedback statuses (info / success / warning / danger).
+let actionPair = (def, hover, on_) => [
+  ("color.action.default", def),
+  ("color.action.hover", hover),
+  ("color.action.onAction", on_),
+]
+let statusPair = (info, success, warning, danger) => [
+  ("color.status.info", info),
+  ("color.status.success", success),
+  ("color.status.warning", warning),
+  ("color.status.danger", danger),
+]
 
-type preset = {id: string, label: string, swatch: string, pairs: array<(string, string)>}
+type preset = {id: string, label: string, swatches: array<string>, pairs: array<(string, string)>}
 
 let presets: array<preset> = [
-  {id: "monochrome", label: "Monochrome", swatch: "#171717", pairs: []},
+  {id: "monochrome", label: "Monochrome", swatches: ["#171717"], pairs: []},
   {
     id: "indigo",
     label: "Indigo",
-    swatch: "#3730a3",
+    swatches: ["#3730a3"],
     pairs: [...nramp("#4338ca", "#3730a3", "#312e81", "#1e1b4b"), ...radiusPairs("rounded"), ...fontPair(inter)],
   },
   {
     id: "forest",
     label: "Forest",
-    swatch: "#065f46",
+    swatches: ["#065f46"],
     pairs: [...nramp("#047857", "#065f46", "#064e3b", "#022c22"), ...radiusPairs("default"), ...fontPair(inter)],
   },
   {
     id: "editorial",
     label: "Editorial",
-    swatch: "#292524",
+    swatches: ["#292524"],
     pairs: [...nramp("#44403c", "#292524", "#1c1917", "#0c0a09"), ...radiusPairs("sharp"), ...fontPair(serif)],
   },
   {
     id: "terminal",
     label: "Terminal",
-    swatch: "#16a34a",
+    swatches: ["#16a34a"],
     pairs: [
       ...nramp("#374151", "#1f2937", "#111827", "#030712"),
       ...radiusPairs("sharp"),
       ...fontPair(mono),
-      ("color.action.default", "#16a34a"),
-      ("color.action.hover", "#15803d"),
-      ("color.action.onAction", "#ffffff"),
+      ...actionPair("#16a34a", "#15803d", "#ffffff"),
     ],
   },
   {
     id: "sunset",
     label: "Sunset",
-    swatch: "#9a3412",
+    swatches: ["#9a3412"],
     pairs: [...nramp("#c2410c", "#9a3412", "#7c2d12", "#431407"), ...radiusPairs("rounded"), ...fontPair(inter)],
+  },
+  // Functional palettes — set the intent colors too, so buttons and every
+  // status surface (alerts, badges) pick up a full, purposeful palette.
+  {
+    id: "vibrant",
+    label: "Vibrant",
+    swatches: ["#4f46e5", "#2563eb", "#16a34a", "#d97706", "#dc2626"],
+    pairs: [
+      ...actionPair("#4f46e5", "#4338ca", "#ffffff"),
+      ...statusPair("#2563eb", "#16a34a", "#d97706", "#dc2626"),
+      ...radiusPairs("rounded"),
+      ...fontPair(inter),
+    ],
+  },
+  {
+    id: "ocean",
+    label: "Ocean",
+    swatches: ["#0d9488", "#0284c7", "#059669", "#ca8a04", "#e11d48"],
+    pairs: [
+      ...nramp("#334155", "#1e293b", "#0f172a", "#020617"),
+      ...actionPair("#0d9488", "#0f766e", "#ffffff"),
+      ...statusPair("#0284c7", "#059669", "#ca8a04", "#e11d48"),
+      ...radiusPairs("default"),
+      ...fontPair(inter),
+    ],
+  },
+  {
+    id: "coral",
+    label: "Coral",
+    swatches: ["#ea580c", "#0891b2", "#65a30d", "#d97706", "#dc2626"],
+    pairs: [
+      ...nramp("#57534e", "#292524", "#1c1917", "#0c0a09"),
+      ...actionPair("#ea580c", "#c2410c", "#ffffff"),
+      ...statusPair("#0891b2", "#65a30d", "#d97706", "#dc2626"),
+      ...radiusPairs("rounded"),
+      ...fontPair(inter),
+    ],
   },
 ]
 
@@ -210,7 +258,17 @@ module Panel = {
                 )
               )
               <button class={Prop.signal(cls)} onClick={_ => applyPreset(p)}>
-                <span class="size-6 rounded-full ring-1 ring-black/10" style={"background-color: " ++ p.swatch} />
+                {Array.length(p.swatches) == 1
+                  ? <span
+                      class="size-6 rounded-full ring-1 ring-black/10"
+                      style={"background-color: " ++ Array.getUnsafe(p.swatches, 0)}
+                    />
+                  : <span class="flex h-6 overflow-hidden rounded-full ring-1 ring-black/10">
+                      <View.For
+                        each={Prop.static(p.swatches)}
+                        render={c => <span class="w-1.5" style={"background-color: " ++ c} />}
+                      />
+                    </span>}
                 <span class="text-[11px] font-medium text-ink"> <View.Text> {p.label} </View.Text> </span>
               </button>
             }}

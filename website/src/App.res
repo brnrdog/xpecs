@@ -39,11 +39,11 @@ module Status = {
   @jsx.component
   let make = (~status) => {
     let dot = switch status {
-    | "stable" => "bg-neutral-900"
-    | "draft" => "bg-neutral-400"
-    | _ => "bg-neutral-300"
+    | "stable" => "bg-status-success"
+    | "draft" => "bg-status-warning"
+    | _ => "bg-status-danger"
     }
-    <span class="inline-flex items-center gap-1.5 text-xs text-neutral-500">
+    <span class="inline-flex items-center gap-1.5 text-xs text-muted">
       <span class={"size-1.5 rounded-full " ++ dot} />
       <View.Text> {status} </View.Text>
     </span>

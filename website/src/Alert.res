@@ -12,13 +12,13 @@ let make = (
   // Severity comes from the semantic status roles; the surface stays neutral so
   // editing a status token recolors just the border + icon.
   let border = switch variant {
-  | #info => "border-border"
+  | #info => "border-status-info"
   | #success => "border-status-success"
   | #warning => "border-status-warning"
   | #danger => "border-status-danger"
   }
   let iconColor = switch variant {
-  | #info => "text-muted"
+  | #info => "text-status-info"
   | #success => "text-status-success"
   | #warning => "text-status-warning"
   | #danger => "text-status-danger"
