@@ -91,11 +91,18 @@ let inter = `Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 let serif = `Georgia, Cambria, "Times New Roman", serif`
 let mono = `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`
 
-let nramp = (a, b, c, d) => [
-  ("color.neutral.700", a),
-  ("color.neutral.800", b),
-  ("color.neutral.900", c),
-  ("color.neutral.950", d),
+// Tint both ends of the neutral ramp: the light steps (50/100/200) drive
+// backgrounds, borders, and subtle surfaces, and the dark steps (700–950) drive
+// text, accents, and fills. The mid greys (300–600) are left neutral so muted
+// text and placeholders stay readable on the tinted background.
+let tintEnds = (l50, l100, l200, d700, d800, d900, d950) => [
+  ("color.neutral.50", l50),
+  ("color.neutral.100", l100),
+  ("color.neutral.200", l200),
+  ("color.neutral.700", d700),
+  ("color.neutral.800", d800),
+  ("color.neutral.900", d900),
+  ("color.neutral.950", d950),
 ]
 let radiusPairs = id =>
   switch id {
@@ -125,46 +132,67 @@ let presets: array<preset> = [
   {
     id: "indigo",
     label: "Indigo",
-    swatches: ["#3730a3"],
-    pairs: [...nramp("#4338ca", "#3730a3", "#312e81", "#1e1b4b"), ...radiusPairs("rounded"), ...fontPair(inter)],
+    swatches: ["#eef2ff", "#4f46e5", "#312e81"],
+    pairs: [
+      ...tintEnds("#eef2ff", "#e0e7ff", "#c7d2fe", "#4338ca", "#3730a3", "#312e81", "#1e1b4b"),
+      ...actionPair("#4f46e5", "#4338ca", "#ffffff"),
+      ...radiusPairs("rounded"),
+      ...fontPair(inter),
+    ],
   },
   {
     id: "forest",
     label: "Forest",
-    swatches: ["#065f46"],
-    pairs: [...nramp("#047857", "#065f46", "#064e3b", "#022c22"), ...radiusPairs("default"), ...fontPair(inter)],
+    swatches: ["#ecfdf5", "#059669", "#064e3b"],
+    pairs: [
+      ...tintEnds("#ecfdf5", "#d1fae5", "#a7f3d0", "#047857", "#065f46", "#064e3b", "#022c22"),
+      ...actionPair("#059669", "#047857", "#ffffff"),
+      ...radiusPairs("default"),
+      ...fontPair(inter),
+    ],
   },
   {
     id: "editorial",
     label: "Editorial",
-    swatches: ["#292524"],
-    pairs: [...nramp("#44403c", "#292524", "#1c1917", "#0c0a09"), ...radiusPairs("sharp"), ...fontPair(serif)],
+    swatches: ["#fafaf9", "#44403c", "#1c1917"],
+    pairs: [
+      ...tintEnds("#fafaf9", "#f5f5f4", "#e7e5e4", "#44403c", "#292524", "#1c1917", "#0c0a09"),
+      ...actionPair("#292524", "#1c1917", "#fafaf9"),
+      ...radiusPairs("sharp"),
+      ...fontPair(serif),
+    ],
   },
   {
     id: "terminal",
     label: "Terminal",
-    swatches: ["#16a34a"],
+    swatches: ["#f0fdf4", "#16a34a", "#14532d"],
     pairs: [
-      ...nramp("#374151", "#1f2937", "#111827", "#030712"),
+      ...tintEnds("#f0fdf4", "#dcfce7", "#bbf7d0", "#166534", "#14532d", "#052e16", "#031a0d"),
+      ...actionPair("#16a34a", "#15803d", "#ffffff"),
       ...radiusPairs("sharp"),
       ...fontPair(mono),
-      ...actionPair("#16a34a", "#15803d", "#ffffff"),
     ],
   },
   {
     id: "sunset",
     label: "Sunset",
-    swatches: ["#9a3412"],
-    pairs: [...nramp("#c2410c", "#9a3412", "#7c2d12", "#431407"), ...radiusPairs("rounded"), ...fontPair(inter)],
+    swatches: ["#fff7ed", "#ea580c", "#7c2d12"],
+    pairs: [
+      ...tintEnds("#fff7ed", "#ffedd5", "#fed7aa", "#c2410c", "#9a3412", "#7c2d12", "#431407"),
+      ...actionPair("#ea580c", "#c2410c", "#ffffff"),
+      ...radiusPairs("rounded"),
+      ...fontPair(inter),
+    ],
   },
   // Functional palettes — set the intent colors too, so buttons and every
   // status surface (alerts, badges) pick up a full, purposeful palette.
   {
     id: "vibrant",
     label: "Vibrant",
-    swatches: ["#4f46e5", "#2563eb", "#16a34a", "#d97706", "#dc2626"],
+    swatches: ["#7c3aed", "#2563eb", "#16a34a", "#d97706", "#dc2626"],
     pairs: [
-      ...actionPair("#4f46e5", "#4338ca", "#ffffff"),
+      ...tintEnds("#f5f3ff", "#ede9fe", "#ddd6fe", "#6d28d9", "#5b21b6", "#4c1d95", "#2e1065"),
+      ...actionPair("#7c3aed", "#6d28d9", "#ffffff"),
       ...statusPair("#2563eb", "#16a34a", "#d97706", "#dc2626"),
       ...radiusPairs("rounded"),
       ...fontPair(inter),
@@ -173,10 +201,10 @@ let presets: array<preset> = [
   {
     id: "ocean",
     label: "Ocean",
-    swatches: ["#0d9488", "#0284c7", "#059669", "#ca8a04", "#e11d48"],
+    swatches: ["#0891b2", "#0284c7", "#059669", "#ca8a04", "#e11d48"],
     pairs: [
-      ...nramp("#334155", "#1e293b", "#0f172a", "#020617"),
-      ...actionPair("#0d9488", "#0f766e", "#ffffff"),
+      ...tintEnds("#ecfeff", "#cffafe", "#a5f3fc", "#0e7490", "#155e75", "#164e63", "#083344"),
+      ...actionPair("#0891b2", "#0e7490", "#ffffff"),
       ...statusPair("#0284c7", "#059669", "#ca8a04", "#e11d48"),
       ...radiusPairs("default"),
       ...fontPair(inter),
@@ -185,10 +213,10 @@ let presets: array<preset> = [
   {
     id: "coral",
     label: "Coral",
-    swatches: ["#ea580c", "#0891b2", "#65a30d", "#d97706", "#dc2626"],
+    swatches: ["#e11d48", "#0891b2", "#65a30d", "#d97706", "#dc2626"],
     pairs: [
-      ...nramp("#57534e", "#292524", "#1c1917", "#0c0a09"),
-      ...actionPair("#ea580c", "#c2410c", "#ffffff"),
+      ...tintEnds("#fff1f2", "#ffe4e6", "#fecdd3", "#be123c", "#9f1239", "#881337", "#4c0519"),
+      ...actionPair("#e11d48", "#be123c", "#ffffff"),
       ...statusPair("#0891b2", "#65a30d", "#d97706", "#dc2626"),
       ...radiusPairs("rounded"),
       ...fontPair(inter),

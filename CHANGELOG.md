@@ -139,8 +139,12 @@ released.
   (info / success / warning / danger) — shown as multi-color swatches. Those
   roles are now consumed across components (all four `Alert` variants, the
   archetype status badge), so a functional preset gives every feedback surface a
-  purposeful color. Presets and per-token edits share one override store, so they
-  persist, appear in the editor, and reset together.
+  purposeful color. Each preset also tints **both ends** of the neutral ramp —
+  the light steps (backgrounds, borders, surfaces) as well as the dark ones
+  (text, accents) — leaving the mid-greys neutral for readability, so switching a
+  preset visibly re-skins the whole page, not just the accents. Presets and
+  per-token edits share one override store, so they persist, appear in the
+  editor, and reset together.
 - New app shell: a topbar with a **spotlight search** (⌘K / Ctrl+K) that filters
   and jumps to any archetype, a **collapsible sidebar**, and a **fullscreen** view
   for any live example (Escape to exit).
