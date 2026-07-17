@@ -1,45 +1,34 @@
 @import "tailwindcss";
 
+/* Design tokens (generated from ../../tokens/tokens.json). This defines the
+ * Tailwind @theme — the monochrome palette, fonts, and radii — plus the
+ * --ux-* custom properties, so the whole site is driven by the framework's
+ * shared tokens. Run `npm run tokens` to regenerate. */
+@import "./tokens.generated.css";
+
 /* Scan the ReScript sources and their compiled output for class names. */
 @source "./**/*.res";
 @source "./**/*.res.mjs";
-
-/* ------------------------------------------------------------------ *
- * Monochrome theme
- * A single neutral (grayscale) palette. No hues — hierarchy comes from
- * value (light/dark), weight, and spacing alone.
- * ------------------------------------------------------------------ */
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
-    "Liberation Mono", monospace;
-}
-
-:root {
-  --ink: var(--color-neutral-900);
-  --paper: var(--color-neutral-50);
-}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--paper);
-  color: var(--ink);
+  background-color: var(--ux-color-paper);
+  color: var(--ux-color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 /* A subtle checkerboard so transparent/edge examples remain legible. */
 .preview-surface {
-  background-color: var(--color-white);
+  background-color: var(--ux-color-surface);
   background-image:
-    linear-gradient(45deg, var(--color-neutral-100) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--color-neutral-100) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--color-neutral-100) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--color-neutral-100) 75%);
+    linear-gradient(45deg, var(--ux-color-neutral-100) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--ux-color-neutral-100) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--ux-color-neutral-100) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--ux-color-neutral-100) 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0;
 }

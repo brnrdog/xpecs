@@ -1,0 +1,99 @@
+/* GENERATED FILE — do not edit by hand.
+ * Run `npm run tokens` (scripts/generate-tokens-css.mjs) to regenerate.
+ * Source of truth: ../../tokens/tokens.json (W3C DTCG design tokens). */
+
+@theme {
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+  --color-neutral-1000: #000000;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius-none: 0rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+}
+
+:root {
+  --ux-color-neutral-0: #ffffff;
+  --ux-color-neutral-50: #fafafa;
+  --ux-color-neutral-100: #f5f5f5;
+  --ux-color-neutral-200: #e5e5e5;
+  --ux-color-neutral-300: #d4d4d4;
+  --ux-color-neutral-400: #a3a3a3;
+  --ux-color-neutral-500: #737373;
+  --ux-color-neutral-600: #525252;
+  --ux-color-neutral-700: #404040;
+  --ux-color-neutral-800: #262626;
+  --ux-color-neutral-900: #171717;
+  --ux-color-neutral-950: #0a0a0a;
+  --ux-color-neutral-1000: #000000;
+  --ux-color-ink: #171717;
+  --ux-color-paper: #fafafa;
+  --ux-color-surface: #ffffff;
+  --ux-color-muted: #737373;
+  --ux-color-border: #e5e5e5;
+  --ux-color-accent: #171717;
+  --ux-color-accentContrast: #ffffff;
+  --ux-font-family-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ux-font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --ux-font-weight-normal: 400;
+  --ux-font-weight-medium: 500;
+  --ux-font-weight-semibold: 600;
+  --ux-font-weight-bold: 700;
+  --ux-font-size-xs: 0.75rem;
+  --ux-font-size-sm: 0.875rem;
+  --ux-font-size-base: 1rem;
+  --ux-font-size-lg: 1.125rem;
+  --ux-font-size-xl: 1.25rem;
+  --ux-font-size-2xl: 1.5rem;
+  --ux-font-size-3xl: 1.875rem;
+  --ux-font-size-4xl: 2.25rem;
+  --ux-font-lineHeight-tight: 1.2;
+  --ux-font-lineHeight-normal: 1.5;
+  --ux-font-lineHeight-relaxed: 1.65;
+  --ux-space-0: 0rem;
+  --ux-space-1: 0.25rem;
+  --ux-space-2: 0.5rem;
+  --ux-space-3: 0.75rem;
+  --ux-space-4: 1rem;
+  --ux-space-5: 1.25rem;
+  --ux-space-6: 1.5rem;
+  --ux-space-8: 2rem;
+  --ux-space-10: 2.5rem;
+  --ux-space-12: 3rem;
+  --ux-space-16: 4rem;
+  --ux-radius-none: 0rem;
+  --ux-radius-sm: 0.25rem;
+  --ux-radius-md: 0.375rem;
+  --ux-radius-lg: 0.5rem;
+  --ux-radius-xl: 0.75rem;
+  --ux-radius-2xl: 1rem;
+  --ux-radius-full: 9999px;
+  --ux-borderWidth-hairline: 1px;
+  --ux-borderWidth-thick: 2px;
+  --ux-shadow-sm: 0rem 1px 2px 0rem rgba(0,0,0,0.05);
+  --ux-shadow-md: 0rem 4px 8px -2px rgba(0,0,0,0.10);
+  --ux-shadow-lg: 0rem 12px 24px -6px rgba(0,0,0,0.15);
+  --ux-duration-fast: 120ms;
+  --ux-duration-base: 200ms;
+  --ux-duration-slow: 320ms;
+  --ux-zIndex-base: 0;
+  --ux-zIndex-dropdown: 1000;
+  --ux-zIndex-overlay: 1100;
+  --ux-zIndex-modal: 1200;
+  --ux-zIndex-toast: 1300;
+}

@@ -17,17 +17,34 @@ archetype in the sidebar and see a **live implementation rendered with
 ## How it works
 
 ```
+tokens/tokens.json            (design tokens, one directory up)
+        │  scripts/generate-tokens-css.mjs   (npm run tokens)
+        ▼
+src/tokens.generated.css      Tailwind @theme + --ux-* vars (drives the theme)
+
 archetypes/**/*.md            (the specs, one directory up)
-        │
-        ▼  scripts/generate-registry.mjs   (npm run registry)
+        │  scripts/generate-registry.mjs    (npm run registry)
+        ▼
 src/ArchetypesData.res        generated, typed list of every archetype
+
+src/Examples.res              a live Xote component per archetype (`get`)
+        │  scripts/generate-snippets.mjs    (npm run snippets)
+        ▼
+src/ExampleSource.res         each example's source, shown in the Code tab
         │
         ▼
-src/App.res                   sidebar + router (Xote Router)
-src/Examples.res              a live Xote component per archetype (`get`)
+src/App.res                   sidebar + router (Xote Router) + Preview/Code
+src/Kit.res                   reusable Xote components (Button, Badge, Input,
+                              Field, Avatar, Switch, …) the examples compose
 src/Ui.res                    shared monochrome class tokens + helpers
 src/Main.res                  entry: Router.init + View.mountById
 ```
+
+The three `gen` steps (`npm run gen` = tokens + registry + snippets) run before
+every build. **`Kit.res`** holds the reusable components; both the element
+example pages and the composite ones (card, dialog, form, navbar, …) build from
+the same `Kit.*` parts, and the Code tab prepends the Kit sources an example
+uses so each snippet stays self-contained.
 
 The **registry generator** reads the archetype markdown frontmatter (plus the
 first paragraph of each `## Intent`) and emits `src/ArchetypesData.res`. That

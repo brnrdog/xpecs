@@ -6,7 +6,8 @@
   "scripts": {
     "registry": "node scripts/generate-registry.mjs",
     "snippets": "node scripts/generate-snippets.mjs",
-    "gen": "npm run registry && npm run snippets",
+    "tokens": "node scripts/generate-tokens-css.mjs",
+    "gen": "npm run tokens && npm run registry && npm run snippets",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript -w",

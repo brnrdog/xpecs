@@ -180,6 +180,8 @@ ux-archetypes/
 ├── INDEX.md                      # registry of all archetypes
 ├── schema/
 │   └── archetype.schema.json     # JSON Schema for the frontmatter metadata
+├── tokens/
+│   └── tokens.json               # shared design tokens (W3C DTCG format)
 ├── templates/
 │   └── ARCHETYPE_TEMPLATE.md     # canonical document pattern to copy
 └── archetypes/
@@ -192,12 +194,24 @@ See [`INDEX.md`](INDEX.md) for the full, current list of archetypes.
 
 ---
 
+## Design tokens
+
+Archetypes describe _structure and behavior_ and avoid pixels and hues on
+purpose. The concrete, shared values — color, type, spacing, radius, elevation,
+motion — live in [`tokens/`](tokens/) as
+[`tokens.json`](tokens/tokens.json), authored in the standard
+**[W3C Design Tokens (DTCG) format](https://www.w3.org/community/design-tokens/)**.
+Define them once and every implementation stays visually consistent; the
+[website](website/) generates its whole theme from this file. See
+[`tokens/README.md`](tokens/README.md).
+
 ## Website
 
 An interactive catalogue lives in [`website/`](website/): it lists every
 archetype and renders a **live example** of each, built with Vite, ReScript,
-[Xote](https://xote.dev), and Tailwind CSS in a monochrome theme. See
-[`website/README.md`](website/README.md) to run it.
+[Xote](https://xote.dev), and Tailwind CSS in a monochrome theme, themed from
+the shared [design tokens](tokens/). See [`website/README.md`](website/README.md)
+to run it.
 
 ## Contributing
 

@@ -18,6 +18,7 @@
     "archetypes",
     "templates",
     "schema",
+    "tokens",
     "INDEX.md",
     "CHANGELOG.md",
     "VERSION",
