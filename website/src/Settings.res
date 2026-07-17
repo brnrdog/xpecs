@@ -39,6 +39,20 @@ let applyVars = (t: TokensData.token, value) => {
   }
 }
 
+// Bumped when a preset/mode/reset changes many tokens at once, so the Design
+// Tokens editor can re-read each control's current value. Not bumped on a single
+// in-editor edit (that control already holds what the user typed).
+let overridesVersion = Signal.make(0)
+let bumpOverrides = () => Signal.update(overridesVersion, v => v + 1)
+
+// The value currently in effect for a token: its override if any, else the
+// generated default.
+let currentValue = (t: TokensData.token) =>
+  switch getOverrides()->Dict.get(t.path) {
+  | Some(v) => v
+  | None => t.value
+  }
+
 let applyToken = (t: TokensData.token, value) => {
   applyVars(t, value)
   let o = getOverrides()
@@ -115,6 +129,7 @@ let applyTheme = (t: ThemesData.theme, dark) => {
   setColorScheme(dark ? "dark" : "light")
   store("ux.preset", t.id)
   store("ux.mode", dark ? "dark" : "light")
+  bumpOverrides()
 }
 
 // Pick a theme, keeping the current mode.
@@ -134,6 +149,7 @@ let resetTokens = () => {
   Signal.set(darkMode, false)
   store("ux.preset", "monochrome")
   store("ux.mode", "light")
+  bumpOverrides()
 }
 let resetTokensAndReload = () => {
   resetTokens()

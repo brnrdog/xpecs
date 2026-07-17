@@ -670,12 +670,18 @@ module Tokens = {
 
   module Row = {
     @jsx.component
-    let make = (~t: TokensData.token) =>
+    let make = (~t: TokensData.token) => {
+      // The control reflects the value currently in effect (preset/mode/edit),
+      // re-reading when a preset bumps the override version.
+      let live = Computed.make(() => {
+        Signal.get(Settings.overridesVersion)->ignore
+        Settings.currentValue(t)
+      })
       <div class="flex items-center gap-3 rounded-xl border border-neutral-200 bg-surface p-3">
         {t.sample == "color"
           ? <input
               type_="color"
-              value={t.value}
+              value={Prop.signal(live)}
               onInput={e => Settings.applyToken(t, Ui.inputValue(e))}
               class="size-10 shrink-0 cursor-pointer rounded-md border border-neutral-200 bg-transparent"
             />
@@ -692,12 +698,13 @@ module Tokens = {
         <View.Show when_={Prop.static(t.sample != "color")}>
           <input
             type_="text"
-            value={t.value}
+            value={Prop.signal(live)}
             onInput={e => Settings.applyToken(t, Ui.inputValue(e))}
             class="w-24 shrink-0 rounded-md border border-neutral-300 px-2 py-1 text-right font-mono text-xs text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
           />
         </View.Show>
       </div>
+    }
   }
 
   @jsx.component
