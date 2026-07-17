@@ -34,17 +34,21 @@ src/ExampleSource.res         each example's source, shown in the Code tab
         │
         ▼
 src/App.res                   sidebar + router (Xote Router) + Preview/Code
-src/Kit.res                   reusable Xote components (Button, Badge, Input,
-                              Field, Avatar, Switch, …) the examples compose
+src/{Button,Badge,Input,Field,Avatar,Switch,Spinner,Kbd,Separator,Backdrop}.res
+                              reusable components, one per file, referenced
+                              directly as <Button/> etc.
 src/Ui.res                    shared monochrome class tokens + helpers
 src/Main.res                  entry: Router.init + View.mountById
 ```
 
 The three `gen` steps (`npm run gen` = tokens + registry + snippets) run before
-every build. **`Kit.res`** holds the reusable components; both the element
-example pages and the composite ones (card, dialog, form, navbar, …) build from
-the same `Kit.*` parts, and the Code tab prepends the Kit sources an example
-uses so each snippet stays self-contained.
+every build. Each **reusable component lives in its own file** and is used
+directly — `Card`, `Dialog`, `Form`, `Navbar`, … compose the very same
+`<Button>` (reused by ~18 examples), `<Badge>`, `<Input>`, `<Field>`,
+`<Backdrop>`, etc., rather than re-implementing them. Element example pages are
+thin showcases (`ButtonEx`, `BadgeEx`, …) built from the same components. The
+Code tab prepends the component sources an example composes, so each snippet
+stays self-contained and shows the reuse.
 
 The **registry generator** reads the archetype markdown frontmatter (plus the
 first paragraph of each `## Intent`) and emits `src/ArchetypesData.res`. That

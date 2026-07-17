@@ -1,8 +1,8 @@
 // Generates src/ExampleSource.res — the ReScript source of every example in
 // Examples.res, keyed by archetype id — so each detail page can show the exact
-// implementation that produces its live preview. Examples.res (and the shared
-// Kit) stay the single source of truth; this just extracts them. Any reusable
-// Kit component an example references is prepended (wrapped in `module Kit`) so
+// implementation that produces its live preview. Examples.res and the reusable
+// component modules stay the single source of truth; this just extracts them.
+// Any reusable component an example composes (Button, Badge, …) is prepended so
 // each snippet is self-contained and shows the reuse.
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -11,8 +11,22 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const srcDir = join(here, "..", "src");
 const examplesSrc = readFileSync(join(srcDir, "Examples.res"), "utf8");
-const kitSrc = readFileSync(join(srcDir, "Kit.res"), "utf8");
 const outFile = join(srcDir, "ExampleSource.res");
+
+// The reusable components, each defined in its own file (referenced as <Name>).
+const COMPONENTS = [
+  "Button", "Badge", "Input", "Field", "Avatar",
+  "Switch", "Spinner", "Kbd", "Separator", "Backdrop",
+];
+
+// Read a component file and drop its leading // comment block.
+function componentBody(name) {
+  const raw = readFileSync(join(srcDir, `${name}.res`), "utf8").split("\n");
+  let i = 0;
+  while (i < raw.length && (raw[i].startsWith("//") || raw[i].trim() === "")) i++;
+  return raw.slice(i).join("\n").trimEnd();
+}
+const componentSrc = Object.fromEntries(COMPONENTS.map((n) => [n, componentBody(n)]));
 
 // Find the matching close brace for the block opening at `start` ("{"),
 // skipping strings and comments so their braces don't count.
@@ -44,47 +58,36 @@ function matchBrace(s, start) {
   return s.length - 1;
 }
 
-// Extract every top-level `module Name = { ... }` block into { name: text }.
-function extractModules(src) {
-  const mods = {};
-  const re = /^module\s+(\w+)\s*=\s*\{/gm;
-  let m;
-  while ((m = re.exec(src))) {
-    const open = src.indexOf("{", m.index);
-    mods[m[1]] = src.slice(m.index, matchBrace(src, open) + 1);
-  }
-  return mods;
+// Extract every top-level `module Name = { ... }` block from Examples.res.
+const exampleMods = {};
+for (const m of examplesSrc.matchAll(/^module\s+(\w+)\s*=\s*\{/gm)) {
+  const open = examplesSrc.indexOf("{", m.index);
+  exampleMods[m[1]] = examplesSrc.slice(m.index, matchBrace(examplesSrc, open) + 1);
 }
 
-const exampleMods = extractModules(examplesSrc);
-const kitMods = extractModules(kitSrc);
-
-// Kit component names referenced (Kit.Foo) within a chunk of code.
-function kitRefs(text) {
-  return [...new Set([...text.matchAll(/\bKit\.(\w+)/g)].map((m) => m[1]))].filter(
-    (n) => kitMods[n],
+// Component names referenced (<Name>) within a chunk of code.
+function refs(text) {
+  return [...new Set([...text.matchAll(/<([A-Z]\w*)/g)].map((m) => m[1]))].filter((n) =>
+    COMPONENTS.includes(n),
   );
 }
 
-// Dependency-ordered closure of Kit components an example needs.
-function collectKit(seedRefs) {
+// Dependency-ordered closure of components an example needs.
+function collect(seed) {
   const seen = new Set();
   const order = [];
   const visit = (name) => {
-    if (seen.has(name) || !kitMods[name]) return;
+    if (seen.has(name) || !componentSrc[name]) return;
     seen.add(name);
-    for (const dep of kitRefs(kitMods[name])) visit(dep);
+    for (const dep of refs(componentSrc[name])) visit(dep);
     order.push(name);
   };
-  seedRefs.forEach(visit);
+  seed.forEach(visit);
   return order;
 }
 
-const indent = (text) =>
-  text
-    .split("\n")
-    .map((l) => (l.length ? "  " + l : l))
-    .join("\n");
+const indent = (t) => t.split("\n").map((l) => (l.length ? "  " + l : l)).join("\n");
+const wrapComponent = (name) => `module ${name} = {\n${indent(componentSrc[name])}\n}`;
 
 // Map archetype id -> example module name from the `get` switch.
 const idToModule = {};
@@ -97,18 +100,15 @@ const s = (v) => JSON.stringify(v); // valid ReScript string literal
 const arms = Object.entries(idToModule)
   .map(([id, mod]) => {
     const code = exampleMods[mod];
-    const kit = collectKit(kitRefs(code));
-    const prefix =
-      kit.length > 0
-        ? "module Kit = {\n" + kit.map((n) => indent(kitMods[n])).join("\n\n") + "\n}\n\n"
-        : "";
-    return `  | ${s(id)} => Some(${s(prefix + code)})`;
+    const parts = collect(refs(code)).map(wrapComponent);
+    parts.push(code);
+    return `  | ${s(id)} => Some(${s(parts.join("\n\n"))})`;
   })
   .join("\n");
 
 const out = `// GENERATED FILE — do not edit by hand.
 // Run \`npm run snippets\` (scripts/generate-snippets.mjs) to regenerate.
-// Source is extracted verbatim from Examples.res and the shared Kit (Kit.res).
+// Source is extracted verbatim from Examples.res and the reusable components.
 
 let get = (id: string): option<string> =>
   switch id {

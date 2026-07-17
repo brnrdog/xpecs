@@ -21,7 +21,7 @@ let matches = (a, q) =>
   a.id->String.includes(q) ||
   a.summary->String.toLowerCase->String.includes(q)
 
-module Badge = {
+module LayerBadge = {
   @jsx.component
   let make = (~layer) =>
     <span
@@ -304,7 +304,7 @@ module Detail = {
         </nav>
         <div class="mt-4 flex flex-wrap items-center gap-3">
           <h1 class="text-3xl font-bold tracking-tight text-neutral-900"> <View.Text> {a.title} </View.Text> </h1>
-          <Badge layer={a.layer} />
+          <LayerBadge layer={a.layer} />
           <Status status={a.status} />
           <span class="font-mono text-xs text-neutral-400"> <View.Text> {"v" ++ a.version} </View.Text> </span>
         </div>
