@@ -5,6 +5,8 @@ summary: Typing printable characters moves focus (or selection) to the item whos
 version: 1.0.0
 since: 0.6.0
 updated: 2026-07-17
+keys: []
+match: all
 ---
 
 # Typeahead

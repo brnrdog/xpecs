@@ -5,6 +5,8 @@ summary: A transient surface can be closed by Escape, an outside interaction, or
 version: 1.0.0
 since: 0.6.0
 updated: 2026-07-17
+keys: [Escape]
+match: all
 ---
 
 # Dismissible

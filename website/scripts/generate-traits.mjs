@@ -14,7 +14,11 @@ function parse(raw) {
   const meta = {};
   for (const line of m[1].split("\n")) {
     const mm = line.match(/^([a-zA-Z]+):\s*(.*)$/);
-    if (mm) meta[mm[1]] = mm[2].trim();
+    if (!mm) continue;
+    const [, k, v] = mm;
+    meta[k] = v.startsWith("[")
+      ? v.replace(/^\[|\]$/g, "").split(",").map((s) => s.trim()).filter(Boolean)
+      : v.trim();
   }
   return { meta, body: m[2] };
 }
@@ -34,18 +38,21 @@ for (const file of files.sort()) {
     id: meta.id || basename(file, ".md"),
     title: meta.title || "",
     summary: meta.summary || "",
+    keys: meta.keys || [],
     spec: mdToHtml(body),
   });
 }
 records.sort((a, b) => a.title.localeCompare(b.title));
 
 const s = (v) => JSON.stringify(v);
+const arr = (xs) => `[${xs.map(s).join(", ")}]`;
 const body = records
   .map(
     (r) => `  {
     id: ${s(r.id)},
     title: ${s(r.title)},
     summary: ${s(r.summary)},
+    keys: ${arr(r.keys)},
     spec: ${s(r.spec)},
   }`,
   )
@@ -58,6 +65,7 @@ type trait = {
   id: string,
   title: string,
   summary: string,
+  keys: array<string>,
   spec: string,
 }
 

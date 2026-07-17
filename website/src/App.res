@@ -609,6 +609,15 @@ module TraitDetail = {
           </span>
         </div>
         <p class="mt-4 text-lg leading-relaxed text-neutral-700"> <View.Text> {t.summary} </View.Text> </p>
+        <View.Show when_={Prop.static(Array.length(t.keys) > 0)}>
+          <div class="mt-4 flex flex-wrap items-center gap-1.5">
+            <span class="text-xs font-medium text-neutral-400"> <View.Text> "Required keys" </View.Text> </span>
+            <View.For
+              each={Prop.static(t.keys)}
+              render={k => <Kbd> <View.Text> k </View.Text> </Kbd>}
+            />
+          </div>
+        </View.Show>
 
         <View.Show when_={Prop.static(t.spec != "")}>
           <SpecBody html={t.spec} />

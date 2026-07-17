@@ -16,6 +16,16 @@
     "summary": { "type": "string", "minLength": 1 },
     "since": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "updated": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" }
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "keys": {
+      "type": "array",
+      "description": "Keyboard keys an archetype must support to legitimately claim this trait. Checked against each archetype's API a11y.keyboard.",
+      "items": { "type": "string" }
+    },
+    "match": {
+      "type": "string",
+      "enum": ["all", "any"],
+      "description": "Whether an archetype must declare all of `keys` or at least one."
+    }
   }
 }

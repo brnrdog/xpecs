@@ -38,7 +38,7 @@ opposite of a dialog.
     {"name":"action","required":false}
   ],
   "events": ["onDismiss"],
-  "a11y": {"role":"status","announces":["message"]},
+  "a11y": {"role":"status","keyboard":["Escape"],"announces":["message"]},
   "states": ["entering","visible","leaving"],
   "tokens": ["color.status.*","radius.md"]
 }

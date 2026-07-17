@@ -5,6 +5,8 @@ summary: A floating surface is positioned relative to a trigger, staying visible
 version: 1.0.0
 since: 0.6.0
 updated: 2026-07-17
+keys: []
+match: all
 ---
 
 # Anchored

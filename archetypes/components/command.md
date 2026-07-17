@@ -38,7 +38,7 @@ shortcut from anywhere in the app.
     {"name":"empty","required":false}
   ],
   "events": ["onSelect"],
-  "a11y": {"role":"dialog","keyboard":["ArrowDown","ArrowUp","Enter","Escape"],"announces":["active command"]},
+  "a11y": {"role":"dialog","keyboard":["Tab","ArrowDown","ArrowUp","Enter","Escape"],"announces":["active command"]},
   "states": ["closed","open","empty"],
   "tokens": ["color.neutral.*","radius.lg"]
 }

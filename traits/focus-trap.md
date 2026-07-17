@@ -5,6 +5,8 @@ summary: While a modal surface is open, keyboard focus is confined to it and res
 version: 1.0.0
 since: 0.6.0
 updated: 2026-07-17
+keys: [Tab, Escape]
+match: all
 ---
 
 # Focus Trap

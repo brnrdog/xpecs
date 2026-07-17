@@ -5,6 +5,8 @@ summary: A group of related controls exposes a single tab stop; arrow keys move 
 version: 1.0.0
 since: 0.6.0
 updated: 2026-07-17
+keys: [ArrowUp, ArrowDown, ArrowLeft, ArrowRight]
+match: any
 ---
 
 # Roving Focus
