@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [form, input, layout, control]
 aliases: [input-addon, combined-input]
-composedOf: [input, button, select, badge]
 usedBy: [form, field, navbar, data-table]
 related: [input, field, button-group]
 maintainers: [brnrdog]
@@ -91,9 +90,16 @@ consider stacking only if the seam would break. Keep the input the dominant targ
 
 ## Composition
 
-**Composed of:** input, button (attached action), select (attached choice), badge.
-
-**Used by:** form, field, navbar (search), data-table (filters).
+```json
+{
+  "parts": [
+    {"ref":"input","slot":"input"},
+    {"ref":"button","slot":"addon"},
+    {"ref":"select","slot":"addon"},
+    {"ref":"badge","slot":"addon"}
+  ]
+}
+```
 
 ## Do / Don't
 

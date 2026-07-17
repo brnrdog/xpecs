@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [feedback, onboarding, guidance, zero-data]
 aliases: [zero-state, blank-slate, no-results]
-composedOf: [button, typography, aspect-ratio]
 usedBy: [data-table, dashboard, card, search]
 related: [skeleton, alert, card]
 maintainers: [brnrdog]
@@ -95,9 +94,15 @@ on small screens. Occupies the space the content would, avoiding a jarring void.
 
 ## Composition
 
-**Composed of:** typography, button (actions), aspect-ratio (illustration).
-
-**Used by:** data-table, dashboard, card lists, search results.
+```json
+{
+  "parts": [
+    {"ref":"aspect-ratio","slot":"icon","note":"illustration"},
+    {"ref":"typography","slot":"title"},
+    {"ref":"button","slot":"action","props":{"variant":"primary"}}
+  ]
+}
+```
 
 ## Do / Don't
 

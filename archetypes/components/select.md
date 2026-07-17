@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [form, selection, dropdown, control]
 aliases: [dropdown, picker, listbox]
-composedOf: [popover, scroll-area, separator, checkbox]
 usedBy: [form, field, data-table, pagination]
 related: [combobox, dropdown-menu, radio-group]
 traits: [dismissible, anchored, roving-focus, typeahead]
@@ -97,9 +96,16 @@ targets. The selected option is scrolled into view on open.
 
 ## Composition
 
-**Composed of:** popover, scroll-area, separator, checkbox (multi-select).
-
-**Used by:** form, field, data-table (filters), pagination (page size).
+```json
+{
+  "parts": [
+    {"ref":"popover","slot":"trigger"},
+    {"ref":"scroll-area","slot":"option"},
+    {"ref":"separator","slot":"option","note":"groups"},
+    {"ref":"checkbox","slot":"option","note":"multi-select"}
+  ]
+}
+```
 
 ## Do / Don't
 

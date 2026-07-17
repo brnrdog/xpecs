@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [menu, actions, overlay, navigation]
 aliases: [action-menu, menu-button, overflow-menu]
-composedOf: [popover, separator, kbd, checkbox]
 usedBy: [navbar, data-table, card, sidebar, toolbar]
 related: [context-menu, menubar, popover, select]
 traits: [dismissible, anchored, roving-focus, typeahead]
@@ -97,10 +96,16 @@ scroll. On small screens it may present as a sheet/drawer for larger targets.
 
 ## Composition
 
-**Composed of:** popover (surface/positioning), separator, kbd, checkbox
-(checkable items).
-
-**Used by:** navbar, data-table, card, sidebar, toolbars.
+```json
+{
+  "parts": [
+    {"ref":"popover","slot":"surface"},
+    {"ref":"separator","slot":"item"},
+    {"ref":"kbd","slot":"item","note":"shortcut hints"},
+    {"ref":"checkbox","slot":"item","note":"checkable items"}
+  ]
+}
+```
 
 ## Do / Don't
 

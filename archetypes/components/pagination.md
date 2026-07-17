@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, data, list, paging]
 aliases: [pager, page-nav]
-composedOf: [button, link, select]
 usedBy: [data-table, table, dashboard]
 related: [data-table, table, breadcrumb]
 maintainers: [brnrdog]
@@ -94,9 +93,15 @@ obvious.
 
 ## Composition
 
-**Composed of:** button/link (controls), select (page size).
-
-**Used by:** data-table, table, dashboard lists.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"control"},
+    {"ref":"link","slot":"control"},
+    {"ref":"select","slot":"control","note":"page size"}
+  ]
+}
+```
 
 ## Do / Don't
 

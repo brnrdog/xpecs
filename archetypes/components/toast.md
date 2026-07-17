@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [feedback, notification, transient, status]
 aliases: [snackbar, notification, flash-message]
-composedOf: [button, progress]
 usedBy: [dashboard, form, data-table]
 related: [alert, alert-dialog, badge]
 traits: [dismissible]
@@ -99,9 +98,14 @@ block content beneath.
 
 ## Composition
 
-**Composed of:** button (action/dismiss), progress (timer indicator).
-
-**Used by:** dashboard, form, data-table (operation feedback).
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"action"},
+    {"ref":"progress","slot":"description","note":"auto-dismiss timer"}
+  ]
+}
+```
 
 ## Do / Don't
 

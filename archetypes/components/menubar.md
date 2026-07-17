@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [menu, commands, application, navigation]
 aliases: [app-menu, menu-bar]
-composedOf: [dropdown-menu, separator, kbd]
 usedBy: [dashboard]
 related: [dropdown-menu, navigation-menu, context-menu]
 traits: [anchored, roving-focus, typeahead]
@@ -95,9 +94,15 @@ collapse into an overflow or a single menu button. Keep the bar's position stabl
 
 ## Composition
 
-**Composed of:** dropdown-menu (each top-level menu), separator, kbd.
-
-**Used by:** dashboard / application shells.
+```json
+{
+  "parts": [
+    {"ref":"dropdown-menu","slot":"menu"},
+    {"ref":"separator","slot":"item"},
+    {"ref":"kbd","slot":"item","note":"shortcut hints"}
+  ]
+}
+```
 
 ## Do / Don't
 

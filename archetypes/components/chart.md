@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [data, visualization, analytics, dashboard]
 aliases: [graph, plot, data-viz]
-composedOf: [tooltip, legend, card]
 usedBy: [dashboard, card, data-table]
 related: [data-table, progress, card]
 maintainers: [brnrdog]
@@ -97,9 +96,15 @@ and avoid clutter at small sizes.
 
 ## Composition
 
-**Composed of:** legend, tooltip, card (as a frame).
-
-**Used by:** dashboard, card (metric cards), data-table (inline trends).
+```json
+{
+  "parts": [
+    {"ref":"legend","slot":"legend"},
+    {"ref":"tooltip","slot":"series","note":"point details"},
+    {"ref":"card","slot":"surface"}
+  ]
+}
+```
 
 ## Do / Don't
 

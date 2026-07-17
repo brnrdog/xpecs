@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [menu, actions, contextual, overlay]
 aliases: [right-click-menu, contextual-menu]
-composedOf: [popover, separator, kbd]
 usedBy: [data-table, sidebar, card]
 related: [dropdown-menu, menubar, popover]
 traits: [dismissible, anchored, roving-focus]
@@ -100,9 +99,15 @@ short; deep nesting is hard to use.
 
 ## Composition
 
-**Composed of:** popover (surface/positioning), separator, kbd (shortcut hints).
-
-**Used by:** data-table (row actions), sidebar, card.
+```json
+{
+  "parts": [
+    {"ref":"popover","slot":"surface"},
+    {"ref":"separator","slot":"item"},
+    {"ref":"kbd","slot":"item","note":"shortcut hints"}
+  ]
+}
+```
 
 ## Do / Don't
 

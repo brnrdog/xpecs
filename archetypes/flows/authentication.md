@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [auth, security, flow, account, journey]
 aliases: [auth-flow, login-flow, sign-in-flow]
-composedOf: [sign-in, form, field, input, input-otp, button, alert, link]
 usedBy: []
 related: [sign-in, onboarding, checkout]
 maintainers: [brnrdog]
@@ -86,9 +85,20 @@ small screens where auth most often happens.
 
 ## Composition
 
-**Composed of:** sign-in, form, field, input, input-otp, button, alert, link.
-
-**Used by:** Not applicable — a top-level journey; precedes protected experiences.
+```json
+{
+  "parts": [
+    {"ref":"sign-in","slot":"step"},
+    {"ref":"form","slot":"step"},
+    {"ref":"field","slot":"step"},
+    {"ref":"input","slot":"step"},
+    {"ref":"input-otp","slot":"step","note":"verification"},
+    {"ref":"button","slot":"step","props":{"variant":"primary"}},
+    {"ref":"alert","slot":"step"},
+    {"ref":"link","slot":"step"}
+  ]
+}
+```
 
 ## Do / Don't
 

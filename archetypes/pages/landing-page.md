@@ -9,7 +9,6 @@ since: 0.1.0
 updated: 2026-07-16
 tags: [marketing, conversion, page, funnel]
 aliases: [landing, marketing-page, splash]
-composedOf: [navbar, hero, feature-grid, testimonial, pricing-table, faq, cta-section, footer, button, input]
 usedBy: []
 related: [dashboard, pricing, sign-in]
 maintainers: [brnrdog]
@@ -109,10 +108,22 @@ layout shift, since landing traffic is often first-touch and impatient.
 
 ## Composition
 
-**Composed of:** navbar, hero, feature-grid, testimonial, pricing-table, faq,
-cta-section, footer — which in turn use elements like button and input.
-
-**Used by:** Not applicable — a landing page is a top-level experience.
+```json
+{
+  "parts": [
+    {"ref":"navbar","slot":"chrome"},
+    {"ref":"hero","slot":"content"},
+    {"ref":"feature-grid","slot":"content"},
+    {"ref":"testimonial","slot":"content"},
+    {"ref":"pricing-table","slot":"content"},
+    {"ref":"faq","slot":"content"},
+    {"ref":"cta-section","slot":"content"},
+    {"ref":"footer","slot":"chrome"},
+    {"ref":"button","slot":"content"},
+    {"ref":"input","slot":"content"}
+  ]
+}
+```
 
 ## Do / Don't
 

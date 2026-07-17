@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [marketing, pricing, comparison, conversion]
 aliases: [plan-comparison, pricing-cards, tiers]
-composedOf: [card, badge, button, switch, toggle-group, table]
 usedBy: [landing-page, pricing]
 related: [pricing, card, table]
 maintainers: [brnrdog]
@@ -97,9 +96,18 @@ widths.
 
 ## Composition
 
-**Composed of:** card, badge, button, switch / toggle-group (billing), table.
-
-**Used by:** landing-page, pricing.
+```json
+{
+  "parts": [
+    {"ref":"card","slot":"plan"},
+    {"ref":"badge","slot":"plan","note":"most popular"},
+    {"ref":"button","slot":"plan","props":{"variant":"primary"}},
+    {"ref":"switch","slot":"plan","note":"billing toggle"},
+    {"ref":"toggle-group","slot":"plan","note":"billing toggle"},
+    {"ref":"table","slot":"feature"}
+  ]
+}
+```
 
 ## Do / Don't
 

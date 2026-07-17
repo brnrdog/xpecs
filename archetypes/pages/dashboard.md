@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [analytics, overview, application, data]
 aliases: [home, overview, console]
-composedOf: [navbar, sidebar, breadcrumb, toolbar, card, stat, chart, data-table, list, empty-state]
 usedBy: []
 related: [settings, data-table, chart]
 maintainers: [brnrdog]
@@ -84,10 +83,22 @@ Prioritize the most important summary above the fold; let detail regions scroll.
 
 ## Composition
 
-**Composed of:** navbar, sidebar, breadcrumb, toolbar, card, stat, chart,
-data-table, list, empty-state.
-
-**Used by:** Not applicable — a top-level experience.
+```json
+{
+  "parts": [
+    {"ref":"navbar","slot":"chrome"},
+    {"ref":"sidebar","slot":"chrome"},
+    {"ref":"breadcrumb","slot":"chrome"},
+    {"ref":"toolbar","slot":"content"},
+    {"ref":"card","slot":"content"},
+    {"ref":"stat","slot":"content"},
+    {"ref":"chart","slot":"content"},
+    {"ref":"data-table","slot":"content"},
+    {"ref":"list","slot":"content"},
+    {"ref":"empty-state","slot":"content","note":"no data"}
+  ]
+}
+```
 
 ## Do / Don't
 

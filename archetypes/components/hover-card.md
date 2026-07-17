@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [overlay, preview, contextual, hover]
 aliases: [preview-card, rich-tooltip]
-composedOf: [popover, avatar, button, typography]
 usedBy: [navbar, card, data-table]
 related: [tooltip, popover, card]
 traits: [anchored]
@@ -92,9 +91,16 @@ access path (tap to open a popover or navigate), since hover doesn't exist there
 
 ## Composition
 
-**Composed of:** popover (surface/positioning), avatar, typography, button.
-
-**Used by:** navbar, card, data-table (entity previews).
+```json
+{
+  "parts": [
+    {"ref":"popover","slot":"surface"},
+    {"ref":"avatar","slot":"content"},
+    {"ref":"typography","slot":"content"},
+    {"ref":"button","slot":"content"}
+  ]
+}
+```
 
 ## Do / Don't
 

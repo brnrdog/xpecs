@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [search, input, query, navigation, filter]
 aliases: [search-box, search-bar, search-field]
-composedOf: [input, icon, icon-button, button, list, empty-state]
 usedBy: [navbar, data-table, dashboard]
 related: [combobox, command, input]
 maintainers: [brnrdog]
@@ -103,10 +102,18 @@ screens the field may expand to full width or open from an icon.
 
 ## Composition
 
-**Composed of:** input, icon, icon-button (clear), button (submit), list (results),
-empty-state.
-
-**Used by:** navbar, data-table, dashboard.
+```json
+{
+  "parts": [
+    {"ref":"input","slot":"input"},
+    {"ref":"icon","slot":"input"},
+    {"ref":"icon-button","slot":"clear"},
+    {"ref":"button","slot":"input"},
+    {"ref":"list","slot":"suggestions"},
+    {"ref":"empty-state","slot":"suggestions","note":"no results"}
+  ]
+}
+```
 
 ## Do / Don't
 

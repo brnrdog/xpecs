@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [modal, confirmation, overlay, destructive]
 aliases: [confirm-dialog, confirmation-modal]
-composedOf: [dialog, button]
 usedBy: [data-table, settings, form]
 related: [dialog, alert, toast]
 traits: [focus-trap]
@@ -101,9 +100,14 @@ keeping actions reachable.
 
 ## Composition
 
-**Composed of:** dialog (base overlay/modality), button (actions).
-
-**Used by:** data-table (row deletion), settings, form (discard changes).
+```json
+{
+  "parts": [
+    {"ref":"dialog","slot":"surface"},
+    {"ref":"button","slot":"actions","props":{"variant":"primary"}}
+  ]
+}
+```
 
 ## Do / Don't
 

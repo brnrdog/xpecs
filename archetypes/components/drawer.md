@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [overlay, panel, mobile, gesture]
 aliases: [bottom-sheet, slide-over]
-composedOf: [scroll-area, button, separator]
 usedBy: [navbar, dashboard, data-table]
 related: [sheet, dialog, sidebar, popover]
 traits: [dismissible, focus-trap]
@@ -95,9 +94,15 @@ areas and keep the handle/close reachable.
 
 ## Composition
 
-**Composed of:** scroll-area, button, separator.
-
-**Used by:** navbar (mobile menu), dashboard, data-table (filters on mobile).
+```json
+{
+  "parts": [
+    {"ref":"scroll-area","slot":"body"},
+    {"ref":"separator","slot":"footer"},
+    {"ref":"button","slot":"footer","props":{"variant":"primary"}}
+  ]
+}
+```
 
 ## Do / Don't
 

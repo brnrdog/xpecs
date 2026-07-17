@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [form, date, selection, input]
 aliases: [date-input, date-field, datetime-picker]
-composedOf: [input, calendar, popover, button]
 usedBy: [form, field, data-table]
 related: [calendar, input, popover, combobox]
 maintainers: [brnrdog]
@@ -96,9 +95,16 @@ in view, or as a sheet on small screens. Presets sit beside or above the calenda
 
 ## Composition
 
-**Composed of:** input, calendar, popover, button.
-
-**Used by:** form, field, data-table (date filters).
+```json
+{
+  "parts": [
+    {"ref":"input","slot":"input"},
+    {"ref":"calendar","slot":"calendar"},
+    {"ref":"popover","slot":"surface"},
+    {"ref":"button","slot":"calendar","note":"clear/today"}
+  ]
+}
+```
 
 ## Do / Don't
 

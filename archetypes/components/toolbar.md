@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [actions, controls, editor, grouping]
 aliases: [action-bar, command-bar, tool-strip]
-composedOf: [button, icon-button, toggle, toggle-group, separator, dropdown-menu, input]
 usedBy: [data-table, dashboard]
 related: [button-group, menubar, navbar]
 traits: [roving-focus]
@@ -96,10 +95,19 @@ groups into overflow menus rather than shrinking targets below usable size.
 
 ## Composition
 
-**Composed of:** button, icon-button, toggle, toggle-group, separator,
-dropdown-menu, input.
-
-**Used by:** data-table, dashboard, editors.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"control"},
+    {"ref":"icon-button","slot":"control"},
+    {"ref":"toggle","slot":"control"},
+    {"ref":"toggle-group","slot":"control"},
+    {"ref":"separator","slot":"separator"},
+    {"ref":"dropdown-menu","slot":"control","note":"overflow"},
+    {"ref":"input","slot":"control","note":"inline search"}
+  ]
+}
+```
 
 ## Do / Don't
 

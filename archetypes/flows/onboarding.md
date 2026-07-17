@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [activation, flow, first-run, journey]
 aliases: [onboarding-flow, getting-started, setup-wizard]
-composedOf: [progress, form, field, button, empty-state, card, dialog, checkbox]
 usedBy: []
 related: [authentication, checkout]
 maintainers: [brnrdog]
@@ -79,10 +78,20 @@ small screens, and steps never trap the user without a way forward or out.
 
 ## Composition
 
-**Composed of:** progress, form, field, button, empty-state, card, dialog,
-checkbox (checklist).
-
-**Used by:** Not applicable — a top-level journey following first sign-in.
+```json
+{
+  "parts": [
+    {"ref":"progress","slot":"chrome","note":"step indicator"},
+    {"ref":"form","slot":"step"},
+    {"ref":"field","slot":"step"},
+    {"ref":"button","slot":"step","props":{"variant":"primary"}},
+    {"ref":"empty-state","slot":"step"},
+    {"ref":"card","slot":"step"},
+    {"ref":"dialog","slot":"step","note":"welcome"},
+    {"ref":"checkbox","slot":"step"}
+  ]
+}
+```
 
 ## Do / Don't
 

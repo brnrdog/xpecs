@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [data, metric, kpi, dashboard]
 aliases: [kpi, metric, stat-card, metric-card]
-composedOf: [badge, icon, chart, typography]
 usedBy: [dashboard]
 related: [card, chart]
 maintainers: [brnrdog]
@@ -95,9 +94,16 @@ fewer columns on small screens.
 
 ## Composition
 
-**Composed of:** typography, badge (delta), icon, chart (sparkline).
-
-**Used by:** dashboard.
+```json
+{
+  "parts": [
+    {"ref":"typography","slot":"value"},
+    {"ref":"badge","slot":"delta"},
+    {"ref":"icon","slot":"label"},
+    {"ref":"chart","slot":"value","note":"sparkline"}
+  ]
+}
+```
 
 ## Do / Don't
 

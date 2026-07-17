@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [marketing, landing, section, conversion]
 aliases: [hero-section, banner, masthead]
-composedOf: [button, badge, link, typography]
 usedBy: [landing-page, pricing]
 related: [cta-section, navbar]
 maintainers: [brnrdog]
@@ -95,9 +94,16 @@ action above the fold and the measure readable.
 
 ## Composition
 
-**Composed of:** typography, button, badge (eyebrow), link (secondary action).
-
-**Used by:** landing-page, pricing.
+```json
+{
+  "parts": [
+    {"ref":"typography","slot":"headline"},
+    {"ref":"badge","slot":"eyebrow"},
+    {"ref":"button","slot":"actions","props":{"variant":"primary"}},
+    {"ref":"link","slot":"actions"}
+  ]
+}
+```
 
 ## Do / Don't
 

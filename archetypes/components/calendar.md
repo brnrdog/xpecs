@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [date, selection, grid, input]
 aliases: [date-grid, month-view]
-composedOf: [button]
 usedBy: [date-picker, form, dashboard]
 related: [date-picker, popover, input]
 maintainers: [brnrdog]
@@ -96,9 +95,13 @@ month on small screens. Day targets stay large enough to tap.
 
 ## Composition
 
-**Composed of:** button (day cells and navigation).
-
-**Used by:** date-picker, form, dashboard/scheduling views.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"controls","note":"prev/next month"}
+  ]
+}
+```
 
 ## Do / Don't
 

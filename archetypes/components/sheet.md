@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [overlay, panel, side, task]
 aliases: [side-panel, slide-over, off-canvas]
-composedOf: [scroll-area, button, separator]
 usedBy: [dashboard, data-table, settings]
 related: [dialog, drawer, sidebar, popover]
 traits: [dismissible, focus-trap]
@@ -98,9 +97,15 @@ stay reachable. On small screens it may expand to full width or become a drawer.
 
 ## Composition
 
-**Composed of:** scroll-area, button, separator.
-
-**Used by:** dashboard, data-table (filters/details), settings.
+```json
+{
+  "parts": [
+    {"ref":"scroll-area","slot":"body"},
+    {"ref":"separator","slot":"footer"},
+    {"ref":"button","slot":"footer","props":{"variant":"primary"}}
+  ]
+}
+```
 
 ## Do / Don't
 

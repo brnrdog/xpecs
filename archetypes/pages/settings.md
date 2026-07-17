@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [configuration, preferences, forms, account]
 aliases: [preferences, account-settings, options]
-composedOf: [sidebar, tabs, navigation-menu, form, field, input, switch, select, radio-group, button, separator, alert]
 usedBy: []
 related: [dashboard, form]
 maintainers: [brnrdog]
@@ -83,10 +82,24 @@ Keep a consistent field rhythm and clear section headings.
 
 ## Composition
 
-**Composed of:** sidebar, tabs, navigation-menu, form, field, input, switch,
-select, radio-group, button, separator, alert.
-
-**Used by:** Not applicable — a top-level experience.
+```json
+{
+  "parts": [
+    {"ref":"sidebar","slot":"chrome"},
+    {"ref":"tabs","slot":"content"},
+    {"ref":"navigation-menu","slot":"chrome"},
+    {"ref":"form","slot":"content"},
+    {"ref":"field","slot":"content"},
+    {"ref":"input","slot":"content"},
+    {"ref":"switch","slot":"content"},
+    {"ref":"select","slot":"content"},
+    {"ref":"radio-group","slot":"content"},
+    {"ref":"button","slot":"content"},
+    {"ref":"separator","slot":"content"},
+    {"ref":"alert","slot":"content"}
+  ]
+}
+```
 
 ## Do / Don't
 

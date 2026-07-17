@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [action, layout, toolbar, grouping]
 aliases: [btn-group, segmented-buttons, split-button]
-composedOf: [button, dropdown-menu, separator]
 usedBy: [toolbar, data-table, card, dialog]
 related: [toggle-group, dropdown-menu, button]
 maintainers: [brnrdog]
@@ -93,9 +92,15 @@ menu. Keep targets adequately sized.
 
 ## Composition
 
-**Composed of:** button, dropdown-menu (split menu), separator.
-
-**Used by:** toolbars, data-table, card, dialog action rows.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"button"},
+    {"ref":"dropdown-menu","slot":"button","note":"split action"},
+    {"ref":"separator","slot":"button","note":"divider"}
+  ]
+}
+```
 
 ## Do / Don't
 

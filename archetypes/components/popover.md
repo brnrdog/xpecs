@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [overlay, contextual, floating, container]
 aliases: [flyout, pop-up, floating-panel]
-composedOf: [button, scroll-area]
 usedBy: [combobox, select, date-picker, dropdown-menu, tooltip, hover-card, navigation-menu]
 related: [tooltip, dropdown-menu, dialog, hover-card]
 traits: [dismissible, anchored]
@@ -95,10 +94,14 @@ it clear of the trigger it points to.
 
 ## Composition
 
-**Composed of:** button (trigger), scroll-area.
-
-**Used by:** combobox, select, date-picker, dropdown-menu, tooltip, hover-card,
-navigation-menu, context-menu.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"trigger"},
+    {"ref":"scroll-area","slot":"content"}
+  ]
+}
+```
 
 ## Do / Don't
 

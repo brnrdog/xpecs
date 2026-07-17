@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [feedback, message, status, inline]
 aliases: [callout, banner, notice, inline-message]
-composedOf: [button, badge]
 usedBy: [form, card, dashboard, settings]
 related: [toast, alert-dialog, badge]
 maintainers: [brnrdog]
@@ -92,9 +91,14 @@ a form, above a section).
 
 ## Composition
 
-**Composed of:** button (actions), badge (optional severity tag).
-
-**Used by:** form, card, dashboard, settings.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"actions"},
+    {"ref":"badge","slot":"icon"}
+  ]
+}
+```
 
 ## Do / Don't
 

@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [commerce, payment, flow, conversion, journey]
 aliases: [checkout-flow, purchase-flow, payment-flow]
-composedOf: [form, field, input, radio-group, list, card, button, alert, progress]
 usedBy: []
 related: [pricing, onboarding]
 maintainers: [brnrdog]
@@ -86,10 +85,21 @@ Progress is visible in multi-step variants; the primary action is unmistakable.
 
 ## Composition
 
-**Composed of:** form, field, input, radio-group, list (order items), card, button,
-alert, progress.
-
-**Used by:** Not applicable — a top-level journey; follows plan/cart selection.
+```json
+{
+  "parts": [
+    {"ref":"form","slot":"step"},
+    {"ref":"field","slot":"step"},
+    {"ref":"input","slot":"step"},
+    {"ref":"radio-group","slot":"step","note":"shipping/payment"},
+    {"ref":"list","slot":"step","note":"order summary"},
+    {"ref":"card","slot":"step"},
+    {"ref":"button","slot":"step","props":{"variant":"primary"}},
+    {"ref":"alert","slot":"step"},
+    {"ref":"progress","slot":"chrome","note":"step indicator"}
+  ]
+}
+```
 
 ## Do / Don't
 

@@ -35,10 +35,10 @@ released.
 - **Structural composition.** The `## Composition` section can now carry a
   `json` block that wires each part to a **slot** with the **props** passed and a
   note, instead of a flat list of ids. The registry derives `composedOf` from
-  these parts (the frontmatter line is dropped when the block exists), and the
-  website renders composition grouped by slot with prop pills. Converted:
-  `card`, `form`, `dialog`, `navbar`, `field`, `comment`; the rest keep the flat
-  chip list until migrated.
+  these parts (the frontmatter `composedOf:` line is dropped in favor of the
+  block), and the website renders composition grouped by slot with prop pills.
+  **Every composite archetype** (components, blocks, pages, and flows — 56 in
+  all) is now wired this way; only primitives have no parts.
 - **Behavior traits.** A new `traits/` layer captures cross-cutting interaction
   contracts — `dismissible`, `focus-trap`, `anchored`, `roving-focus`,
   `typeahead` — that many archetypes share. Archetypes reference them via a new

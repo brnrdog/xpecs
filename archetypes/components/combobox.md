@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [form, selection, search, autocomplete]
 aliases: [autocomplete, typeahead, searchable-select]
-composedOf: [input, popover, scroll-area, badge]
 usedBy: [form, field, command, data-table]
 related: [select, command, input, dropdown-menu]
 traits: [dismissible, anchored, typeahead]
@@ -101,9 +100,16 @@ scrolls; the selected/highlighted item stays in view.
 
 ## Composition
 
-**Composed of:** input, popover, scroll-area, badge (multi-select tokens).
-
-**Used by:** form, field, command, data-table (filters).
+```json
+{
+  "parts": [
+    {"ref":"input","slot":"input"},
+    {"ref":"popover","slot":"surface"},
+    {"ref":"scroll-area","slot":"option","note":"long lists"},
+    {"ref":"badge","slot":"input","note":"multi-select tokens"}
+  ]
+}
+```
 
 ## Do / Don't
 

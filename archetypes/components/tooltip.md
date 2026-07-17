@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [overlay, hint, help, contextual]
 aliases: [hint, tip]
-composedOf: [popover]
 usedBy: [button, navbar, sidebar, toggle, data-table]
 related: [hover-card, popover, kbd]
 traits: [anchored]
@@ -90,9 +89,13 @@ available. Keep text short enough not to need scrolling.
 
 ## Composition
 
-**Composed of:** popover (positioning foundation).
-
-**Used by:** button/toggle (icon controls), navbar, sidebar, data-table.
+```json
+{
+  "parts": [
+    {"ref":"popover","slot":"trigger","note":"positioning"}
+  ]
+}
+```
 
 ## Do / Don't
 

@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, menu, wayfinding, flyout]
 aliases: [mega-menu, nav-menu, flyout-nav]
-composedOf: [link, popover, separator]
 usedBy: [navbar, landing-page]
 related: [navbar, menubar, dropdown-menu, tabs]
 traits: [anchored, roving-focus]
@@ -97,9 +96,15 @@ reflow columns to fit width.
 
 ## Composition
 
-**Composed of:** link, popover (flyout positioning), separator.
-
-**Used by:** navbar, landing-page.
+```json
+{
+  "parts": [
+    {"ref":"link","slot":"item"},
+    {"ref":"popover","slot":"content","note":"flyout"},
+    {"ref":"separator","slot":"content"}
+  ]
+}
+```
 
 ## Do / Don't
 

@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, search, productivity, keyboard]
 aliases: [command-palette, command-menu, quick-search, spotlight]
-composedOf: [input, scroll-area, dialog, kbd, separator]
 usedBy: [dashboard, navbar]
 related: [combobox, dialog, dropdown-menu]
 traits: [dismissible, focus-trap]
@@ -101,9 +100,17 @@ item scrolled into view.
 
 ## Composition
 
-**Composed of:** input, scroll-area, dialog (overlay/modality), kbd, separator.
-
-**Used by:** dashboard, navbar (global search/actions).
+```json
+{
+  "parts": [
+    {"ref":"input","slot":"input"},
+    {"ref":"scroll-area","slot":"item"},
+    {"ref":"dialog","slot":"surface"},
+    {"ref":"kbd","slot":"item","note":"shortcut hints"},
+    {"ref":"separator","slot":"group"}
+  ]
+}
+```
 
 ## Do / Don't
 

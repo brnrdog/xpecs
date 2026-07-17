@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [auth, authentication, form, account, security]
 aliases: [login, log-in, signin]
-composedOf: [form, field, input, input-otp, checkbox, button, link, alert, separator]
 usedBy: []
 related: [form, settings]
 maintainers: [brnrdog]
@@ -88,10 +87,21 @@ primary action prominent, and recovery/sign-up links visible.
 
 ## Composition
 
-**Composed of:** form, field, input, input-otp, checkbox, button, link, alert,
-separator.
-
-**Used by:** Not applicable — a top-level experience.
+```json
+{
+  "parts": [
+    {"ref":"form","slot":"content"},
+    {"ref":"field","slot":"content"},
+    {"ref":"input","slot":"content"},
+    {"ref":"input-otp","slot":"content"},
+    {"ref":"checkbox","slot":"content"},
+    {"ref":"button","slot":"content","props":{"variant":"primary"}},
+    {"ref":"link","slot":"content"},
+    {"ref":"alert","slot":"content"},
+    {"ref":"separator","slot":"content","note":"social divider"}
+  ]
+}
+```
 
 ## Do / Don't
 

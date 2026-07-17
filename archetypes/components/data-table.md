@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [data, table, list, crud, enterprise]
 aliases: [datagrid, grid, table-view]
-composedOf: [table, checkbox, input, combobox, pagination, dropdown-menu, button, badge, skeleton]
 usedBy: [dashboard, settings]
 related: [table, pagination, chart, card]
 maintainers: [brnrdog]
@@ -104,10 +103,21 @@ rows into stacked cards. Keep headers visible while scrolling.
 
 ## Composition
 
-**Composed of:** table, checkbox, input/combobox (filters), pagination,
-dropdown-menu (row/column actions), button, badge, skeleton.
-
-**Used by:** dashboard, settings/admin.
+```json
+{
+  "parts": [
+    {"ref":"table","slot":"row"},
+    {"ref":"checkbox","slot":"row","note":"row selection"},
+    {"ref":"input","slot":"toolbar","note":"filter"},
+    {"ref":"combobox","slot":"toolbar","note":"column filter"},
+    {"ref":"pagination","slot":"pagination"},
+    {"ref":"dropdown-menu","slot":"toolbar","note":"column options"},
+    {"ref":"button","slot":"toolbar"},
+    {"ref":"badge","slot":"row","note":"cell status"},
+    {"ref":"skeleton","slot":"row","note":"loading"}
+  ]
+}
+```
 
 ## Do / Don't
 

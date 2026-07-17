@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [marketing, landing, section, features]
 aliases: [feature-list, benefits-grid, feature-cards]
-composedOf: [icon, card, typography]
 usedBy: [landing-page]
 related: [card, list]
 maintainers: [brnrdog]
@@ -89,9 +88,15 @@ rows align and the set scans cleanly.
 
 ## Composition
 
-**Composed of:** icon, card (optional per-item), typography.
-
-**Used by:** landing-page.
+```json
+{
+  "parts": [
+    {"ref":"icon","slot":"feature"},
+    {"ref":"card","slot":"feature"},
+    {"ref":"typography","slot":"feature"}
+  ]
+}
+```
 
 ## Do / Don't
 

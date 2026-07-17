@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [navigation, layout, wayfinding, legal]
 aliases: [site-footer, page-footer, colophon]
-composedOf: [link, separator, logo, input, button]
 usedBy: [landing-page, dashboard, pricing]
 related: [navbar, sidebar]
 maintainers: [brnrdog]
@@ -95,9 +94,17 @@ and copyright typically anchor the very bottom.
 
 ## Composition
 
-**Composed of:** link, separator, logo, input (newsletter), button.
-
-**Used by:** landing-page, dashboard, pricing.
+```json
+{
+  "parts": [
+    {"ref":"logo","slot":"brand"},
+    {"ref":"link","slot":"links"},
+    {"ref":"separator","slot":"legal"},
+    {"ref":"input","slot":"links","note":"newsletter"},
+    {"ref":"button","slot":"links"}
+  ]
+}
+```
 
 ## Do / Don't
 

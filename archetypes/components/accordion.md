@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [disclosure, content, navigation, faq]
 aliases: [expander, disclosure-group]
-composedOf: [collapsible, separator]
 usedBy: [landing-page, settings, sidebar]
 related: [collapsible, tabs]
 maintainers: [brnrdog]
@@ -96,9 +95,14 @@ animating height smoothly.
 
 ## Composition
 
-**Composed of:** collapsible (per item), separator.
-
-**Used by:** landing-page (FAQ), settings, sidebar.
+```json
+{
+  "parts": [
+    {"ref":"collapsible","slot":"item"},
+    {"ref":"separator","slot":"item","note":"between items"}
+  ]
+}
+```
 
 ## Do / Don't
 

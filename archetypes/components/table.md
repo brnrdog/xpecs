@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [data, table, structure, comparison]
 aliases: [data-grid-static, grid]
-composedOf: [typography, badge, checkbox]
 usedBy: [data-table, dashboard, card]
 related: [data-table, card, chart]
 maintainers: [brnrdog]
@@ -94,10 +93,15 @@ associated with data when scrolling.
 
 ## Composition
 
-**Composed of:** typography, badge (status cells), checkbox (selection when
-extended).
-
-**Used by:** data-table (as its core), dashboard, card.
+```json
+{
+  "parts": [
+    {"ref":"typography","slot":"header"},
+    {"ref":"badge","slot":"row","note":"cell status"},
+    {"ref":"checkbox","slot":"row","note":"selection"}
+  ]
+}
+```
 
 ## Do / Don't
 

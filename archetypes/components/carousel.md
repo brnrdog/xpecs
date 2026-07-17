@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [media, gallery, slider, content]
 aliases: [slider, gallery, slideshow]
-composedOf: [button, card, aspect-ratio]
 usedBy: [landing-page, dashboard]
 related: [tabs, scroll-area, pagination]
 maintainers: [brnrdog]
@@ -99,9 +98,15 @@ keep slides aligned. Ensure controls remain reachable and don't obscure content.
 
 ## Composition
 
-**Composed of:** button (controls), card / aspect-ratio (slides).
-
-**Used by:** landing-page, dashboard.
+```json
+{
+  "parts": [
+    {"ref":"card","slot":"slide"},
+    {"ref":"aspect-ratio","slot":"slide","note":"media ratio"},
+    {"ref":"button","slot":"controls"}
+  ]
+}
+```
 
 ## Do / Don't
 

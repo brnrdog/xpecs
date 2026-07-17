@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, layout, application, wayfinding]
 aliases: [side-nav, nav-rail, app-sidebar]
-composedOf: [link, button, collapsible, avatar, separator, badge, scroll-area]
 usedBy: [dashboard, settings]
 related: [navbar, navigation-menu, sheet, drawer]
 maintainers: [brnrdog]
@@ -99,9 +98,19 @@ on small screens. Content area adjusts to the sidebar's width.
 
 ## Composition
 
-**Composed of:** link, button, collapsible, avatar, separator, badge, scroll-area.
-
-**Used by:** dashboard, settings / application shells.
+```json
+{
+  "parts": [
+    {"ref":"link","slot":"nav"},
+    {"ref":"button","slot":"nav"},
+    {"ref":"collapsible","slot":"nav","note":"nav groups"},
+    {"ref":"avatar","slot":"footer"},
+    {"ref":"separator","slot":"nav"},
+    {"ref":"badge","slot":"nav","note":"counts"},
+    {"ref":"scroll-area","slot":"nav"}
+  ]
+}
+```
 
 ## Do / Don't
 

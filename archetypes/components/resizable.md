@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [layout, panels, split, workspace]
 aliases: [split-pane, split-view, resizable-panels]
-composedOf: [separator, scroll-area]
 usedBy: [dashboard, data-table]
 related: [sidebar, scroll-area, separator]
 maintainers: [brnrdog]
@@ -95,9 +94,14 @@ sizes so no panel becomes unusable.
 
 ## Composition
 
-**Composed of:** separator (handles), scroll-area (panel content).
-
-**Used by:** dashboard, data-table (list/detail workspaces).
+```json
+{
+  "parts": [
+    {"ref":"separator","slot":"handle"},
+    {"ref":"scroll-area","slot":"panel"}
+  ]
+}
+```
 
 ## Do / Don't
 

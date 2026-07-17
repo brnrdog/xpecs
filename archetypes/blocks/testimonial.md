@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [marketing, landing, section, social-proof, trust]
 aliases: [quote, review, social-proof]
-composedOf: [avatar, card, badge, typography]
 usedBy: [landing-page, pricing]
 related: [card, hero]
 maintainers: [brnrdog]
@@ -88,9 +87,16 @@ a single column on small screens. Keep the attribution visually tied to its quot
 
 ## Composition
 
-**Composed of:** avatar, card, badge (rating), typography.
-
-**Used by:** landing-page, pricing.
+```json
+{
+  "parts": [
+    {"ref":"avatar","slot":"attribution"},
+    {"ref":"card","slot":"quote"},
+    {"ref":"badge","slot":"attribution"},
+    {"ref":"typography","slot":"quote"}
+  ]
+}
+```
 
 ## Do / Don't
 

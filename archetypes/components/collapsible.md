@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [disclosure, content, progressive-disclosure]
 aliases: [disclosure, expandable, show-more]
-composedOf: [button]
 usedBy: [accordion, sidebar, card, form]
 related: [accordion, popover]
 maintainers: [brnrdog]
@@ -87,9 +86,13 @@ adequate and the expand/collapse motion smooth to avoid jumps.
 
 ## Composition
 
-**Composed of:** button (trigger).
-
-**Used by:** accordion (as items), sidebar, card, form.
+```json
+{
+  "parts": [
+    {"ref":"button","slot":"trigger"}
+  ]
+}
+```
 
 ## Do / Don't
 

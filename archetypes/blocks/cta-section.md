@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [marketing, landing, section, conversion]
 aliases: [call-to-action, cta-banner, conversion-section]
-composedOf: [button, input, link, typography]
 usedBy: [landing-page, pricing]
 related: [hero, footer]
 maintainers: [brnrdog]
@@ -90,9 +89,16 @@ dominant.
 
 ## Composition
 
-**Composed of:** typography, button, input (lead capture), link.
-
-**Used by:** landing-page, pricing.
+```json
+{
+  "parts": [
+    {"ref":"typography","slot":"headline"},
+    {"ref":"button","slot":"action","props":{"variant":"primary"}},
+    {"ref":"input","slot":"action","note":"inline signup"},
+    {"ref":"link","slot":"action"}
+  ]
+}
+```
 
 ## Do / Don't
 

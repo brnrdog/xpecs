@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, wayfinding, hierarchy]
 aliases: [breadcrumbs, path-nav]
-composedOf: [link, separator, dropdown-menu]
 usedBy: [dashboard, settings, data-table]
 related: [navbar, pagination, tabs, sidebar]
 maintainers: [brnrdog]
@@ -89,9 +88,15 @@ truncating the current item. Keep the current page always visible.
 
 ## Composition
 
-**Composed of:** link, separator, dropdown-menu (overflow).
-
-**Used by:** dashboard, settings, data-table detail views.
+```json
+{
+  "parts": [
+    {"ref":"link","slot":"item"},
+    {"ref":"separator","slot":"item","note":"between crumbs"},
+    {"ref":"dropdown-menu","slot":"item","note":"collapsed ancestors"}
+  ]
+}
+```
 
 ## Do / Don't
 

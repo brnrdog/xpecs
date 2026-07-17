@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [collection, rows, content, navigation]
 aliases: [list-view, item-list, feed]
-composedOf: [avatar, badge, button, icon-button, separator, checkbox]
 usedBy: [dashboard, settings, sidebar]
 related: [table, data-table, card]
 maintainers: [brnrdog]
@@ -98,9 +97,18 @@ trailing content may wrap beneath the primary label. Long lists scroll or pagina
 
 ## Composition
 
-**Composed of:** avatar, badge, button, icon-button, separator, checkbox.
-
-**Used by:** dashboard, settings, sidebar.
+```json
+{
+  "parts": [
+    {"ref":"avatar","slot":"item"},
+    {"ref":"badge","slot":"item"},
+    {"ref":"button","slot":"item","note":"row action"},
+    {"ref":"icon-button","slot":"item","note":"row action"},
+    {"ref":"separator","slot":"item","note":"between rows"},
+    {"ref":"checkbox","slot":"item","note":"selection"}
+  ]
+}
+```
 
 ## Do / Don't
 

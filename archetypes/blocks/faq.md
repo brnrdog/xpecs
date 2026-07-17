@@ -9,7 +9,6 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [marketing, landing, content, support, disclosure]
 aliases: [faqs, questions, help-list]
-composedOf: [accordion, link]
 usedBy: [landing-page, pricing]
 related: [accordion, empty-state]
 maintainers: [brnrdog]
@@ -88,9 +87,14 @@ short and scannable.
 
 ## Composition
 
-**Composed of:** accordion, link.
-
-**Used by:** landing-page, pricing.
+```json
+{
+  "parts": [
+    {"ref":"accordion","slot":"question"},
+    {"ref":"link","slot":"answer"}
+  ]
+}
+```
 
 ## Do / Don't
 

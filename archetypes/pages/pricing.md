@@ -9,7 +9,6 @@ since: 0.3.0
 updated: 2026-07-17
 tags: [marketing, conversion, plans, pricing]
 aliases: [plans, pricing-plans]
-composedOf: [navbar, card, badge, switch, toggle-group, button, table, accordion, faq, footer]
 usedBy: []
 related: [landing-page, card]
 maintainers: [brnrdog]
@@ -82,10 +81,22 @@ widths.
 
 ## Composition
 
-**Composed of:** navbar, card, badge, switch/toggle-group (billing), button,
-table, accordion/faq, footer.
-
-**Used by:** Not applicable — a top-level experience.
+```json
+{
+  "parts": [
+    {"ref":"navbar","slot":"chrome"},
+    {"ref":"card","slot":"content"},
+    {"ref":"badge","slot":"content"},
+    {"ref":"switch","slot":"content","note":"billing toggle"},
+    {"ref":"toggle-group","slot":"content","note":"billing toggle"},
+    {"ref":"button","slot":"content"},
+    {"ref":"table","slot":"content"},
+    {"ref":"accordion","slot":"content"},
+    {"ref":"faq","slot":"content"},
+    {"ref":"footer","slot":"chrome"}
+  ]
+}
+```
 
 ## Do / Don't
 

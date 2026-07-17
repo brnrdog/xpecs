@@ -9,7 +9,6 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, content, sections, in-page]
 aliases: [tab-group, segmented-views]
-composedOf: [separator, badge]
 usedBy: [dashboard, settings, card]
 related: [accordion, toggle-group, navigation-menu]
 traits: [roving-focus]
@@ -98,9 +97,14 @@ or collapse into a select on very small screens. Panels occupy the same space.
 
 ## Composition
 
-**Composed of:** separator, badge (counts on tabs).
-
-**Used by:** dashboard, settings, card.
+```json
+{
+  "parts": [
+    {"ref":"separator","slot":"tab","note":"under the tablist"},
+    {"ref":"badge","slot":"tab","note":"counts"}
+  ]
+}
+```
 
 ## Do / Don't
 
