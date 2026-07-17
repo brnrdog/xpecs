@@ -322,7 +322,7 @@ module Spotlight = {
     <View.Show when_={Prop.signal(spotlightOpen)}>
       <div class="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[12vh]">
         <div class="absolute inset-0 bg-neutral-900/40" onClick={_ => Signal.set(spotlightOpen, false)} />
-        <div class="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-neutral-200 bg-surface shadow-2xl">
+        <div class="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-neutral-200 bg-surface shadow-lg">
           <div class="flex items-center gap-2 border-b border-neutral-100 px-4">
             <span class="text-neutral-400"> <View.Text> "🔍" </View.Text> </span>
             <input
@@ -372,51 +372,88 @@ module Spotlight = {
 module Home = {
   @jsx.component
   let make = () => {
-    let stat = (layer, title) =>
-      <div class={Ui.card ++ " p-5"}>
-        <div class="text-3xl font-bold tabular-nums text-neutral-900">
-          <View.Text> {inLayer(layer)->Array.length->Int.toString} </View.Text>
+    // A stat card links into its layer (first archetype) and lifts on hover.
+    let stat = (layer, title) => {
+      let dest = switch inLayer(layer)->Array.get(0) {
+      | Some(a) => "/a/" ++ a.id
+      | None => "/"
+      }
+      <Router.Link to={dest} class={Ui.cardInteractive ++ " group block p-5"}>
+        <div class="flex items-center justify-between">
+          <span class="text-3xl font-bold tabular-nums tracking-tight text-neutral-900">
+            <View.Text> {inLayer(layer)->Array.length->Int.toString} </View.Text>
+          </span>
+          <LayerBadge layer />
         </div>
-        <div class="mt-1 text-sm text-neutral-500"> <View.Text> {title} </View.Text> </div>
+        <div class="mt-2 flex items-center gap-1 text-sm text-neutral-500">
+          <View.Text> {title} </View.Text>
+          <span class="opacity-0 transition-opacity group-hover:opacity-100"> <View.Text> "→" </View.Text> </span>
+        </div>
+      </Router.Link>
+    }
+    // A featured entry: title + one-liner + layer, lifts on hover.
+    let feature = id =>
+      switch byId(id) {
+      | Some(a) =>
+        <Router.Link to={"/a/" ++ a.id} class={Ui.cardInteractive ++ " flex flex-col gap-2 p-5"}>
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-semibold tracking-tight text-neutral-900"> <View.Text> {a.title} </View.Text> </span>
+            <LayerBadge layer={a.layer} />
+          </div>
+          <span class="text-sm leading-relaxed text-neutral-500"> <View.Text> {a.summary} </View.Text> </span>
+        </Router.Link>
+      | None => View.null()
+      }
+    <div>
+      <div class="hero-wash border-b border-neutral-200">
+        <div class="mx-auto max-w-4xl px-8 pb-12 pt-16">
+          <Badge variant=#outline> <View.Text> "Monochrome · Xote · ReScript" </View.Text> </Badge>
+          <h1 class="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-neutral-900">
+            <View.Text> "User Experience" </View.Text>
+            <br />
+            <span class="text-neutral-400"> <View.Text> "Archetypes" </View.Text> </span>
+          </h1>
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-neutral-600">
+            <View.Text> "A technology-agnostic catalogue of UI patterns. Browse every archetype in the sidebar and see a live implementation rendered with " </View.Text>
+            <Link href="https://xote.dev" newTab=true> <View.Text> "Xote" </View.Text> </Link>
+            <View.Text> "." </View.Text>
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <Router.Link to="/guide">
+              <Button variant=#primary size=#lg> <View.Text> "Get started →" </View.Text> </Button>
+            </Router.Link>
+            <Router.Link to="/tokens">
+              <Button variant=#secondary size=#lg> <View.Text> "Design tokens" </View.Text> </Button>
+            </Router.Link>
+          </div>
+        </div>
       </div>
-    <div class="mx-auto max-w-3xl px-8 py-16">
-      <Badge variant=#outline> <View.Text> "Monochrome · Xote · ReScript" </View.Text> </Badge>
-      <h1 class="mt-6 text-4xl font-bold tracking-tight text-neutral-900">
-        <View.Text> "User Experience Archetypes" </View.Text>
-      </h1>
-      <p class="mt-4 text-lg leading-relaxed text-neutral-600">
-        <View.Text> "A technology-agnostic catalogue of UI patterns. Browse every archetype in the sidebar and see a live implementation rendered with " </View.Text>
-        <Link href="https://xote.dev" newTab=true> <View.Text> "Xote" </View.Text> </Link>
-        <View.Text> "." </View.Text>
-      </p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <Router.Link to="/guide">
-          <Button variant=#primary> <View.Text> "Get started →" </View.Text> </Button>
-        </Router.Link>
-        <Router.Link to="/tokens">
-          <Button variant=#secondary> <View.Text> "Design tokens" </View.Text> </Button>
-        </Router.Link>
+      <div class="mx-auto max-w-4xl px-8 py-12">
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-5">
+          {stat("element", "Elements")}
+          {stat("component", "Components")}
+          {stat("block", "Blocks")}
+          {stat("page", "Pages")}
+          {stat("flow", "Flows")}
+        </div>
+        <h2 class="mt-14 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+          <View.Text> "Start here" </View.Text>
+        </h2>
+        <div class="mt-4 grid gap-4 sm:grid-cols-3">
+          {feature("button")}
+          {feature("alert")}
+          {feature("dashboard")}
+        </div>
+        <p class="mt-12 text-sm text-neutral-500">
+          <View.Text> "Press " </View.Text>
+          <Kbd> <View.Text> "⌘K" </View.Text> </Kbd>
+          <View.Text> " to search anything, or open the " </View.Text>
+          <Router.Link to="/guide" class="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900">
+            <View.Text> "Get Started guide" </View.Text>
+          </Router.Link>
+          <View.Text> "." </View.Text>
+        </p>
       </div>
-      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-5">
-        {stat("element", "Elements")}
-        {stat("component", "Components")}
-        {stat("block", "Blocks")}
-        {stat("page", "Pages")}
-        {stat("flow", "Flows")}
-      </div>
-      <p class="mt-10 text-sm text-neutral-500">
-        <View.Text> "Press " </View.Text>
-        <Kbd> <View.Text> "⌘K" </View.Text> </Kbd>
-        <View.Text> " to search, or try " </View.Text>
-        <Router.Link to="/a/button" class="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900">
-          <View.Text> "Button" </View.Text>
-        </Router.Link>
-        <View.Text> " and " </View.Text>
-        <Router.Link to="/a/dashboard" class="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900">
-          <View.Text> "Dashboard" </View.Text>
-        </Router.Link>
-        <View.Text> "." </View.Text>
-      </p>
     </div>
   }
 }

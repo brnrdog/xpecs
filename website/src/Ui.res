@@ -43,7 +43,10 @@ let btnGhost = btnCore ++ " " ++ btnMd ++ " " ++ btnGhostColors
 let btnDestructive = btnCore ++ " " ++ btnMd ++ " " ++ btnDestructiveColors
 
 // Surfaces
-let card = "rounded-2xl border border-border bg-surface"
+let card = "rounded-2xl border border-border bg-surface shadow-sm"
+// Interactive card: lifts and deepens its shadow on hover.
+let cardInteractive =
+  card ++ " transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-neutral-300"
 let inputBase = "w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action focus-visible:ring-offset-0"
 let label = "block text-sm font-medium text-ink"
 let muted = "text-muted"

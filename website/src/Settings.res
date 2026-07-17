@@ -191,7 +191,7 @@ module Panel = {
     )
     <View.Show when_={Prop.signal(open_)}>
       <Backdrop onClose={() => Signal.set(open_, false)} />
-      <div class="fixed right-3 top-16 z-40 w-72 rounded-2xl border border-border bg-surface p-4 shadow-2xl">
+      <div class="fixed right-3 top-16 z-40 w-72 rounded-2xl border border-border bg-surface p-4 shadow-lg">
         <div class="flex items-center justify-between">
           <h2 class="text-sm font-semibold text-ink"> <View.Text> "Theme" </View.Text> </h2>
           {

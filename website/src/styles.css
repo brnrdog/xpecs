@@ -106,14 +106,18 @@ body {
   text-underline-offset: 2px;
 }
 
-/* A subtle checkerboard so transparent/edge examples remain legible. */
+/* A quiet dot-grid so transparent/edge examples stay legible without the
+ * dated checkerboard. Follows the tokens, so it dims/inverts with the theme. */
 .preview-surface {
   background-color: var(--ux-color-surface);
-  background-image:
-    linear-gradient(45deg, var(--ux-color-neutral-100) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--ux-color-neutral-100) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--ux-color-neutral-100) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--ux-color-neutral-100) 75%);
+  background-image: radial-gradient(var(--ux-color-neutral-200) 1px, transparent 1px);
   background-size: 16px 16px;
-  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-position: -1px -1px;
+}
+
+/* A soft radial wash for hero / feature bands — barely-there warmth, tokenized. */
+.hero-wash {
+  background:
+    radial-gradient(120% 120% at 15% 0%, var(--ux-color-neutral-100) 0%, transparent 55%),
+    radial-gradient(90% 90% at 100% 10%, var(--ux-color-neutral-100) 0%, transparent 45%);
 }

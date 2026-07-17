@@ -14,7 +14,7 @@ let all: array<theme> = [
   {
     id: "monochrome",
     label: "Monochrome",
-    swatches: ["#171717"],
+    swatches: ["#1b1917"],
     tokens: [],
     darkTokens: [],
   },
@@ -77,4 +77,4 @@ let all: array<theme> = [
 ]
 
 // Orthogonal light/dark mode overlays, applied on top of any theme.
-let darkMode: array<(string, string)> = [("color.neutral.0", "#0a0a0a"), ("color.neutral.50", "#171717"), ("color.neutral.100", "#262626"), ("color.neutral.200", "#404040"), ("color.neutral.300", "#525252"), ("color.neutral.400", "#737373"), ("color.neutral.500", "#a3a3a3"), ("color.neutral.600", "#d4d4d4"), ("color.neutral.700", "#e5e5e5"), ("color.neutral.800", "#f5f5f5"), ("color.neutral.900", "#fafafa"), ("color.neutral.950", "#ffffff"), ("color.neutral.1000", "#ffffff")]
+let darkMode: array<(string, string)> = [("color.neutral.0", "#100f0d"), ("color.neutral.50", "#1a1815"), ("color.neutral.100", "#262320"), ("color.neutral.200", "#3a352f"), ("color.neutral.300", "#4d4842"), ("color.neutral.400", "#6f6a61"), ("color.neutral.500", "#a39e94"), ("color.neutral.600", "#d2cec6"), ("color.neutral.700", "#e6e3dd"), ("color.neutral.800", "#f4f3f0"), ("color.neutral.900", "#fafaf8"), ("color.neutral.950", "#ffffff"), ("color.neutral.1000", "#ffffff")]
