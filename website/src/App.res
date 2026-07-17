@@ -710,7 +710,7 @@ module Tokens = {
       </nav>
       <div class="mt-4 flex flex-wrap items-start justify-between gap-3">
         <h1 class="text-3xl font-bold tracking-tight text-neutral-900"> <View.Text> "Design Tokens" </View.Text> </h1>
-        <Button variant=#secondary size=#sm onClick={_ => Settings.resetTokens()}>
+        <Button variant=#secondary size=#sm onClick={_ => Settings.resetTokensAndReload()}>
           <View.Text> "Reset all" </View.Text>
         </Button>
       </div>
@@ -740,9 +740,8 @@ module Tokens = {
 let make = () => {
   // Global ⌘K opens the spotlight search.
   Effect.run(() => Some(Ui.onCmdK(() => Signal.set(spotlightOpen, true))))
-  // Apply any persisted theme settings + per-token overrides on startup.
+  // Re-apply any persisted preset / per-token overrides on startup.
   Effect.run(() => {
-    Settings.load()
     Settings.loadTokenOverrides()
     None
   })
