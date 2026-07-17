@@ -138,11 +138,9 @@ module Topbar = {
   @jsx.component
   let make = () =>
     <header class="flex h-14 shrink-0 items-center gap-3 border-b border-neutral-200 bg-white px-3">
-      <button
-        class="inline-flex size-9 items-center justify-center rounded-lg text-lg text-neutral-600 hover:bg-neutral-100"
-        onClick={_ => Signal.update(sidebarOpen, v => !v)}>
-        <View.Text> "☰" </View.Text>
-      </button>
+      <IconButton label="Toggle sidebar" onClick={_ => Signal.update(sidebarOpen, v => !v)}>
+        <span class="text-lg"> <View.Text> "☰" </View.Text> </span>
+      </IconButton>
       <Router.Link to="/" class="flex items-center gap-2">
         <span class="flex size-7 items-center justify-center rounded-lg bg-neutral-900 text-xs font-bold text-white"> <View.Text> "U" </View.Text> </span>
         <span class="hidden text-sm font-semibold tracking-tight text-neutral-900 sm:block"> <View.Text> "UX Archetypes" </View.Text> </span>
@@ -153,15 +151,16 @@ module Topbar = {
           onClick={_ => Signal.set(spotlightOpen, true)}>
           <span> <View.Text> "🔍" </View.Text> </span>
           <span class="flex-1 text-left"> <View.Text> "Search archetypes…" </View.Text> </span>
-          <span class="rounded border border-neutral-300 bg-white px-1.5 font-mono text-[10px] text-neutral-500"> <View.Text> "⌘K" </View.Text> </span>
+          <Kbd> <View.Text> "⌘K" </View.Text> </Kbd>
         </button>
       </div>
-      <a
-        class="hidden text-sm text-neutral-500 hover:text-neutral-900 sm:block"
+      <Link
         href="https://github.com/brnrdog/ux-archetypes"
-        target="_blank">
+        variant=#muted
+        newTab=true
+        extraClass="hidden text-sm sm:block">
         <View.Text> "GitHub ↗" </View.Text>
-      </a>
+      </Link>
     </header>
 }
 
@@ -226,7 +225,7 @@ module Spotlight = {
               }}
               onKeyDown={onKey}
             />
-            <span class="rounded border border-neutral-200 px-1.5 font-mono text-[10px] text-neutral-400"> <View.Text> "esc" </View.Text> </span>
+            <Kbd> <View.Text> "esc" </View.Text> </Kbd>
           </div>
           <ul class="max-h-80 overflow-y-auto p-2">
             <View.For
@@ -271,17 +270,13 @@ module Home = {
         <div class="mt-1 text-sm text-neutral-500"> <View.Text> {title} </View.Text> </div>
       </div>
     <div class="mx-auto max-w-3xl px-8 py-16">
-      <span class="inline-flex items-center rounded-full border border-neutral-300 px-3 py-1 text-xs text-neutral-600">
-        <View.Text> "Monochrome · Xote · ReScript" </View.Text>
-      </span>
+      <Badge variant=#outline> <View.Text> "Monochrome · Xote · ReScript" </View.Text> </Badge>
       <h1 class="mt-6 text-4xl font-bold tracking-tight text-neutral-900">
         <View.Text> "User Experience Archetypes" </View.Text>
       </h1>
       <p class="mt-4 text-lg leading-relaxed text-neutral-600">
         <View.Text> "A technology-agnostic catalogue of UI patterns. Browse every archetype in the sidebar and see a live implementation rendered with " </View.Text>
-        <a class="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900" href="https://xote.dev" target="_blank">
-          <View.Text> "Xote" </View.Text>
-        </a>
+        <Link href="https://xote.dev" newTab=true> <View.Text> "Xote" </View.Text> </Link>
         <View.Text> "." </View.Text>
       </p>
       <div class="mt-10 grid grid-cols-4 gap-4">
@@ -292,7 +287,7 @@ module Home = {
       </div>
       <p class="mt-10 text-sm text-neutral-500">
         <View.Text> "Press " </View.Text>
-        <span class="rounded border border-neutral-300 bg-white px-1.5 font-mono text-xs text-neutral-600"> <View.Text> "⌘K" </View.Text> </span>
+        <Kbd> <View.Text> "⌘K" </View.Text> </Kbd>
         <View.Text> " to search, or try " </View.Text>
         <Router.Link to="/a/button" class="underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900">
           <View.Text> "Button" </View.Text>
@@ -371,11 +366,9 @@ module ExampleBlock = {
         </div>
         <div class="flex items-center gap-3">
           {hasExample
-            ? <button
-                class="inline-flex items-center gap-1 rounded-lg border border-neutral-200 px-2.5 py-1 text-xs text-neutral-600 transition-colors hover:bg-neutral-100"
-                onClick={_ => Signal.set(full, true)}>
+            ? <Button variant=#secondary size=#sm onClick={_ => Signal.set(full, true)}>
                 <View.Text> "⤢ Fullscreen" </View.Text>
-              </button>
+              </Button>
             : View.null()}
           <a
             class="text-xs text-neutral-400 underline underline-offset-4 hover:text-neutral-700"
@@ -413,11 +406,9 @@ module ExampleBlock = {
         <div class="fixed inset-0 z-50 flex flex-col bg-white">
           <div class="flex h-14 shrink-0 items-center justify-between border-b border-neutral-200 px-4">
             <span class="text-sm font-medium text-neutral-900"> <View.Text> {a.title ++ " — live preview"} </View.Text> </span>
-            <button
-              class="inline-flex items-center gap-1 rounded-lg border border-neutral-200 px-3 py-1.5 text-sm text-neutral-600 hover:bg-neutral-100"
-              onClick={_ => Signal.set(full, false)}>
+            <Button variant=#secondary size=#sm onClick={_ => Signal.set(full, false)}>
               <View.Text> "Close ✕" </View.Text>
-            </button>
+            </Button>
           </div>
           <div class="preview-surface flex flex-1 items-center justify-center overflow-auto p-12">
             {switch Examples.get(a.id) {
@@ -459,10 +450,7 @@ module Detail = {
           <div class="mt-4 flex flex-wrap gap-1.5">
             <View.For
               each={Prop.static(a.tags)}
-              render={t =>
-                <span class="rounded-md bg-neutral-100 px-2 py-0.5 text-xs text-neutral-500">
-                  <View.Text> {t} </View.Text>
-                </span>}
+              render={t => <Badge variant=#soft> <View.Text> {t} </View.Text> </Badge>}
             />
           </div>
         </View.Show>
