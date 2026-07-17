@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { themeVarFor } from "./token-vars.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tokens = JSON.parse(readFileSync(join(here, "..", "..", "tokens", "tokens.json"), "utf8"));
@@ -61,13 +62,13 @@ function cssValue(type, rawValue) {
 }
 
 // --- Tailwind @theme mapping (drives utility classes) -----------------------
+// Any token whose path maps to a theme var (see token-vars.mjs) is emitted here,
+// so bg-neutral-*, rounded-*, shadow-*, font-*, and the spacing base all resolve
+// from the tokens — and overriding the var at runtime re-themes the whole site.
 const themeLines = [];
 for (const [path, tok] of Object.entries(flat)) {
-  const v = cssValue(tok.type, tok.value);
-  if (path.startsWith("color.neutral.")) themeLines.push(`  --color-neutral-${path.split(".")[2]}: ${v};`);
-  else if (path === "font.family.sans") themeLines.push(`  --font-sans: ${v};`);
-  else if (path === "font.family.mono") themeLines.push(`  --font-mono: ${v};`);
-  else if (path.startsWith("radius.")) themeLines.push(`  --radius-${path.split(".")[1]}: ${v};`);
+  const varName = themeVarFor(path);
+  if (varName) themeLines.push(`  ${varName}: ${cssValue(tok.type, tok.value)};`);
 }
 
 // --- :root mirror of every token (--ux-*) -----------------------------------

@@ -8,9 +8,48 @@ let setVar: (string, string) => unit = %raw(`(k, v) => document.documentElement.
 let store: (string, string) => unit = %raw(`(k, v) => { try { localStorage.setItem(k, v) } catch (e) {} }`)
 let removeStore: string => unit = %raw(`(k) => { try { localStorage.removeItem(k) } catch (e) {} }`)
 let read: string => string = %raw(`(k) => { try { return localStorage.getItem(k) || "" } catch (e) { return "" } }`)
+let reload: unit => unit = %raw(`() => location.reload()`)
 let readOr = (k, d) => {
   let v = read(k)
   v == "" ? d : v
+}
+
+// --- Per-token overrides (from the Design Tokens editor) ------------------------
+// A path → value map persisted as JSON. Editing a token overrides its Tailwind
+// theme var (cascades site-wide) and its --ux-* mirror (updates the sample).
+let getOverrides: unit => Dict.t<string> = %raw(`() => { try { return JSON.parse(localStorage.getItem("ux.tokenOverrides") || "{}") } catch (e) { return {} } }`)
+let saveOverrides: Dict.t<string> => unit = %raw(`(o) => { try { localStorage.setItem("ux.tokenOverrides", JSON.stringify(o)) } catch (e) {} }`)
+
+let applyToken = (t: TokensData.token, value) => {
+  setVar(t.uxVar, value)
+  if t.themeVar != "" {
+    setVar(t.themeVar, value)
+  }
+  let o = getOverrides()
+  o->Dict.set(t.path, value)
+  saveOverrides(o)
+}
+
+let loadTokenOverrides = () => {
+  let o = getOverrides()
+  TokensData.all->Array.forEach(g =>
+    g.tokens->Array.forEach(t =>
+      switch o->Dict.get(t.path) {
+      | Some(v) =>
+        setVar(t.uxVar, v)
+        if t.themeVar != "" {
+          setVar(t.themeVar, v)
+        }
+      | None => ()
+      }
+    )
+  )
+}
+
+let tokenOverrideCount = () => getOverrides()->Dict.keysToArray->Array.length
+let resetTokens = () => {
+  saveOverrides(Dict.make())
+  reload()
 }
 
 // --- Presets -------------------------------------------------------------------

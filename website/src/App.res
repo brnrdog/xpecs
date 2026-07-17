@@ -642,35 +642,62 @@ module TraitDetail = {
     }
 }
 
-// The design-token reference — every token the framework defines, generated from
-// tokens.json (TokensData). Samples render the resolved value inline so the page
-// reflects exactly what the framework ships.
+// The design-token editor — every token the framework defines, generated from
+// tokens.json (TokensData) and editable live. Editing overrides the token's
+// Tailwind theme var (cascading through every utility) and its --ux-* mirror;
+// samples read the --ux-* var so they update as you type. Changes persist.
 module Tokens = {
+  // Preview of a token, reading its live --ux-* var so it reflects edits.
   module Sample = {
     @jsx.component
-    let make = (~t: TokensData.token) =>
+    let make = (~t: TokensData.token) => {
+      let v = "var(" ++ t.uxVar ++ ")"
       switch t.sample {
-      | "color" =>
-        <div class="size-10 shrink-0 rounded-md border border-neutral-200" style={"background-color: " ++ t.value} />
-      | "radius" =>
-        <div class="size-10 shrink-0 border-2 border-neutral-900 bg-neutral-100" style={"border-radius: " ++ t.value} />
+      | "radius" => <div class="size-10 shrink-0 border-2 border-neutral-900 bg-neutral-100" style={"border-radius: " ++ v} />
       | "space" =>
-        <div class="flex h-10 w-24 shrink-0 items-center">
-          <div class="h-4 rounded-sm bg-neutral-900" style={"width: " ++ t.value} />
+        <div class="flex h-10 w-20 shrink-0 items-center">
+          <div class="h-4 rounded-sm bg-neutral-900" style={"width: " ++ v} />
         </div>
-      | "shadow" =>
-        <div class="size-10 shrink-0 rounded-md border border-neutral-100 bg-white" style={"box-shadow: " ++ t.value} />
-      | "border" =>
-        <div class="size-10 shrink-0 rounded-md border-solid border-neutral-900 bg-neutral-50" style={"border-width: " ++ t.value} />
-      | "font-family" =>
-        <span class="w-10 shrink-0 text-2xl text-neutral-900" style={"font-family: " ++ t.value}> <View.Text> "Ag" </View.Text> </span>
-      | "font-size" =>
-        <span class="flex h-10 w-10 shrink-0 items-center text-neutral-900" style={"font-size: " ++ t.value}> <View.Text> "Ag" </View.Text> </span>
-      | "font-weight" =>
-        <span class="w-10 shrink-0 text-2xl text-neutral-900" style={"font-weight: " ++ t.value}> <View.Text> "Ag" </View.Text> </span>
-      | _ =>
-        <span class="flex size-10 shrink-0 items-center justify-center rounded-md bg-neutral-100 font-mono text-xs text-neutral-500"> <View.Text> {t.value} </View.Text> </span>
+      | "shadow" => <div class="size-10 shrink-0 rounded-md border border-neutral-100 bg-white" style={"box-shadow: " ++ v} />
+      | "border" => <div class="size-10 shrink-0 rounded-md border-solid border-neutral-900 bg-neutral-50" style={"border-width: " ++ v} />
+      | "font-family" => <span class="w-10 shrink-0 text-2xl text-neutral-900" style={"font-family: " ++ v}> <View.Text> "Ag" </View.Text> </span>
+      | "font-size" => <span class="flex h-10 w-10 shrink-0 items-center text-neutral-900" style={"font-size: " ++ v}> <View.Text> "Ag" </View.Text> </span>
+      | "font-weight" => <span class="w-10 shrink-0 text-2xl text-neutral-900" style={"font-weight: " ++ v}> <View.Text> "Ag" </View.Text> </span>
+      | _ => <span class="flex size-10 shrink-0 items-center justify-center rounded-md bg-neutral-100 font-mono text-[10px] text-neutral-500"> <View.Text> {t.value} </View.Text> </span>
       }
+    }
+  }
+
+  module Row = {
+    @jsx.component
+    let make = (~t: TokensData.token) =>
+      <div class="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3">
+        {t.sample == "color"
+          ? <input
+              type_="color"
+              value={t.value}
+              onInput={e => Settings.applyToken(t, Ui.inputValue(e))}
+              class="size-10 shrink-0 cursor-pointer rounded-md border border-neutral-200 bg-transparent"
+            />
+          : <Sample t />}
+        <div class="min-w-0 flex-1">
+          <div class="font-mono text-sm text-neutral-900"> <View.Text> {t.name} </View.Text> </div>
+          <View.Show when_={Prop.static(t.raw != "")}>
+            <div class="font-mono text-xs text-neutral-300"> <View.Text> {t.raw} </View.Text> </div>
+          </View.Show>
+          <View.Show when_={Prop.static(t.description != "")}>
+            <div class="mt-0.5 text-xs text-neutral-500"> <View.Text> {t.description} </View.Text> </div>
+          </View.Show>
+        </div>
+        <View.Show when_={Prop.static(t.sample != "color")}>
+          <input
+            type_="text"
+            value={t.value}
+            onInput={e => Settings.applyToken(t, Ui.inputValue(e))}
+            class="w-24 shrink-0 rounded-md border border-neutral-300 px-2 py-1 text-right font-mono text-xs text-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
+          />
+        </View.Show>
+      </div>
   }
 
   @jsx.component
@@ -681,13 +708,18 @@ module Tokens = {
         <span> <View.Text> "/" </View.Text> </span>
         <span class="text-neutral-700"> <View.Text> "Design Tokens" </View.Text> </span>
       </nav>
-      <h1 class="mt-4 text-3xl font-bold tracking-tight text-neutral-900"> <View.Text> "Design Tokens" </View.Text> </h1>
+      <div class="mt-4 flex flex-wrap items-start justify-between gap-3">
+        <h1 class="text-3xl font-bold tracking-tight text-neutral-900"> <View.Text> "Design Tokens" </View.Text> </h1>
+        <Button variant=#secondary size=#sm onClick={_ => Settings.resetTokens()}>
+          <View.Text> "Reset all" </View.Text>
+        </Button>
+      </div>
       <p class="mt-4 text-lg leading-relaxed text-neutral-600">
         <View.Text> "The primitives every archetype is built on — generated from the framework's " </View.Text>
         <Link href="https://github.com/brnrdog/ux-archetypes/blob/main/tokens/tokens.json" newTab=true>
           <View.Text> "tokens.json" </View.Text>
         </Link>
-        <View.Text> ". Contracts reference these by role; the theme is driven entirely by them." </View.Text>
+        <View.Text> ". Edit any value below and watch it cascade through the whole site — the theme is driven entirely by these. Changes persist locally." </View.Text>
       </p>
 
       <View.For
@@ -697,25 +729,7 @@ module Tokens = {
             <h2 class="text-lg font-semibold tracking-tight text-neutral-900 capitalize"> <View.Text> {g.group} </View.Text> </h2>
             <p class="mt-1 text-sm text-neutral-500"> <View.Text> {g.description} </View.Text> </p>
             <div class="mt-4 grid gap-3 sm:grid-cols-2">
-              <View.For
-                each={Prop.static(g.tokens)}
-                render={t =>
-                  <div class="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3">
-                    <Sample t />
-                    <div class="min-w-0">
-                      <div class="font-mono text-sm text-neutral-900"> <View.Text> {t.name} </View.Text> </div>
-                      <div class="flex flex-wrap items-center gap-x-2 font-mono text-xs text-neutral-400">
-                        <span> <View.Text> {t.value} </View.Text> </span>
-                        <View.Show when_={Prop.static(t.raw != "")}>
-                          <span class="text-neutral-300"> <View.Text> {t.raw} </View.Text> </span>
-                        </View.Show>
-                      </div>
-                      <View.Show when_={Prop.static(t.description != "")}>
-                        <div class="mt-0.5 text-xs text-neutral-500"> <View.Text> {t.description} </View.Text> </div>
-                      </View.Show>
-                    </div>
-                  </div>}
-              />
+              <View.For each={Prop.static(g.tokens)} render={t => <Row t />} />
             </div>
           </section>}
       />
@@ -726,9 +740,10 @@ module Tokens = {
 let make = () => {
   // Global ⌘K opens the spotlight search.
   Effect.run(() => Some(Ui.onCmdK(() => Signal.set(spotlightOpen, true))))
-  // Apply any persisted theme settings on startup.
+  // Apply any persisted theme settings + per-token overrides on startup.
   Effect.run(() => {
     Settings.load()
+    Settings.loadTokenOverrides()
     None
   })
   let routes = Router.routes([

@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { themeVarFor } from "./token-vars.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const tokens = JSON.parse(readFileSync(join(here, "..", "..", "tokens", "tokens.json"), "utf8"));
@@ -75,10 +76,13 @@ for (const [path, tok] of Object.entries(flat)) {
   if (!groups.has(group)) groups.set(group, []);
   groups.get(group).push({
     name: path.slice(group.length + 1), // path minus the group prefix
+    path,
     value: cssValue(tok.type, tok.value),
     raw: typeof tok.value === "string" && tok.value.startsWith("{") ? tok.value : "",
     description: tok.description,
     sample: sampleOf(path, tok.type),
+    themeVar: themeVarFor(path),
+    uxVar: `--ux-${path.replace(/\./g, "-")}`,
   });
 }
 
@@ -105,7 +109,7 @@ const body = ordered
       .get(g)
       .map(
         (t) =>
-          `      { name: ${s(t.name)}, value: ${s(t.value)}, raw: ${s(t.raw)}, description: ${s(t.description)}, sample: ${s(t.sample)} }`,
+          `      { name: ${s(t.name)}, path: ${s(t.path)}, value: ${s(t.value)}, raw: ${s(t.raw)}, description: ${s(t.description)}, sample: ${s(t.sample)}, themeVar: ${s(t.themeVar)}, uxVar: ${s(t.uxVar)} }`,
       )
       .join(",\n");
     return `  {
@@ -124,10 +128,13 @@ const out = `// GENERATED FILE — do not edit by hand.
 
 type token = {
   name: string,
+  path: string,
   value: string,
   raw: string,
   description: string,
   sample: string,
+  themeVar: string,
+  uxVar: string,
 }
 
 type group = {

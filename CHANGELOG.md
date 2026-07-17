@@ -115,6 +115,14 @@ released.
 
 ### Website
 
+- **Design Tokens page + live editor.** A generated reference of every token the
+  framework defines (from `tokens.json`), where each token is **editable in
+  place** — colors via a picker, dimensions/fonts via text. Edits override the
+  token's Tailwind `@theme` variable so they cascade through the entire site
+  (colors, radius, shadow, fonts, weight, and spacing base), persist locally, and
+  reset. The `@theme` mapping was widened so more token groups drive utilities.
+  A live theme settings popup (accent / radius / font presets) sits in the topbar
+  and links here.
 - New app shell: a topbar with a **spotlight search** (⌘K / Ctrl+K) that filters
   and jumps to any archetype, a **collapsible sidebar**, and a **fullscreen** view
   for any live example (Escape to exit).
