@@ -743,6 +743,7 @@ let make = () => {
   // Re-apply any persisted preset / per-token overrides on startup.
   Effect.run(() => {
     Settings.loadTokenOverrides()
+    Settings.syncColorScheme()
     None
   })
   let routes = Router.routes([

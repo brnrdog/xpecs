@@ -96,7 +96,8 @@ released.
   every theme and mode override is validated against the tokens
   (`conformance:tokens`). The reference components and chrome were made fully
   token-driven (`bg-surface` / `text-ink` / `text-neutral-0` instead of literal
-  `bg-white` / `text-white`) so dark mode inverts cleanly.
+  `bg-white` / `text-white`) so dark mode inverts cleanly. Scrollbars are
+  token-styled (and `color-scheme` is set per mode) so they follow the theme too.
 - **Machine-readable API contracts.** Archetypes can now carry an `## API`
   section — a `json` block naming the props (with types, enum values, and
   defaults), slots, events, accessibility expectations, states, and design-token

@@ -99,6 +99,11 @@ let darkMode = Signal.make(readOr("ux.mode", "light") == "dark")
 
 let themeById = id => ThemesData.all->Array.find(t => t.id == id)
 
+// Tell the browser which scheme is active so native UI (scrollbars, form
+// controls) matches; custom scrollbar styling in styles.css follows the tokens.
+let setColorScheme: string => unit = %raw(`(v) => { document.documentElement.style.colorScheme = v }`)
+let syncColorScheme = () => setColorScheme(Signal.get(darkMode) ? "dark" : "light")
+
 let applyTheme = (t: ThemesData.theme, dark) => {
   clearOverrides()
   t.tokens->Array.forEach(((path, v)) => applyByPath(path, v))
@@ -107,6 +112,7 @@ let applyTheme = (t: ThemesData.theme, dark) => {
   }
   Signal.set(presetSel, t.id)
   Signal.set(darkMode, dark)
+  setColorScheme(dark ? "dark" : "light")
   store("ux.preset", t.id)
   store("ux.mode", dark ? "dark" : "light")
 }
