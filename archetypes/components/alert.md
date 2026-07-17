@@ -23,6 +23,24 @@ An alert surfaces an important message in the flow of a page — a warning, a ti
 success confirmation, or an error summary. Unlike a toast, it stays in place and
 in context; unlike an alert-dialog, it doesn't interrupt or block the user.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"variant","type":"enum","values":["info","success","warning","danger"],"default":"info","description":"Severity."}
+  ],
+  "slots": [
+    {"name":"icon","required":false},
+    {"name":"title","required":false},
+    {"name":"description","required":true}
+  ],
+  "a11y": {"role":"alert","announces":["message"]},
+  "states": ["default"],
+  "tokens": ["color.status.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

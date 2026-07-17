@@ -24,6 +24,22 @@ scanning and comparison across records and attributes. It is the clearest way to
 present tabular information where relationships between columns matter; the
 interactive **data-table** builds on it.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"header","required":true},
+    {"name":"row","required":true},
+    {"name":"caption","required":false}
+  ],
+  "a11y": {"role":"table","announces":["row and column headers"]},
+  "states": ["default","empty"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -24,6 +24,20 @@ unit, a select, or a button — into one composite control. It gives the value
 context (currency symbol, protocol, unit) or an attached action (search, copy,
 apply) while reading as a single, cohesive field.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"addon","required":false},
+    {"name":"input","required":true}
+  ],
+  "states": ["default","focus-visible","disabled"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -25,6 +25,25 @@ so a surface can offer many operations without clutter. It's the workhorse for
 "more actions", account menus, and overflow — an explicitly triggered, keyboard-
 navigable menu of commands.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"trigger","required":true},
+    {"name":"item","required":true},
+    {"name":"separator","required":false}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"menu","keyboard":["ArrowUp","ArrowDown","Enter","Escape"],"announces":["active item"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

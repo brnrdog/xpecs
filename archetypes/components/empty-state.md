@@ -24,6 +24,22 @@ results, a cleared inbox — turning a dead end into guidance. It explains why t
 space is empty and points to the next useful action, so absence of data doesn't
 feel like a broken screen.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"icon","required":false},
+    {"name":"title","required":true},
+    {"name":"description","required":false},
+    {"name":"action","required":false}
+  ],
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

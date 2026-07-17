@@ -23,6 +23,24 @@ Pagination breaks a long set of results into pages and gives users controls to
 move among them. It bounds how much loads and renders at once, and lets users
 orient themselves ("page 3 of 20") within a large collection.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"page","type":"number","default":"1","description":"Current page."},
+    {"name":"total","type":"number","default":"1","description":"Total pages."}
+  ],
+  "slots": [
+    {"name":"control","required":true,"description":"Prev/next and page links."}
+  ],
+  "events": ["onPageChange"],
+  "a11y": {"role":"navigation","keyboard":["Enter"],"announces":["current page"]},
+  "states": ["default","disabled"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

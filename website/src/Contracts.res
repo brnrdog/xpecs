@@ -43,3 +43,59 @@ module ToggleGroup = {
 module Typography = {
   type variant = [#h1 | #h2 | #h3 | #h4 | #body | #small | #muted | #code]
 }
+
+module Accordion = {
+  type type_ = [#single | #multiple]
+}
+
+module Alert = {
+  type variant = [#info | #success | #warning | #danger]
+}
+
+module ButtonGroup = {
+  type orientation = [#horizontal | #vertical]
+}
+
+module Calendar = {
+  type mode = [#single | #range | #multiple]
+}
+
+module Carousel = {
+  type orientation = [#horizontal | #vertical]
+}
+
+module Chart = {
+  type type_ = [#bar | #line | #area | #pie]
+}
+
+module Drawer = {
+  type side = [#left | #right | #top | #bottom]
+}
+
+module Resizable = {
+  type orientation = [#horizontal | #vertical]
+}
+
+module Sheet = {
+  type side = [#left | #right | #top | #bottom]
+}
+
+module Stat = {
+  type trend = [#up | #down | #flat]
+}
+
+module Tabs = {
+  type orientation = [#horizontal | #vertical]
+}
+
+module Toast = {
+  type variant = [#info | #success | #warning | #danger]
+}
+
+module Toolbar = {
+  type orientation = [#horizontal | #vertical]
+}
+
+module PricingTable = {
+  type interval = [#monthly | #yearly]
+}

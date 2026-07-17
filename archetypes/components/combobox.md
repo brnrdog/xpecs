@@ -25,6 +25,26 @@ either type to narrow options or browse and pick one. It scales selection to lar
 option sets where a plain select would be unwieldy, and supports free-form entry
 when allowed.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"value","type":"string","default":"","description":"Selected value."},
+    {"name":"disabled","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"input","required":true},
+    {"name":"option","required":true},
+    {"name":"empty","required":false}
+  ],
+  "events": ["onChange","onInput"],
+  "a11y": {"role":"combobox","keyboard":["ArrowDown","ArrowUp","Enter","Escape"],"announces":["expanded","active option"]},
+  "states": ["closed","open","loading","empty","disabled"],
+  "tokens": ["color.action.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

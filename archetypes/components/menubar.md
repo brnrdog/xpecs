@@ -25,6 +25,22 @@ top-level menus (File, Edit, View…), each opening a list of grouped actions. I
 mirrors the desktop-application menu model, giving power users a comprehensive,
 predictable home for commands.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"menu","required":true},
+    {"name":"item","required":true}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"menubar","keyboard":["ArrowLeft","ArrowRight","ArrowDown","Enter","Escape"],"announces":["active item"]},
+  "states": ["default","open"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

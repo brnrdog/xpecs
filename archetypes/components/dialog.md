@@ -24,6 +24,25 @@ content — a form, details, a confirmation with body content — while dimming 
 disabling the rest of the interface. It concentrates attention without navigating
 away, then returns the user exactly where they were.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false","description":"Whether the dialog is shown."}
+  ],
+  "slots": [
+    {"name":"header","required":true},
+    {"name":"body","required":true},
+    {"name":"footer","required":false}
+  ],
+  "events": ["onOpenChange"],
+  "a11y": {"role":"dialog","keyboard":["Tab","Escape"],"announces":["name"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.lg"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

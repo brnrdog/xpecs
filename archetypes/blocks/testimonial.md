@@ -24,6 +24,21 @@ who said it. Its power comes from credibility and specificity — a named person
 their role and company, and a concrete outcome — which reassures prospects far
 more than the brand describing itself.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"quote","required":true},
+    {"name":"attribution","required":true},
+    {"name":"avatar","required":false}
+  ],
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -25,6 +25,22 @@ the conventional home for everything that doesn't belong in primary navigation b
 should be reliably findable, anchoring the bottom of nearly every marketing and
 content page.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"brand","required":false},
+    {"name":"links","required":true},
+    {"name":"legal","required":false}
+  ],
+  "a11y": {"role":"contentinfo"},
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

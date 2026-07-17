@@ -24,6 +24,23 @@ and _what can I do from anywhere_. It anchors brand identity and the top level o
 the information architecture, and it hosts the handful of global actions (search,
 account, primary call to action) that should be reachable from every page.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"brand","required":true},
+    {"name":"nav","required":true},
+    {"name":"actions","required":false},
+    {"name":"account","required":false}
+  ],
+  "a11y": {"role":"navigation","announces":["current section"]},
+  "states": ["default","collapsed"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

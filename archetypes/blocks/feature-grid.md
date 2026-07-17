@@ -24,6 +24,21 @@ short, parallel items — each an icon, a title, and a sentence. It lets a visit
 grasp the breadth of what's offered at a glance, framed as outcomes for the user
 rather than a raw list of capabilities.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"columns","type":"number","default":"3","description":"Items per row on wide viewports."}
+  ],
+  "slots": [
+    {"name":"feature","required":true,"description":"Icon + title + description."}
+  ],
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

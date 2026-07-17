@@ -24,6 +24,27 @@ sort, filter, paginate, select, and trigger row actions. It extends the static
 table into a working surface for datasets too large to read at once, common in
 admin and analytics contexts.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"sortable","type":"boolean","default":"true"},
+    {"name":"selectable","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"column","required":true},
+    {"name":"row","required":true},
+    {"name":"toolbar","required":false},
+    {"name":"pagination","required":false}
+  ],
+  "events": ["onSort","onSelect","onPage"],
+  "a11y": {"role":"table","keyboard":["Tab","Space"],"announces":["sort state","selection"]},
+  "states": ["default","loading","empty","sorted","selected"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

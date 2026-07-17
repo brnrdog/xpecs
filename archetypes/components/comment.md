@@ -23,6 +23,22 @@ and what you can do about it (reply, react, edit). It's the repeating unit that
 composes threads and activity feeds, so its clarity about authorship and timing,
 and its handling of nesting and moderation, shape the whole conversation.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"author","required":true},
+    {"name":"body","required":true},
+    {"name":"actions","required":false},
+    {"name":"composer","required":false}
+  ],
+  "states": ["default"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

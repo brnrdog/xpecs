@@ -23,6 +23,24 @@ A chart encodes data visually so people can perceive trends, comparisons, and
 distributions faster than reading numbers. It turns a dataset into a shape the eye
 can interpret, supporting decisions on dashboards and reports.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"type","type":"enum","values":["bar","line","area","pie"],"default":"bar","description":"Visual encoding."}
+  ],
+  "slots": [
+    {"name":"series","required":true},
+    {"name":"axis","required":false},
+    {"name":"legend","required":false}
+  ],
+  "a11y": {"role":"img","announces":["summary","data table alternative"]},
+  "states": ["default","loading","empty"],
+  "tokens": ["color.chart.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

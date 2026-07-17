@@ -23,6 +23,22 @@ surface, making it scannable and manipulable as a unit. Cards turn a page of
 disparate information into a tidy set of digestible objects, and tile naturally
 into grids and lists.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"media","required":false},
+    {"name":"header","required":false},
+    {"name":"body","required":true},
+    {"name":"actions","required":false}
+  ],
+  "states": ["default","hover","focus-visible"],
+  "tokens": ["color.neutral.*","radius.lg"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

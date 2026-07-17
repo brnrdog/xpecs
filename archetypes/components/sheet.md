@@ -25,6 +25,26 @@ secondary content or a task while keeping the page context adjacent. It's roomie
 than a popover and less interruptive than a centered dialog — ideal for details,
 filters, or edit forms that relate to what's on screen.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false"},
+    {"name":"side","type":"enum","values":["left","right","top","bottom"],"default":"right","description":"Edge it slides from."}
+  ],
+  "slots": [
+    {"name":"header","required":false},
+    {"name":"body","required":true},
+    {"name":"footer","required":false}
+  ],
+  "events": ["onOpenChange"],
+  "a11y": {"role":"dialog","keyboard":["Tab","Escape"],"announces":["name"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.lg"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

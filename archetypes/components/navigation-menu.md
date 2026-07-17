@@ -25,6 +25,22 @@ can reveal flyout panels grouping related links (a "mega menu"). It scales site
 navigation beyond a flat row, organizing many destinations into browsable
 categories while keeping the top level clean.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"item","required":true},
+    {"name":"content","required":false}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"navigation","keyboard":["ArrowLeft","ArrowRight","Enter","Escape"],"announces":["expanded"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -25,6 +25,26 @@ across commands, navigation targets, and entities, then execute or jump with a
 keystroke. It collapses deep menus into one fast query box, usually summoned by a
 shortcut from anywhere in the app.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false","description":"Whether the palette is shown."}
+  ],
+  "slots": [
+    {"name":"input","required":true},
+    {"name":"group","required":false},
+    {"name":"item","required":true},
+    {"name":"empty","required":false}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"dialog","keyboard":["ArrowDown","ArrowUp","Enter","Escape"],"announces":["active command"]},
+  "states": ["closed","open","empty"],
+  "tokens": ["color.neutral.*","radius.lg"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

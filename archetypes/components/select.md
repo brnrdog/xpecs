@@ -24,6 +24,25 @@ A select lets users choose from a defined set of options by opening a list and
 picking one (or several). It conserves space compared to showing all options and
 suits sets too long for radios but not large enough to need typed filtering.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"value","type":"string","default":"","description":"Selected value."},
+    {"name":"disabled","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"trigger","required":true},
+    {"name":"option","required":true}
+  ],
+  "events": ["onChange"],
+  "a11y": {"role":"listbox","keyboard":["ArrowDown","ArrowUp","Enter","Escape","Home","End"],"announces":["selected option"]},
+  "states": ["closed","open","disabled"],
+  "tokens": ["color.action.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

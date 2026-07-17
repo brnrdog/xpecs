@@ -25,6 +25,26 @@ failed" — then dismisses itself, confirming an action or reporting a backgroun
 event without interrupting the user's flow. It's ephemeral and non-blocking, the
 opposite of a dialog.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"variant","type":"enum","values":["info","success","warning","danger"],"default":"info","description":"Severity."},
+    {"name":"duration","type":"number","default":"5000","description":"Auto-dismiss delay (ms)."}
+  ],
+  "slots": [
+    {"name":"title","required":true},
+    {"name":"description","required":false},
+    {"name":"action","required":false}
+  ],
+  "events": ["onDismiss"],
+  "a11y": {"role":"status","announces":["message"]},
+  "states": ["entering","visible","leaving"],
+  "tokens": ["color.status.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

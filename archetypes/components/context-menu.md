@@ -25,6 +25,24 @@ in place by right-click (or long-press on touch). It surfaces object-specific
 commands exactly where the user is working, without permanently occupying screen
 space.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"item","required":true},
+    {"name":"separator","required":false}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"menu","keyboard":["ArrowUp","ArrowDown","Enter","Escape"],"announces":["active item"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

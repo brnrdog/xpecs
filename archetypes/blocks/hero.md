@@ -24,6 +24,23 @@ a few words, what the product is and why it matters, and offers the single most
 important next step. It has one job — communicate the value proposition and get
 the user to act — so everything in it earns its place toward that goal.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"eyebrow","required":false},
+    {"name":"headline","required":true},
+    {"name":"subhead","required":false},
+    {"name":"actions","required":true},
+    {"name":"media","required":false}
+  ],
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

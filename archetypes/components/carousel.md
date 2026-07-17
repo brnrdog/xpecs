@@ -24,6 +24,25 @@ horizontally scrollable track, showing a subset at a time with controls to move
 through them. It suits browsable, non-essential content where saving vertical
 space matters more than seeing everything at once.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Scroll axis."},
+    {"name":"loop","type":"boolean","default":"false","description":"Wrap from last to first."}
+  ],
+  "slots": [
+    {"name":"slide","required":true},
+    {"name":"controls","required":false}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"group","keyboard":["ArrowLeft","ArrowRight"],"announces":["slide x of n"]},
+  "states": ["default","dragging"],
+  "tokens": ["radius.md","color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

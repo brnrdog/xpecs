@@ -21,13 +21,14 @@ released.
 
 ### Added
 
-- **API contracts on every element.** All 26 element archetypes now carry a
-  `## API` contract (props, slots, events, a11y, states, tokens). Nine are
-  mapped to a reference implementation via a new `implementation:` frontmatter
-  field and conformance-checked on every build; five of those (button, badge,
-  icon-button, link, separator) are **compiler-enforced** — the component
-  annotates its props with the generated `Contracts.*` types, so an enum value
-  that drifts from the spec fails to compile.
+- **API contracts on every element, component, and block.** All 74
+  element/component/block archetypes now carry a `## API` contract (props,
+  slots, events, a11y, states, tokens); pages and flows are excluded as
+  non-implementable. Ten are mapped to a reference implementation via a new
+  `implementation:` frontmatter field and conformance-checked on every build;
+  five (button, badge, icon-button, link, separator) are **compiler-enforced** —
+  the component annotates its props with the generated `Contracts.*` types, so an
+  enum value that drifts from the spec fails to compile.
 - `INDEX.md` is now **generated** from the specs' frontmatter (`npm run index`),
   so the registry can no longer drift from the archetypes.
 

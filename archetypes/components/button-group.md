@@ -24,6 +24,21 @@ belong together — a set of related actions, or a primary action paired with a 
 of alternatives (a split button). It clarifies relationships and conserves space in
 toolbars and action areas.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Layout axis."}
+  ],
+  "slots": [
+    {"name":"button","required":true,"description":"A button joined into the unit."}
+  ],
+  "states": ["default"],
+  "tokens": ["radius.md","color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

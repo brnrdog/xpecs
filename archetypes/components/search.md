@@ -25,6 +25,26 @@ a way to clear the query, live suggestions or recent searches, and a predictable
 results and empty state. It's how users cut through volume to the one thing they
 want.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"value","type":"string","default":"","description":"Query text."},
+    {"name":"placeholder","type":"string","default":"Search","description":"Empty hint."}
+  ],
+  "slots": [
+    {"name":"input","required":true},
+    {"name":"suggestions","required":false},
+    {"name":"clear","required":false}
+  ],
+  "events": ["onSearch","onInput"],
+  "a11y": {"role":"searchbox","keyboard":["Enter","Escape","ArrowDown"],"announces":["results count"]},
+  "states": ["default","focus-visible","loading","empty"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

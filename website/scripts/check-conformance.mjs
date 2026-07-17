@@ -13,7 +13,7 @@ const srcDir = join(here, "..", "src");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
 // ReScript renames a few reserved words used as prop labels.
-const reserved = { type: "type_" };
+const reserved = { type: "type_", for: "for_", open: "open_" };
 const pascal = (id) =>
   id
     .split("-")

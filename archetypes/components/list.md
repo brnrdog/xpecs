@@ -24,6 +24,22 @@ a compact summary and optional actions. It suits object-like items scanned top t
 bottom — messages, files, people, notifications — where a single primary attribute
 leads and a table's columns would be overkill.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"interactive","type":"boolean","default":"false","description":"Whether rows are selectable/clickable."}
+  ],
+  "slots": [
+    {"name":"item","required":true}
+  ],
+  "a11y": {"role":"list","keyboard":["ArrowUp","ArrowDown"]},
+  "states": ["default","hover","selected"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

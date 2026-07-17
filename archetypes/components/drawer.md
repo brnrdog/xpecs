@@ -25,6 +25,26 @@ touch — keeping partial context visible and inviting gesture-driven dismissal.
 suits mobile-first flows and secondary content that should feel attached to the
 current screen rather than replacing it.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false"},
+    {"name":"side","type":"enum","values":["left","right","top","bottom"],"default":"right","description":"Edge it slides from."}
+  ],
+  "slots": [
+    {"name":"header","required":false},
+    {"name":"body","required":true},
+    {"name":"footer","required":false}
+  ],
+  "events": ["onOpenChange"],
+  "a11y": {"role":"dialog","keyboard":["Tab","Escape"],"announces":["name"]},
+  "states": ["closed","open","dragging"],
+  "tokens": ["color.neutral.*","radius.lg"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

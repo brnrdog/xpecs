@@ -24,6 +24,24 @@ handles, letting users decide how to split available space — a file tree besid
 editor, a list beside a detail pane. It hands layout control to the user for
 workspace-style interfaces where preferred proportions vary.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Axis panels split along."}
+  ],
+  "slots": [
+    {"name":"panel","required":true},
+    {"name":"handle","required":true}
+  ],
+  "events": ["onResize"],
+  "a11y": {"role":"separator","keyboard":["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"],"announces":["size"]},
+  "states": ["default","dragging","focus-visible"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

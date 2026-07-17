@@ -24,6 +24,24 @@ application's content, scaling to many sections and nested groups. It's the prim
 wayfinding surface for product/app shells where a horizontal navbar would run out
 of room, keeping destinations always visible or a click away.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"collapsed","type":"boolean","default":"false","description":"Whether the rail is collapsed."}
+  ],
+  "slots": [
+    {"name":"header","required":false},
+    {"name":"nav","required":true},
+    {"name":"footer","required":false}
+  ],
+  "a11y": {"role":"navigation","keyboard":["ArrowUp","ArrowDown"],"announces":["current section"]},
+  "states": ["expanded","collapsed"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

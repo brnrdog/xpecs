@@ -23,6 +23,22 @@ A breadcrumb shows where the current page sits within a hierarchy and offers a
 one-click path back to any ancestor. It answers "where am I and how do I get
 back," reinforcing structure in deep or nested products.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"separator","type":"string","default":"/","description":"Glyph between crumbs."}
+  ],
+  "slots": [
+    {"name":"item","required":true,"description":"A link to an ancestor; the last is the current page."}
+  ],
+  "a11y": {"role":"navigation","announces":["current page"]},
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

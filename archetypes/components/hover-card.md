@@ -25,6 +25,21 @@ item's details — when the pointer rests on a trigger. It offers a peek of rela
 information without a click or navigation, richer than a plain tooltip but lighter
 than opening a page.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"trigger","required":true},
+    {"name":"content","required":true}
+  ],
+  "a11y": {"announces":["preview"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

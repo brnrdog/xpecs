@@ -25,6 +25,24 @@ present contextual content or lightweight controls near what they relate to. It 
 the shared foundation many overlays build on (menus, selects, date pickers), and
 on its own it holds small interactive content without the weight of a modal dialog.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"trigger","required":true},
+    {"name":"content","required":true}
+  ],
+  "events": ["onOpenChange"],
+  "a11y": {"keyboard":["Escape"],"announces":["expanded"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

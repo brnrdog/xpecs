@@ -25,6 +25,25 @@ place, showing one panel at a time. They organize a moderate amount of content
 without navigation or scrolling, keeping the user in the same context while they
 move between views of the same subject.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"value","type":"string","default":"","description":"Active tab id."},
+    {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Layout axis."}
+  ],
+  "slots": [
+    {"name":"tab","required":true},
+    {"name":"panel","required":true}
+  ],
+  "events": ["onChange"],
+  "a11y": {"role":"tablist","keyboard":["ArrowLeft","ArrowRight","Home","End"],"announces":["selected tab"]},
+  "states": ["default","selected","focus-visible","disabled"],
+  "tokens": ["color.action.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

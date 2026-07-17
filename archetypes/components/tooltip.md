@@ -25,6 +25,22 @@ focuses it — the meaning of an icon button, a truncated label, an extra detail
 supplies supplementary clarification without permanently occupying space, and must
 never carry essential or interactive content.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"content","type":"string","default":"","description":"The label text."}
+  ],
+  "slots": [
+    {"name":"trigger","required":true}
+  ],
+  "a11y": {"role":"tooltip","keyboard":["Escape"],"announces":["label"]},
+  "states": ["hidden","visible"],
+  "tokens": ["color.neutral.*","radius.sm"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

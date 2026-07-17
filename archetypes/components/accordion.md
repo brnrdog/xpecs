@@ -23,6 +23,25 @@ An accordion organizes related content into collapsible sections so users can
 scan headers and expand only what they need. It reduces long pages to a
 manageable overview and is a natural fit for FAQs and grouped settings.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"type","type":"enum","values":["single","multiple"],"default":"single","description":"One panel open at a time, or many."},
+    {"name":"collapsible","type":"boolean","default":"true","description":"Whether the open panel can be closed again."},
+    {"name":"value","type":"string","default":"","description":"id(s) of the open item(s)."}
+  ],
+  "slots": [
+    {"name":"item","required":true,"description":"A header + collapsible panel pair."}
+  ],
+  "events": ["onChange"],
+  "a11y": {"keyboard":["Enter","Space","ArrowUp","ArrowDown"],"announces":["expanded"]},
+  "states": ["collapsed","expanded","focus-visible","disabled"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

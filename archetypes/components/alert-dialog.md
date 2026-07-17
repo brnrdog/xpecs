@@ -25,6 +25,26 @@ hard to undo — deleting data, discarding changes, or canceling a running job. 
 demands an explicit decision before anything continues, making it distinct from a
 general-purpose dialog used for tasks and forms.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false","description":"Whether the dialog is shown."}
+  ],
+  "slots": [
+    {"name":"title","required":true},
+    {"name":"description","required":true},
+    {"name":"cancel","required":true},
+    {"name":"confirm","required":true}
+  ],
+  "events": ["onConfirm","onCancel"],
+  "a11y": {"role":"alertdialog","keyboard":["Tab","Escape"],"announces":["name","description"]},
+  "states": ["closed","open"],
+  "tokens": ["color.neutral.*","radius.lg"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

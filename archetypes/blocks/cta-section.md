@@ -24,6 +24,20 @@ one action you want the visitor to take. After they've scrolled the argument, it
 gives momentum a place to land — a clear prompt and a single button (or a short
 lead-capture) — without the distraction of surrounding content.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"headline","required":true},
+    {"name":"action","required":true}
+  ],
+  "states": ["default"],
+  "tokens": ["color.action.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -23,6 +23,24 @@ A collapsible is a single show/hide region controlled by a trigger. It defers
 secondary detail until the user asks for it — a "show more", an optional form
 section, an expandable row of detail — keeping the default view clean.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"open","type":"boolean","default":"false","description":"Whether the region is expanded."}
+  ],
+  "slots": [
+    {"name":"trigger","required":true},
+    {"name":"content","required":true}
+  ],
+  "events": ["onToggle"],
+  "a11y": {"keyboard":["Enter","Space"],"announces":["expanded"]},
+  "states": ["collapsed","expanded"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

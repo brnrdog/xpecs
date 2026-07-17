@@ -23,6 +23,23 @@ accomplish a goal — signing in, creating a record, updating settings. It
 orchestrates fields, guidance, validation, and submission into one coherent,
 accessible flow, minimizing effort and error.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"fields","required":true},
+    {"name":"validation","required":true},
+    {"name":"actions","required":true}
+  ],
+  "events": ["onSubmit"],
+  "a11y": {"announces":["errors","submitting"]},
+  "states": ["default","submitting","success","error"],
+  "tokens": ["color.action.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -24,6 +24,23 @@ costs and includes, then choose. It makes differences legible at a glance,
 highlights a recommended plan to guide the decision, and answers the practical
 questions — price, billing period, and what's in each tier — that gate a purchase.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"interval","type":"enum","values":["monthly","yearly"],"default":"monthly","description":"Billing period toggle."}
+  ],
+  "slots": [
+    {"name":"plan","required":true},
+    {"name":"feature","required":true}
+  ],
+  "events": ["onSelectPlan"],
+  "states": ["default","highlighted"],
+  "tokens": ["color.action.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

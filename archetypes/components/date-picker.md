@@ -24,6 +24,25 @@ typed field with a calendar for browsing. It balances speed for those who know t
 date with visual context for those who need to see the month, and it enforces valid
 ranges and formats.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"value","type":"string","default":"","description":"Selected date."},
+    {"name":"disabled","type":"boolean","default":"false"}
+  ],
+  "slots": [
+    {"name":"input","required":true},
+    {"name":"calendar","required":true}
+  ],
+  "events": ["onChange"],
+  "a11y": {"role":"combobox","keyboard":["ArrowDown","Enter","Escape"],"announces":["selected date"]},
+  "states": ["closed","open","disabled","error"],
+  "tokens": ["color.action.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

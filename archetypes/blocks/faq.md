@@ -24,6 +24,21 @@ security, cancellation — in one scannable place. By surfacing common objection
 answering them plainly, it removes friction late in the funnel and reduces support
 load, letting users self-serve the reassurance they need.
 
+## API
+
+```json
+{
+  "props": [],
+  "slots": [
+    {"name":"question","required":true},
+    {"name":"answer","required":true}
+  ],
+  "a11y": {"announces":["expanded"]},
+  "states": ["default"],
+  "tokens": ["color.neutral.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

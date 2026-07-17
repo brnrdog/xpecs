@@ -23,6 +23,24 @@ A calendar presents dates in a familiar month grid so users can orient by weekda
 and week, and select a day, a range, or several days. It is the visual core that a
 date-picker wraps in a popover, but it also stands alone for scheduling views.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"mode","type":"enum","values":["single","range","multiple"],"default":"single","description":"Selection model."},
+    {"name":"value","type":"string","default":"","description":"Selected date(s)."}
+  ],
+  "slots": [
+    {"name":"day","required":true}
+  ],
+  "events": ["onSelect"],
+  "a11y": {"role":"grid","keyboard":["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","PageUp","PageDown","Home","End"],"announces":["selected date"]},
+  "states": ["default","selected","today","disabled","outside-month"],
+  "tokens": ["color.action.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

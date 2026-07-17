@@ -25,6 +25,23 @@ canvas, selection, or list — into one consistent strip. It keeps frequently us
 actions visible and within reach, grouped by relationship, so users can operate
 without hunting through menus.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Layout axis."}
+  ],
+  "slots": [
+    {"name":"control","required":true},
+    {"name":"separator","required":false}
+  ],
+  "a11y": {"role":"toolbar","keyboard":["ArrowLeft","ArrowRight","Home","End"],"announces":["active control"]},
+  "states": ["default"],
+  "tokens": ["color.neutral.*","radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

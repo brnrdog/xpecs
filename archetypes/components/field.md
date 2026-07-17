@@ -12,6 +12,7 @@ aliases: [form-field, form-control, form-group]
 usedBy: [form, sign-in, settings]
 related: [form, label, input]
 maintainers: [brnrdog]
+implementation: Field.res
 ---
 
 # Field
@@ -22,6 +23,24 @@ A field is the connective wrapper that turns a bare control into a complete,
 accessible form element: label, the control itself, optional helper text, and
 validation feedback — all wired together. It standardizes structure, spacing, and
 the label/description/error associations so every control behaves consistently.
+
+## API
+
+```json
+{
+  "props": [
+    {"name":"label","type":"string","default":"","description":"Names the control."},
+    {"name":"for","type":"string","default":"","description":"id of the control it labels."},
+    {"name":"hint","type":"string","default":"","description":"Help or error text."}
+  ],
+  "slots": [
+    {"name":"control","required":true,"description":"The wrapped input/select/etc."}
+  ],
+  "a11y": {"announces":["name","description","error"]},
+  "states": ["default","error"],
+  "tokens": ["color.neutral.*","font.weight.medium"]
+}
+```
 
 ## When to use / When not to use
 

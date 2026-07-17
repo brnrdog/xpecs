@@ -24,6 +24,24 @@ with just enough context to interpret it: a label, and often a change indicator 
 a tiny trend. It turns a single figure into a glanceable signal, the building block
 that tiles into a dashboard's metric row.
 
+## API
+
+```json
+{
+  "props": [
+    {"name":"trend","type":"enum","values":["up","down","flat"],"default":"flat","description":"Direction of change."}
+  ],
+  "slots": [
+    {"name":"label","required":true},
+    {"name":"value","required":true},
+    {"name":"delta","required":false}
+  ],
+  "a11y": {"announces":["label and value"]},
+  "states": ["default"],
+  "tokens": ["color.status.*"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**
