@@ -27,6 +27,7 @@ let onCmdK: (unit => unit) => (unit => unit) = %raw(`(cb) => { const h = (e) => 
 // Buttons — softer, more modern radius (rounded-lg). Split into layout core,
 // size, and color so the Button component can compose variant × size.
 let btnCore = "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-40 disabled:pointer-events-none"
+let btnLg = "gap-2 px-5 py-2.5 text-base"
 let btnMd = "gap-2 px-4 py-2 text-sm"
 let btnSm = "gap-1 px-2.5 py-1 text-xs"
 let btnPrimaryColors = "bg-neutral-900 text-white hover:bg-neutral-700"

@@ -22,6 +22,33 @@ maintainers: []
 <!-- The problem this pattern solves and the value it provides. One or two
      paragraphs. Describe the *idea*, not a specific visual design. -->
 
+## API
+
+<!-- Optional but recommended for element/component archetypes. A
+     machine-readable, skin-agnostic interface contract in a `json` fenced
+     block. It names the axes of variation (props), structural regions (slots),
+     semantic events, accessibility expectations, states, and the design-token
+     roles consumed. Validated by schema/api.schema.json. Generated prop types
+     (Contracts.res) and the conformance check (npm run conformance) are derived
+     from it, so implementations are provably kept in sync. Remove this section
+     for archetypes that have no implementable interface (most pages/flows). -->
+
+```json
+{
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["a", "b"], "default": "a", "description": "…" },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "…" }
+  ],
+  "slots": [
+    { "name": "label", "required": true, "description": "…" }
+  ],
+  "events": ["onActivate"],
+  "a11y": { "role": "…", "keyboard": ["Enter"], "announces": ["disabled"] },
+  "states": ["default", "hover", "focus-visible", "disabled"],
+  "tokens": ["color.action.*", "radius.md"]
+}
+```
+
 ## When to use / When not to use
 
 **Use when**

@@ -6,13 +6,15 @@
   "scripts": {
     "registry": "node scripts/generate-registry.mjs",
     "snippets": "node scripts/generate-snippets.mjs",
+    "contracts": "node scripts/generate-contracts.mjs",
     "tokens": "node scripts/generate-tokens-css.mjs",
-    "gen": "npm run tokens && npm run registry && npm run snippets",
+    "conformance": "node scripts/check-conformance.mjs",
+    "gen": "npm run tokens && npm run contracts && npm run registry && npm run snippets",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript -w",
     "dev": "npm run gen && npm run res:build && vite",
-    "build": "npm run gen && npm run res:build && vite build",
+    "build": "npm run gen && npm run res:build && npm run conformance && vite build",
     "preview": "vite preview",
     "smoke": "node scripts/smoke-all.mjs"
   },

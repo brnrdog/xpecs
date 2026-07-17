@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/brnrdog/ux-archetypes/schema/api.schema.json",
+  "title": "UI Archetype API contract",
+  "description": "Machine-readable interface contract embedded as a `json` fenced block under the `## API` heading of an archetype document. Skin-agnostic: it names the axes of variation, structural slots, events, accessibility expectations, and the design-token roles the archetype consumes. Implementations are validated against it.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "props": {
+      "type": "array",
+      "description": "The configurable inputs of the archetype.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9]*$" },
+          "type": {
+            "type": "string",
+            "enum": ["enum", "boolean", "string", "number", "node"]
+          },
+          "values": {
+            "type": "array",
+            "description": "Allowed values when type is `enum`.",
+            "items": { "type": "string" },
+            "uniqueItems": true
+          },
+          "default": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "enum" } } },
+            "then": { "required": ["values"] }
+          }
+        ]
+      }
+    },
+    "slots": {
+      "type": "array",
+      "description": "Named structural regions the archetype exposes for content.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "required": { "type": "boolean" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "description": "Semantic events the archetype emits (implementation-agnostic names).",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "a11y": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": { "type": "string" },
+        "keyboard": { "type": "array", "items": { "type": "string" } },
+        "announces": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "states": {
+      "type": "array",
+      "description": "The interaction states the archetype can be in.",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "tokens": {
+      "type": "array",
+      "description": "Design-token roles this archetype consumes (may use `*` wildcards).",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  }
+}

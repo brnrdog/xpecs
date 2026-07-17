@@ -10,7 +10,7 @@ add, rename, or change the status of an archetype.
 | [Aspect Ratio](archetypes/elements/aspect-ratio.md) | `aspect-ratio` | 1.0.0 | stable | A layout primitive that constrains content to a fixed width-to-height proportion. |
 | [Avatar](archetypes/elements/avatar.md) | `avatar` | 1.0.0 | stable | A compact visual representation of a person or entity, with a graceful fallback when no image is available. |
 | [Badge](archetypes/elements/badge.md) | `badge` | 1.0.0 | stable | A small label that annotates an element with a status, category, or count. |
-| [Button](archetypes/elements/button.md) | `button` | 1.0.0 | stable | An interactive control that triggers an action or event when activated. |
+| [Button](archetypes/elements/button.md) | `button` | 1.1.0 | stable | An interactive control that triggers an action or event when activated. |
 | [Checkbox](archetypes/elements/checkbox.md) | `checkbox` | 1.0.0 | stable | A control for toggling a single option on or off, or selecting several from a set. |
 | [Icon Button](archetypes/elements/icon-button.md) | `icon-button` | 1.0.0 | stable | A compact, icon-only button that triggers an action where space is tight. |
 | [Icon](archetypes/elements/icon.md) | `icon` | 1.0.0 | stable | A small pictographic symbol that conveys meaning or reinforces a label compactly. |

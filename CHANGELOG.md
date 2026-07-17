@@ -4,6 +4,31 @@ All notable changes to this collection are documented here. The collection
 follows [Semantic Versioning](https://semver.org/) and the format of
 [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.5.0] - 2026-07-17
+
+### Added
+
+- **Machine-readable API contracts.** Archetypes can now carry an `## API`
+  section — a `json` block naming the props (with types, enum values, and
+  defaults), slots, events, accessibility expectations, states, and design-token
+  roles. This is the skin-agnostic interface an implementer builds against,
+  validated by `schema/api.schema.json`. `button` is the first archetype with a
+  contract (element version → 1.1.0); the template documents the pattern.
+
+### Website
+
+- The contract drives real tooling, proving the format end-to-end on `button`:
+  - `scripts/generate-contracts.mjs` emits `Contracts.res` (a polymorphic-variant
+    type per enum prop). `Button.res` annotates its props with these types, so
+    the **compiler** enforces that the implementation's allowed values match the
+    spec.
+  - `scripts/check-conformance.mjs` asserts every contract prop is implemented
+    and gates the build (`npm run conformance`) — drift now fails CI instead of
+    rotting silently. (It immediately caught that `Button` was missing the
+    `loading` and `lg` states the spec described; both are now implemented.)
+  - Each detail page renders the contract as a **prop table** (props, slots,
+    a11y, states, tokens) alongside the live example and prose spec.
+
 ## [0.4.1] - 2026-07-17
 
 ### Changed

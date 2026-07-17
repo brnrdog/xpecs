@@ -2,11 +2,11 @@
 id: button
 title: Button
 layer: element
-version: 1.0.0
+version: 1.1.0
 status: stable
 summary: An interactive control that triggers an action or event when activated.
 since: 0.1.0
-updated: 2026-07-16
+updated: 2026-07-17
 tags: [action, control, interactive, form, cta]
 aliases: [btn, cta]
 composedOf: []
@@ -23,6 +23,33 @@ A button lets a person trigger a single, well-defined action — submit a form,
 open a dialog, confirm a choice. It is the most fundamental unit of intent in an
 interface: the user says "do this now." A button represents an _action_, not a
 _destination_; navigation to another location is the job of a link.
+
+## API
+
+<!-- Machine-readable interface contract. Skin-agnostic: names the axes of
+     variation, slots, events, a11y expectations, and the token roles consumed.
+     Implementations are checked against this block (npm run conformance). -->
+
+```json
+{
+  "props": [
+    { "name": "variant", "type": "enum", "values": ["primary", "secondary", "ghost", "destructive"], "default": "primary", "description": "Emphasis of the action." },
+    { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "Control density." },
+    { "name": "type", "type": "enum", "values": ["button", "submit", "reset"], "default": "button", "description": "Native button behavior in a form." },
+    { "name": "disabled", "type": "boolean", "default": "false", "description": "Action unavailable; removed from tab order." },
+    { "name": "loading", "type": "boolean", "default": "false", "description": "Async action in flight; blocks re-activation." }
+  ],
+  "slots": [
+    { "name": "label", "required": true, "description": "Verb-led text naming the action." },
+    { "name": "leadingIcon", "required": false, "description": "Reinforces meaning." },
+    { "name": "trailingIcon", "required": false, "description": "e.g. a chevron opening a menu." }
+  ],
+  "events": ["onActivate"],
+  "a11y": { "role": "button", "keyboard": ["Enter", "Space"], "announces": ["disabled", "busy"] },
+  "states": ["default", "hover", "focus-visible", "active", "disabled", "loading"],
+  "tokens": ["color.action.*", "radius.md", "space.inline.*", "font.weight.medium"]
+}
+```
 
 ## When to use / When not to use
 

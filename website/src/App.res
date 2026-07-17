@@ -454,6 +454,11 @@ module Detail = {
 
         <ExampleBlock a />
 
+        {switch a.api {
+        | Some(api) => <ApiTable api />
+        | None => View.null()
+        }}
+
         <View.Show when_={Prop.static(a.spec != "")}>
           <SpecBody html={a.spec} />
         </View.Show>

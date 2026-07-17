@@ -728,7 +728,7 @@ module Form = {
       <Field label="Message" for_="frm-msg">
         <textarea id="frm-msg" rows=3 class={Ui.inputBase ++ " resize-none"} placeholder="Say hello…" />
       </Field>
-      <Button type_="submit" variant=#primary extraClass="w-full"> <View.Text> "Send message" </View.Text> </Button>
+      <Button type_=#submit variant=#primary extraClass="w-full"> <View.Text> "Send message" </View.Text> </Button>
       <View.Show when_={Prop.signal(sent)}>
         <p class="rounded-md bg-neutral-100 px-3 py-2 text-center text-sm text-neutral-700">
           <View.Text> "Thanks — we'll be in touch." </View.Text>
