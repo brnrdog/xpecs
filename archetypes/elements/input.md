@@ -29,6 +29,16 @@ constraints, and current validity obvious at every moment.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "fills the width of its field"
+      }
+    ]
+  },
   "props": [
     {"name":"type","type":"string","default":"text","description":"Native input type (text, email, password…)."},
     {"name":"placeholder","type":"string","default":"","description":"Hint shown when empty."},

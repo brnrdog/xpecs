@@ -28,6 +28,21 @@ want.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the field fills the bar"
+      },
+      {
+        "at": "sm",
+        "pattern": "collapse-to-menu",
+        "note": "collapses to an icon that expands to full-width"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"string","default":"","description":"Query text."},
     {"name":"placeholder","type":"string","default":"Search","description":"Empty hint."}

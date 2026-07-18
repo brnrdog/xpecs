@@ -32,6 +32,11 @@ or a multi-step flow — or when setting up design tokens / theming.
    - `a11y` — `role`, required `keyboard` keys, and what state to `announce`.
    - `states` — every interaction state to handle.
    - `tokens` — the design-token roles it consumes (see Tokens below).
+   - `responsive` — how it adapts to width: `container` (adapts to its container,
+     not just the viewport), `minTarget` (smallest pointer target to keep), and
+     `reflow` — each entry names a `pattern` (from `reference/responsive-patterns.json`)
+     and an optional `at` breakpoint id (from `tokens.json` `breakpoint.*`).
+     Implement these adaptations; don't invent a different responsive behavior.
 3. **Apply its traits.** `traits` lists shared behaviors (`dismissible`,
    `focus-trap`, `anchored`, `roving-focus`, `typeahead`). Look each up in
    `reference/traits.json` for the exact keyboard/focus contract, and honor the
@@ -66,8 +71,10 @@ equivalent.
 - `reference/archetypes.json` — every archetype: `id`, `layer`, `summary`,
   `intent`, `api` contract, `traits`, `composition`, `usedBy`, `related`.
 - `reference/traits.json` — the shared behavior contracts (+ required keys).
-- `reference/tokens.json` — the design tokens (DTCG).
+- `reference/tokens.json` — the design tokens (DTCG), including `breakpoint.*`.
 - `reference/themes.json` — ready-made themes and light/dark modes.
+- `reference/responsive-patterns.json` — the reflow vocabulary an archetype's
+  `responsive.reflow[].pattern` refers to (id → label + description).
 
 ## Principles
 

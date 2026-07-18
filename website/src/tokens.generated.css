@@ -144,4 +144,9 @@
   --ux-zIndex-overlay: 1100;
   --ux-zIndex-modal: 1200;
   --ux-zIndex-toast: 1300;
+  --ux-breakpoint-sm: 40rem;
+  --ux-breakpoint-md: 48rem;
+  --ux-breakpoint-lg: 64rem;
+  --ux-breakpoint-xl: 80rem;
+  --ux-breakpoint-2xl: 96rem;
 }

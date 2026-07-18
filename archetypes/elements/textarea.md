@@ -27,6 +27,16 @@ single-line input.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "fills width; grows in height with content"
+      }
+    ]
+  },
   "props": [
     {"name":"placeholder","type":"string","default":"","description":"Hint shown when empty."},
     {"name":"value","type":"string","default":"","description":"Current text."},

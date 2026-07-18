@@ -28,6 +28,22 @@ account, primary call to action) that should be reachable from every page.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "lg",
+        "pattern": "collapse-to-menu",
+        "note": "secondary items collapse first"
+      },
+      {
+        "at": "md",
+        "pattern": "drawer",
+        "note": "primary navigation moves into a drawer behind a menu toggle"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"brand","required":true},

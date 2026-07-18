@@ -27,6 +27,17 @@ toolbars and action areas.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "wrap",
+        "note": "buttons wrap; may stack full-width"
+      }
+    ]
+  },
   "props": [
     {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Layout axis."}
   ],

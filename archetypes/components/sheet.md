@@ -28,6 +28,21 @@ filters, or edit forms that relate to what's on screen.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the panel size tracks the viewport edge it's docked to"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "an edge sheet becomes full-width"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false"},
     {"name":"side","type":"enum","values":["left","right","top","bottom"],"default":"right","description":"Edge it slides from."}

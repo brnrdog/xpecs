@@ -29,6 +29,21 @@ move between views of the same subject.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "horizontal-scroll",
+        "note": "the tab strip scrolls horizontally"
+      },
+      {
+        "pattern": "collapse-to-menu",
+        "note": "overflowing tabs collapse into a ‘More’ menu"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"string","default":"","description":"Active tab id."},
     {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Layout axis."}

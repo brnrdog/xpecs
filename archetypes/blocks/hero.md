@@ -27,6 +27,16 @@ the user to act — so everything in it earns its place toward that goal.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "stack",
+        "note": "side-by-side copy and media stack; media follows the copy"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"eyebrow","required":false},

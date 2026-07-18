@@ -28,6 +28,25 @@ suits sets too long for radios but not large enough to need typed filtering.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the trigger fills its field"
+      },
+      {
+        "pattern": "reposition",
+        "note": "the listbox flips to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "options present as a sheet on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"string","default":"","description":"Selected value."},
     {"name":"disabled","type":"boolean","default":"false"}

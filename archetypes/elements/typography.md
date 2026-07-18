@@ -28,6 +28,15 @@ consistent type is what makes an interface feel coherent.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the measure adapts; long words break to avoid overflow"
+      }
+    ]
+  },
   "props": [
     {"name":"variant","type":"enum","values":["h1","h2","h3","h4","body","small","muted","code"],"default":"body","description":"Semantic/visual role."}
   ],

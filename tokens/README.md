@@ -40,6 +40,7 @@ Dictionary, Tokens Studio, etc.).
 | `shadow`      | Elevation `sm` / `md` / `lg`. |
 | `duration`    | Motion timings. |
 | `zIndex`      | Stacking order for overlays, modals, toasts. |
+| `breakpoint`  | Minimum viewport widths where layouts may adapt (`sm` 40rem → `2xl` 96rem). Archetype API `responsive` contracts reference these ids (see [`responsive/`](../responsive/)), so "small screen" has a shared, concrete meaning. |
 
 ## Consuming tokens
 

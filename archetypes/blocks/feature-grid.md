@@ -27,6 +27,21 @@ rather than a raw list of capabilities.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "lg",
+        "pattern": "reflow-columns",
+        "note": "three columns step to two"
+      },
+      {
+        "at": "sm",
+        "pattern": "reflow-columns",
+        "note": "two columns step to one"
+      }
+    ]
+  },
   "props": [
     {"name":"columns","type":"number","default":"3","description":"Items per row on wide viewports."}
   ],

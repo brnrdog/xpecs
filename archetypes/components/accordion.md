@@ -27,6 +27,15 @@ manageable overview and is a natural fit for FAQs and grouped settings.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "panels fill width; headers wrap long labels"
+      }
+    ]
+  },
   "props": [
     {"name":"type","type":"enum","values":["single","multiple"],"default":"single","description":"One panel open at a time, or many."},
     {"name":"collapsible","type":"boolean","default":"true","description":"Whether the open panel can be closed again."},

@@ -26,6 +26,20 @@ back," reinforcing structure in deep or nested products.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "collapse-to-menu",
+        "note": "middle crumbs collapse behind an overflow (…)"
+      },
+      {
+        "pattern": "truncate",
+        "note": "long crumb labels truncate"
+      }
+    ]
+  },
   "props": [
     {"name":"separator","type":"string","default":"/","description":"Glyph between crumbs."}
   ],

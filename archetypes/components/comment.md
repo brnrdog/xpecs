@@ -27,6 +27,16 @@ and its handling of nesting and moderation, shape the whole conversation.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "stack",
+        "note": "avatar and meta stack above the body; indentation reduces with depth"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"author","required":true},

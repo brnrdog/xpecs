@@ -28,6 +28,17 @@ shortcut from anywhere in the app.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "the palette spans near-full width on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false","description":"Whether the palette is shown."}
   ],

@@ -28,6 +28,21 @@ without hunting through menus.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "wrap",
+        "note": "tool groups wrap before collapsing"
+      },
+      {
+        "at": "md",
+        "pattern": "collapse-to-menu",
+        "note": "lower-priority tools collapse into an overflow menu"
+      }
+    ]
+  },
   "props": [
     {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Layout axis."}
   ],

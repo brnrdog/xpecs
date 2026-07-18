@@ -69,7 +69,7 @@ function sampleOf(path, type) {
 }
 
 // Group by top-level category, in a curated order; keep insertion order within.
-const order = ["color", "radius", "space", "font", "shadow", "borderWidth", "duration", "zIndex"];
+const order = ["color", "radius", "space", "font", "shadow", "borderWidth", "duration", "zIndex", "breakpoint"];
 const groups = new Map();
 for (const [path, tok] of Object.entries(flat)) {
   const group = path.split(".")[0];
@@ -95,6 +95,7 @@ const groupMeta = {
   borderWidth: "Stroke widths.",
   duration: "Motion timings.",
   zIndex: "Stacking order for layered surfaces.",
+  breakpoint: "Viewport widths where layouts may adapt. Referenced by archetypes' responsive contracts; shown for reference (media queries can't read CSS variables).",
 };
 
 const ordered = [...groups.keys()].sort((a, b) => {

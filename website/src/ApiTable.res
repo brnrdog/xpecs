@@ -159,4 +159,49 @@ let make = (~api: ArchetypesData.apiContract) =>
         </div>
       </Section>
     </View.Show>
+
+    {switch api.responsive {
+    | Some(r) =>
+      <Section title="Responsive">
+        <View.Show when_={Prop.static(r.container || r.minTarget != "")}>
+          <div class="mb-3 flex flex-wrap items-center gap-2 text-sm text-neutral-600">
+            <View.Show when_={Prop.static(r.container)}>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-2 py-0.5 text-xs">
+                <span class="text-neutral-400"> <View.Text> "◱" </View.Text> </span>
+                <View.Text> "adapts to its container" </View.Text>
+              </span>
+            </View.Show>
+            <View.Show when_={Prop.static(r.minTarget != "")}>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-2 py-0.5 text-xs">
+                <span class="text-neutral-400"> <View.Text> "⊕" </View.Text> </span>
+                <View.Text> "min target " </View.Text>
+                {code(r.minTarget)}
+              </span>
+            </View.Show>
+          </div>
+        </View.Show>
+        <View.Show
+          when_={Prop.static(Array.length(r.reflow) > 0)}
+          fallback={<p class="text-sm text-neutral-500"> <View.Text> "No structural reflow — this archetype keeps its shape at every width." </View.Text> </p>}>
+          <ul class="space-y-2 text-sm">
+            <View.For
+              each={Prop.static(r.reflow)}
+              render={rf =>
+                <li class="flex flex-wrap items-baseline gap-2">
+                  <span class="inline-flex shrink-0 items-center rounded-md bg-neutral-900 px-1.5 py-0.5 font-mono text-[11px] font-medium text-neutral-0">
+                    <View.Text> {rf.at == "" ? "any width" : "‹ " ++ rf.at} </View.Text>
+                  </span>
+                  <span class="font-medium text-neutral-900">
+                    <View.Text> {ResponsiveData.labelFor(rf.pattern)} </View.Text>
+                  </span>
+                  <View.Show when_={Prop.static(rf.note != "")}>
+                    <span class="text-neutral-600"> <View.Text> {"— " ++ rf.note} </View.Text> </span>
+                  </View.Show>
+                </li>}
+            />
+          </ul>
+        </View.Show>
+      </Section>
+    | None => View.null()
+    }}
   </section>

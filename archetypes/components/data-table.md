@@ -27,6 +27,21 @@ admin and analytics contexts.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "lg",
+        "pattern": "horizontal-scroll",
+        "note": "keeps columns and scrolls horizontally with a frozen key column"
+      },
+      {
+        "at": "sm",
+        "pattern": "reflow-to-cards",
+        "note": "rows become stacked label/value cards"
+      }
+    ]
+  },
   "props": [
     {"name":"sortable","type":"boolean","default":"true"},
     {"name":"selectable","type":"boolean","default":"false"}

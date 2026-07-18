@@ -27,6 +27,16 @@ lead-capture) — without the distraction of surrounding content.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "stack",
+        "note": "heading, copy, and actions stack and center"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"headline","required":true},

@@ -33,6 +33,20 @@ _destination_; navigation to another location is the job of a link.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "sizes to content; may go full-width in tight containers"
+      },
+      {
+        "pattern": "truncate",
+        "note": "the label truncates before overflowing"
+      }
+    ]
+  },
   "props": [
     { "name": "variant", "type": "enum", "values": ["primary", "secondary", "ghost", "destructive"], "default": "primary", "description": "Emphasis of the action." },
     { "name": "size", "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "description": "Control density." },

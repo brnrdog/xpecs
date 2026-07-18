@@ -27,6 +27,16 @@ load, letting users self-serve the reassurance they need.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "reflow-columns",
+        "note": "a two-column Q&A grid collapses to one"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"question","required":true},

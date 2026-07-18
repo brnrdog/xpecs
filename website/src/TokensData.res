@@ -154,4 +154,15 @@ let all: array<group> = [
       { name: "toast", path: "zIndex.toast", value: "1300", raw: "", description: "", sample: "text", themeVar: "", uxVar: "--ux-zIndex-toast" },
     ],
   },
+  {
+    group: "breakpoint",
+    description: "Viewport widths where layouts may adapt. Referenced by archetypes' responsive contracts; shown for reference (media queries can't read CSS variables).",
+    tokens: [
+      { name: "sm", path: "breakpoint.sm", value: "40rem", raw: "", description: "≥ 640px — large phone / small tablet.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-sm" },
+      { name: "md", path: "breakpoint.md", value: "48rem", raw: "", description: "≥ 768px — tablet.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-md" },
+      { name: "lg", path: "breakpoint.lg", value: "64rem", raw: "", description: "≥ 1024px — small laptop.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-lg" },
+      { name: "xl", path: "breakpoint.xl", value: "80rem", raw: "", description: "≥ 1280px — desktop.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-xl" },
+      { name: "2xl", path: "breakpoint.2xl", value: "96rem", raw: "", description: "≥ 1536px — large desktop.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-2xl" },
+    ],
+  },
 ]

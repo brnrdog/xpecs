@@ -29,6 +29,17 @@ away, then returns the user exactly where they were.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "becomes a full-width bottom sheet; footer actions stack"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false","description":"Whether the dialog is shown."}
   ],

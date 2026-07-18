@@ -27,6 +27,16 @@ in context; unlike an alert-dialog, it doesn't interrupt or block the user.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "stack",
+        "note": "trailing actions move below the message"
+      }
+    ]
+  },
   "props": [
     {"name":"variant","type":"enum","values":["info","success","warning","danger"],"default":"info","description":"Severity."}
   ],

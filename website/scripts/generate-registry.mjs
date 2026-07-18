@@ -178,7 +178,23 @@ function emitApi(api) {
     api.events || [],
   )}, role: ${s(a.role || "")}, keyboard: ${arr(a.keyboard || [])}, announces: ${arr(
     a.announces || [],
-  )}, states: ${arr(api.states || [])}, tokens: ${arr(api.tokens || [])} })`;
+  )}, states: ${arr(api.states || [])}, tokens: ${arr(api.tokens || [])}, responsive: ${emitResponsive(
+    api.responsive,
+  )} })`;
+}
+
+// Emit the responsive contract as an `option<responsive>` ReScript expression.
+function emitResponsive(r) {
+  if (!r) return "None";
+  const reflow = (r.reflow || [])
+    .map(
+      (x) =>
+        `{ at: ${s(x.at || "")}, pattern: ${s(x.pattern || "")}, note: ${s(x.note || "")} }`,
+    )
+    .join(", ");
+  return `Some({ container: ${b(r.container)}, minTarget: ${s(
+    r.minTarget || "",
+  )}, reflow: [${reflow}] })`;
 }
 
 // Emit composition parts as a ReScript array<compPart>.
@@ -242,6 +258,18 @@ type compPart = {
   note: string,
 }
 
+type reflow = {
+  at: string,
+  pattern: string,
+  note: string,
+}
+
+type responsive = {
+  container: bool,
+  minTarget: string,
+  reflow: array<reflow>,
+}
+
 type apiContract = {
   props: array<apiProp>,
   slots: array<apiSlot>,
@@ -251,6 +279,7 @@ type apiContract = {
   announces: array<string>,
   states: array<string>,
   tokens: array<string>,
+  responsive: option<responsive>,
 }
 
 type archetype = {

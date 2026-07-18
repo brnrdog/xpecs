@@ -28,6 +28,16 @@ often doubles as a control for toggling series on and off.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "wrap",
+        "note": "legend items wrap onto multiple rows"
+      }
+    ]
+  },
   "props": [
 
   ],

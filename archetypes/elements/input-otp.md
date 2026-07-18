@@ -28,6 +28,17 @@ paste of the full code.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "wrap",
+        "note": "cells wrap to a second row on very narrow screens"
+      }
+    ]
+  },
   "props": [
     {"name":"length","type":"number","default":"6","description":"Number of code cells."},
     {"name":"value","type":"string","default":"","description":"Entered digits."},

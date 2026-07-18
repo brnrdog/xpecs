@@ -27,6 +27,16 @@ interactive **data-table** builds on it.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "horizontal-scroll",
+        "note": "columns are preserved; the table scrolls horizontally"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"header","required":true},

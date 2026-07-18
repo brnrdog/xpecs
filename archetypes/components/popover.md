@@ -28,6 +28,21 @@ on its own it holds small interactive content without the weight of a modal dial
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "reposition",
+        "note": "flips and shifts to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "may present as a sheet on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false"}
   ],

@@ -28,6 +28,16 @@ and it anchors trust on auth and marketing pages.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "hide-secondary",
+        "note": "the wordmark may reduce to the mark alone on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"href","type":"string","default":"/","description":"Where the logo links (usually home)."},
     {"name":"size","type":"string","default":"md","description":"Rendered size."}

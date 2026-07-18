@@ -27,6 +27,11 @@ typically applied on form submission rather than immediately.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": []
+  },
   "props": [
     {"name":"checked","type":"boolean","default":"false","description":"Whether the box is ticked."},
     {"name":"indeterminate","type":"boolean","default":"false","description":"Partial/mixed state."},

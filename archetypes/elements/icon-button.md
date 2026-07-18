@@ -30,6 +30,11 @@ the control must still expose an accessible name.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": []
+  },
   "props": [
     {"name":"variant","type":"enum","values":["solid","ghost"],"default":"ghost","description":"Emphasis."},
     {"name":"label","type":"string","default":"","description":"Accessible name (required; visually hidden)."}

@@ -27,6 +27,17 @@ of room, keeping destinations always visible or a click away.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "lg",
+        "pattern": "drawer",
+        "note": "the rail becomes a toggled off-canvas drawer"
+      }
+    ]
+  },
   "props": [
     {"name":"collapsed","type":"boolean","default":"false","description":"Whether the rail is collapsed."}
   ],

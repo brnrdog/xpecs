@@ -29,6 +29,17 @@ governed as a set.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "wrap",
+        "note": "segments wrap when they exceed the row"
+      }
+    ]
+  },
   "props": [
     {"name":"type","type":"enum","values":["single","multiple"],"default":"single","description":"One or many selections."},
     {"name":"value","type":"string","default":"","description":"Selected item id(s)."},

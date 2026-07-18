@@ -30,6 +30,15 @@ button, which performs an action in place.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": [
+      {
+        "pattern": "truncate",
+        "note": "long link text truncates in constrained space"
+      }
+    ]
+  },
   "props": [
     {"name":"variant","type":"enum","values":["default","muted"],"default":"default","description":"Emphasis."},
     {"name":"href","type":"string","default":"#","description":"Destination URL."},

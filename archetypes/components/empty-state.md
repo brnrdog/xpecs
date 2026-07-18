@@ -27,6 +27,20 @@ feel like a broken screen.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "illustration and copy center and scale down"
+      },
+      {
+        "at": "sm",
+        "pattern": "stack",
+        "note": "actions stack"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"icon","required":false},

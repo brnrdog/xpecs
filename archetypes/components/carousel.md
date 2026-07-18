@@ -27,6 +27,16 @@ space matters more than seeing everything at once.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "slides size to the viewport; fewer show per view as width drops"
+      }
+    ]
+  },
   "props": [
     {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Scroll axis."},
     {"name":"loop","type":"boolean","default":"false","description":"Wrap from last to first."}

@@ -28,6 +28,10 @@ technology and unfamiliar users can't interpret. Meaning, not ornament, is the b
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": []
+  },
   "props": [
     {"name":"name","type":"string","default":"","description":"Identifier of the glyph to render."},
     {"name":"size","type":"string","default":"md","description":"Rendered size."},

@@ -27,6 +27,20 @@ leads and a table's columns would be overkill.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "rows fill width"
+      },
+      {
+        "at": "sm",
+        "pattern": "truncate",
+        "note": "secondary metadata truncates or hides"
+      }
+    ]
+  },
   "props": [
     {"name":"interactive","type":"boolean","default":"false","description":"Whether rows are selectable/clickable."}
   ],

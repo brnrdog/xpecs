@@ -76,6 +76,41 @@
       "description": "Design-token roles this archetype consumes (may use `*` wildcards).",
       "items": { "type": "string" },
       "uniqueItems": true
+    },
+    "responsive": {
+      "type": "object",
+      "description": "How the archetype adapts to available width. Patterns reference the shared vocabulary in responsive/patterns.json; breakpoints reference tokens.json `breakpoint.*` ids.",
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "type": "boolean",
+          "description": "True when the archetype adapts to its container's width, not just the viewport."
+        },
+        "minTarget": {
+          "type": "string",
+          "description": "Minimum pointer target size the archetype must preserve at any width (e.g. `44px`)."
+        },
+        "reflow": {
+          "type": "array",
+          "description": "The structural adaptations the archetype makes, each a named pattern optionally bound to a breakpoint.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pattern"],
+            "properties": {
+              "at": {
+                "type": "string",
+                "description": "Breakpoint id from tokens.json `breakpoint.*` below which the pattern applies. Omit for adaptations with no fixed threshold (fluid, wrap, reposition, truncate)."
+              },
+              "pattern": {
+                "type": "string",
+                "description": "Reflow pattern id from responsive/patterns.json."
+              },
+              "note": { "type": "string" }
+            }
+          }
+        }
+      }
     }
   }
 }

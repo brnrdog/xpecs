@@ -45,9 +45,25 @@ maintainers: []
   "events": ["onActivate"],
   "a11y": { "role": "…", "keyboard": ["Enter"], "announces": ["disabled"] },
   "states": ["default", "hover", "focus-visible", "disabled"],
-  "tokens": ["color.action.*", "radius.md"]
+  "tokens": ["color.action.*", "radius.md"],
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      { "at": "sm", "pattern": "stack", "note": "…" }
+    ]
+  }
 }
 ```
+
+<!-- `responsive` (required on any archetype with an API contract): how the
+     archetype adapts to width. `container` = adapts to its container, not just
+     the viewport. `minTarget` = smallest pointer target to preserve. Each
+     `reflow` names a pattern from responsive/patterns.json; `at` is a breakpoint
+     id from tokens.json `breakpoint.*` (omit for fluid/wrap/reposition/truncate,
+     which have no fixed threshold). Validated by npm run conformance:responsive.
+     Use `"reflow": []` for primitives that keep their shape at every width. -->
+
 
 ## When to use / When not to use
 

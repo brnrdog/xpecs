@@ -28,6 +28,20 @@ than opening a page.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": [
+      {
+        "pattern": "reposition",
+        "note": "flips to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "hide-secondary",
+        "note": "suppressed on touch; falls back to navigation"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"trigger","required":true},

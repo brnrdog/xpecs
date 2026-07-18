@@ -27,6 +27,20 @@ that tiles into a dashboard's metric row.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the value scales"
+      },
+      {
+        "at": "sm",
+        "pattern": "reflow-columns",
+        "note": "a row of stats steps down to two, then one"
+      }
+    ]
+  },
   "props": [
     {"name":"trend","type":"enum","values":["up","down","flat"],"default":"flat","description":"Direction of change."}
   ],

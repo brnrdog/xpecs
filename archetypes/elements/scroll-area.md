@@ -27,6 +27,15 @@ panels contained without letting the whole page scroll.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the viewport fits its container; content scrolls within"
+      }
+    ]
+  },
   "props": [
     {"name":"orientation","type":"enum","values":["vertical","horizontal","both"],"default":"vertical","description":"Scroll axis."}
   ],

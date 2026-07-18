@@ -28,6 +28,16 @@ useful.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the track fills its container; the thumb keeps its target size"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"number","default":"0","description":"Current value (or range)."},
     {"name":"min","type":"number","default":"0","description":"Lower bound."},

@@ -4,6 +4,40 @@ All notable changes to this collection are documented here. The collection
 follows [Semantic Versioning](https://semver.org/) and the format of
 [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.7.0] - 2026-07-18
+
+### Added
+
+- **Responsiveness is now a structured contract.** Every archetype that carries
+  an `## API` block (all 74 elements/components/blocks) declares a `responsive`
+  object — `container` (adapts to its container, not just the viewport),
+  `minTarget` (smallest pointer target to preserve), and a `reflow[]` list where
+  each entry names a **pattern** and the **breakpoint** it applies at. It's the
+  same move made for behaviors (traits) and color (tokens): a shared, machine-
+  readable vocabulary instead of ad-hoc prose.
+- **Breakpoint tokens.** `tokens.json` gains a `breakpoint.*` scale
+  (`sm` 40rem → `2xl` 96rem), so "small screen" has one concrete meaning the
+  contracts reference by id.
+- **Responsive-pattern vocabulary** (`responsive/patterns.json`): a fixed set of
+  twelve reflow patterns — `fluid`, `wrap`, `stack`, `reflow-columns`,
+  `collapse-to-menu`, `drawer`, `to-sheet`, `horizontal-scroll`,
+  `reflow-to-cards`, `reposition`, `truncate`, `hide-secondary` — documented in
+  `responsive/README.md`.
+- **A fifth build gate.** `conformance:responsive` verifies every API-bearing
+  archetype declares `responsive`, every `pattern` is in the vocabulary, and
+  every `at` resolves to a real breakpoint token (74 contracts / 94 reflows).
+  The website renders the contract on each detail page and surfaces breakpoints
+  on the Design Tokens page; the Agent Skill ships it in `archetypes.json` plus
+  `responsive-patterns.json`.
+
+### Changed
+
+- **Refined the monochrome baseline.** The `neutral` ramp is now subtly warm
+  (stone-tinted) rather than pure gray, and the `shadow` scale is softer and
+  more modern (larger blur, lower opacity). Still grayscale — hierarchy from
+  value, not hue — just less clinical. The dark-mode overlay is warmed to match,
+  and a new **Candy** theme joins the presets.
+
 ## [0.6.0] - 2026-07-17
 
 A pre-release restructuring pass toward implementability. Contains breaking

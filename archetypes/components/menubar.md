@@ -28,6 +28,17 @@ predictable home for commands.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "collapse-to-menu",
+        "note": "top-level menus collapse behind an overflow / hamburger"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"menu","required":true},

@@ -99,7 +99,8 @@ writeFileSync(join(outDir, "archetypes.json"), JSON.stringify(archetypes, null, 
 writeFileSync(join(outDir, "traits.json"), JSON.stringify(traits, null, 2));
 copyFileSync(join(root, "tokens", "tokens.json"), join(outDir, "tokens.json"));
 copyFileSync(join(root, "tokens", "themes.json"), join(outDir, "themes.json"));
+copyFileSync(join(root, "responsive", "patterns.json"), join(outDir, "responsive-patterns.json"));
 
 console.log(
-  `Built skill/reference: ${archetypes.length} archetypes (${archetypes.filter((a) => a.api).length} with contracts), ${traits.length} traits, tokens + themes.`,
+  `Built skill/reference: ${archetypes.length} archetypes (${archetypes.filter((a) => a.api).length} with contracts), ${traits.length} traits, tokens + themes + responsive patterns.`,
 );

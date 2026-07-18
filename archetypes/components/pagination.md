@@ -26,6 +26,17 @@ orient themselves ("page 3 of 20") within a large collection.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "collapse-to-menu",
+        "note": "middle page numbers collapse to an ellipsis; prev/next remain"
+      }
+    ]
+  },
   "props": [
     {"name":"page","type":"number","default":"1","description":"Current page."},
     {"name":"total","type":"number","default":"1","description":"Total pages."}

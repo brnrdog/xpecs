@@ -26,6 +26,20 @@ can interpret, supporting decisions on dashboards and reports.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the plot area resizes; labels thin out"
+      },
+      {
+        "at": "sm",
+        "pattern": "hide-secondary",
+        "note": "legend and gridlines reduce on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"type","type":"enum","values":["bar","line","area","pie"],"default":"bar","description":"Visual encoding."}
   ],

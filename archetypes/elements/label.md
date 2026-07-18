@@ -28,6 +28,15 @@ isn't bound to anything is just text.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": [
+      {
+        "pattern": "truncate",
+        "note": "truncates in tight form layouts"
+      }
+    ]
+  },
   "props": [
     {"name":"for","type":"string","default":"","description":"id of the control this labels."},
     {"name":"required","type":"boolean","default":"false","description":"Marks the field as required."}

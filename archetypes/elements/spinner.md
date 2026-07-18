@@ -28,6 +28,10 @@ inside buttons, or over a small region during a brief, unmeasured wait.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": []
+  },
   "props": [
 
   ],

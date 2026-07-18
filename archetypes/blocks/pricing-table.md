@@ -27,6 +27,26 @@ questions — price, billing period, and what's in each tier — that gate a pur
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "lg",
+        "pattern": "reflow-columns",
+        "note": "tiers step down in columns"
+      },
+      {
+        "at": "md",
+        "pattern": "horizontal-scroll",
+        "note": "tiers scroll horizontally to keep them comparable"
+      },
+      {
+        "at": "sm",
+        "pattern": "stack",
+        "note": "tiers stack, highlighting the featured plan"
+      }
+    ]
+  },
   "props": [
     {"name":"interval","type":"enum","values":["monthly","yearly"],"default":"monthly","description":"Billing period toggle."}
   ],

@@ -27,6 +27,17 @@ workspace-style interfaces where preferred proportions vary.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "stack",
+        "note": "side-by-side panes stack vertically; the handle re-orients"
+      }
+    ]
+  },
   "props": [
     {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Axis panels split along."}
   ],

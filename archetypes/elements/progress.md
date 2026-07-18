@@ -27,6 +27,15 @@ for how long they must wait.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the track fills its container width"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"number","default":"0","description":"Current progress."},
     {"name":"max","type":"number","default":"100","description":"Value representing complete."},

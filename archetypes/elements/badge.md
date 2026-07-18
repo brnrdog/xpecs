@@ -28,6 +28,15 @@ glance and never the primary focus; it enriches the thing it sits on.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": [
+      {
+        "pattern": "truncate",
+        "note": "long labels ellipsize rather than wrap"
+      }
+    ]
+  },
   "props": [
     {"name":"variant","type":"enum","values":["solid","soft","outline"],"default":"solid","description":"Visual weight."}
   ],

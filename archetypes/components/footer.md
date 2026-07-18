@@ -28,6 +28,16 @@ content page.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "reflow-columns",
+        "note": "link columns step down, then stack"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"brand","required":false},

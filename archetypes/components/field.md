@@ -28,6 +28,17 @@ the label/description/error associations so every control behaves consistently.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "stack",
+        "note": "a side-by-side label/control becomes label-above-control"
+      }
+    ]
+  },
   "props": [
     {"name":"label","type":"string","default":"","description":"Names the control."},
     {"name":"for","type":"string","default":"","description":"id of the control it labels."},

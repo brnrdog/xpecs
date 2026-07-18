@@ -29,6 +29,20 @@ never carry essential or interactive content.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": [
+      {
+        "pattern": "reposition",
+        "note": "flips to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "hide-secondary",
+        "note": "suppressed on touch; the label must be reachable another way"
+      }
+    ]
+  },
   "props": [
     {"name":"content","type":"string","default":"","description":"The label text."}
   ],

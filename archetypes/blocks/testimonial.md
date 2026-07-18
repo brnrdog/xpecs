@@ -27,6 +27,16 @@ more than the brand describing itself.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "reflow-columns",
+        "note": "a quote grid steps down, then stacks"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"quote","required":true},

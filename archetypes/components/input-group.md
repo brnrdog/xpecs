@@ -27,6 +27,21 @@ apply) while reading as a single, cohesive field.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the field fills; addons keep their size"
+      },
+      {
+        "at": "sm",
+        "pattern": "wrap",
+        "note": "addons may wrap below the field"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"addon","required":false},

@@ -28,6 +28,21 @@ space.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "reposition",
+        "note": "opens on the side with room and flips near edges"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "may present as a sheet on touch"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false"}
   ],

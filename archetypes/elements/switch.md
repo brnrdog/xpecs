@@ -27,6 +27,11 @@ change — no separate submit step.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": []
+  },
   "props": [
     {"name":"checked","type":"boolean","default":"false","description":"On/off state."},
     {"name":"disabled","type":"boolean","default":"false","description":"Not interactive."},

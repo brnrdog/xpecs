@@ -27,6 +27,15 @@ prevents layout shift by reserving the correct space before content loads.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "scales with its container while holding the ratio"
+      }
+    ]
+  },
   "props": [
     {"name":"ratio","type":"string","default":"16/9","description":"Width-to-height proportion, e.g. 16/9, 1/1, 4/3."}
   ],

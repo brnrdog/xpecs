@@ -28,6 +28,22 @@ categories while keeping the top level clean.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "lg",
+        "pattern": "collapse-to-menu",
+        "note": "top-level items collapse to a menu"
+      },
+      {
+        "at": "md",
+        "pattern": "drawer",
+        "note": "mega-menu content stacks inside a drawer"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"item","required":true},

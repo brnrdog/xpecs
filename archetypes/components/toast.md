@@ -28,6 +28,17 @@ opposite of a dialog.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "toasts span the width and dock to an edge on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"variant","type":"enum","values":["info","success","warning","danger"],"default":"info","description":"Severity."},
     {"name":"duration","type":"number","default":"5000","description":"Auto-dismiss delay (ms)."}

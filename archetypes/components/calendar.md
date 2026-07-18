@@ -26,6 +26,17 @@ date-picker wraps in a popover, but it also stands alone for scheduling views.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "horizontal-scroll",
+        "note": "the month grid keeps seven columns and scrolls if cramped"
+      }
+    ]
+  },
   "props": [
     {"name":"mode","type":"enum","values":["single","range","multiple"],"default":"single","description":"Selection model."},
     {"name":"value","type":"string","default":"","description":"Selected date(s)."}

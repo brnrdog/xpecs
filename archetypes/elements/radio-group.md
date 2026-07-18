@@ -28,6 +28,17 @@ choices visible and comparable, which aids decisions among a few alternatives.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "stack",
+        "note": "horizontal options stack vertically"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"string","default":"","description":"id/value of the selected option."},
     {"name":"name","type":"string","default":"","description":"Groups the radios."},

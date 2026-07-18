@@ -1,0 +1,53 @@
+{
+  "$description": "The canonical vocabulary of responsive reflow patterns — the ways an archetype restructures as available width changes. Archetype API contracts reference a pattern id in `responsive.reflow[].pattern` instead of re-describing the behavior in prose, the same way behaviors are captured as traits. Breakpoints where a pattern kicks in are referenced by id from tokens.json `breakpoint.*`. Consumed by the website, the conformance gate, and the Agent Skill.",
+  "patterns": {
+    "fluid": {
+      "label": "Fluid",
+      "description": "Fills the width of its container and grows/shrinks continuously; no structural change."
+    },
+    "wrap": {
+      "label": "Wrap",
+      "description": "A row of items wraps onto additional lines as width decreases, rather than overflowing or shrinking each item."
+    },
+    "stack": {
+      "label": "Stack",
+      "description": "A horizontal arrangement becomes a vertical stack below the breakpoint."
+    },
+    "reflow-columns": {
+      "label": "Reflow columns",
+      "description": "A multi-column grid steps its column count down as width decreases (e.g. 3 → 2 → 1)."
+    },
+    "collapse-to-menu": {
+      "label": "Collapse to menu",
+      "description": "Lower-priority items collapse behind a disclosure or overflow control (hamburger, ‘More’ menu) when they no longer fit."
+    },
+    "drawer": {
+      "label": "Drawer",
+      "description": "A persistent side region (sidebar, nav) becomes a toggled, off-canvas drawer over the content."
+    },
+    "to-sheet": {
+      "label": "To sheet",
+      "description": "A centered or anchored overlay becomes a full-width edge sheet (typically bottom) on small screens for reachability."
+    },
+    "horizontal-scroll": {
+      "label": "Horizontal scroll",
+      "description": "Content that can't compress overflows into a horizontal scroller with clear affordance, instead of clipping."
+    },
+    "reflow-to-cards": {
+      "label": "Reflow to cards",
+      "description": "Dense tabular rows restructure into a stack of label/value cards below the breakpoint."
+    },
+    "reposition": {
+      "label": "Reposition",
+      "description": "An anchored surface flips or shifts its placement to stay within the viewport as space runs out."
+    },
+    "truncate": {
+      "label": "Truncate",
+      "description": "Text or labels ellipsize (or drop to an icon) rather than wrap or push the layout."
+    },
+    "hide-secondary": {
+      "label": "Hide secondary",
+      "description": "Non-essential elements are hidden below the breakpoint, keeping the essential content legible."
+    }
+  }
+}

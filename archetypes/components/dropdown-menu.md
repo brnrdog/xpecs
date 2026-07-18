@@ -28,6 +28,21 @@ navigable menu of commands.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "reposition",
+        "note": "flips and shifts to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "may present as a sheet on touch"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false"}
   ],

@@ -27,6 +27,15 @@ section, an expandable row of detail — keeping the default view clean.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "fills width; the trigger label truncates"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false","description":"Whether the region is expanded."}
   ],

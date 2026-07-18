@@ -28,6 +28,10 @@ display-only — it documents an interaction rather than performing one.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": []
+  },
   "props": [
 
   ],

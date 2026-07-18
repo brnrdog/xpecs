@@ -28,6 +28,15 @@ another begins.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "spans the full available length"
+      }
+    ]
+  },
   "props": [
     {"name":"orientation","type":"enum","values":["horizontal","vertical"],"default":"horizontal","description":"Divider axis."}
   ],

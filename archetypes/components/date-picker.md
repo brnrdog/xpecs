@@ -27,6 +27,21 @@ ranges and formats.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "reposition",
+        "note": "the calendar popover flips to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "the calendar presents as a sheet on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"string","default":"","description":"Selected date."},
     {"name":"disabled","type":"boolean","default":"false"}

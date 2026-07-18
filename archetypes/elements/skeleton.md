@@ -27,6 +27,15 @@ prevents layout shift when the content arrives.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "mirrors the footprint of the content it stands in for"
+      }
+    ]
+  },
   "props": [
     {"name":"shape","type":"enum","values":["text","circle","rect"],"default":"text","description":"Placeholder shape."}
   ],

@@ -28,6 +28,11 @@ is why it lives naturally in toolbars.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": []
+  },
   "props": [
     {"name":"pressed","type":"boolean","default":"false","description":"Whether the toggle is on."},
     {"name":"disabled","type":"boolean","default":"false","description":"Not interactive."}

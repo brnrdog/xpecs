@@ -27,6 +27,15 @@ into grids and lists.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "fills its grid cell; media and body stack"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"media","required":false},

@@ -29,6 +29,10 @@ fallback rather than a broken graphic.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "reflow": []
+  },
   "props": [
     {"name":"initials","type":"string","default":"","description":"Fallback text when no image is available."},
     {"name":"size","type":"string","default":"md","description":"Rendered size."}

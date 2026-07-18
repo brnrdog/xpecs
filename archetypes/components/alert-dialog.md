@@ -28,6 +28,17 @@ general-purpose dialog used for tasks and forms.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "becomes a full-width sheet; actions stack and go full-width"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false","description":"Whether the dialog is shown."}
   ],

@@ -28,6 +28,21 @@ current screen rather than replacing it.
 
 ```json
 {
+  "responsive": {
+    "container": false,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the panel width tracks the viewport, up to a max"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "a side drawer may become a bottom sheet on small screens"
+      }
+    ]
+  },
   "props": [
     {"name":"open","type":"boolean","default":"false"},
     {"name":"side","type":"enum","values":["left","right","top","bottom"],"default":"right","description":"Edge it slides from."}

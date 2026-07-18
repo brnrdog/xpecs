@@ -27,6 +27,17 @@ accessible flow, minimizing effort and error.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "at": "md",
+        "pattern": "stack",
+        "note": "multi-column field rows collapse to a single column"
+      }
+    ]
+  },
   "props": [],
   "slots": [
     {"name":"fields","required":true},

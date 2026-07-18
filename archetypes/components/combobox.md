@@ -28,6 +28,25 @@ when allowed.
 
 ```json
 {
+  "responsive": {
+    "container": true,
+    "minTarget": "44px",
+    "reflow": [
+      {
+        "pattern": "fluid",
+        "note": "the input fills its field"
+      },
+      {
+        "pattern": "reposition",
+        "note": "the popover flips to stay in view"
+      },
+      {
+        "at": "sm",
+        "pattern": "to-sheet",
+        "note": "the option list can present as a bottom sheet"
+      }
+    ]
+  },
   "props": [
     {"name":"value","type":"string","default":"","description":"Selected value."},
     {"name":"disabled","type":"boolean","default":"false"}

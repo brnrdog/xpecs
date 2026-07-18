@@ -24,6 +24,15 @@
     ],
     "intent": "An aspect-ratio box holds its content to a consistent width-to-height proportion\n(16:9, 1:1, 4:3) regardless of viewport size. It keeps media grids tidy and\nprevents layout shift by reserving the correct space before content loads.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "scales with its container while holding the ratio"
+          }
+        ]
+      },
       "props": [
         {
           "name": "ratio",
@@ -74,6 +83,10 @@
     ],
     "intent": "An avatar represents a person or entity in a small, recognizable footprint so\nusers can identify _who_ is associated with content or an action at a glance. It\nmust degrade gracefully: when an image is missing or slow, it shows a meaningful\nfallback rather than a broken graphic.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": []
+      },
       "props": [
         {
           "name": "initials",
@@ -146,6 +159,15 @@
     ],
     "intent": "A badge attaches a short, high-signal annotation to another element — a status\n(\"Active\"), a category (\"Beta\"), or a count (unread items). It is read at a\nglance and never the primary focus; it enriches the thing it sits on.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": [
+          {
+            "pattern": "truncate",
+            "note": "long labels ellipsize rather than wrap"
+          }
+        ]
+      },
       "props": [
         {
           "name": "variant",
@@ -205,6 +227,20 @@
     ],
     "intent": "A button lets a person trigger a single, well-defined action — submit a form,\nopen a dialog, confirm a choice. It is the most fundamental unit of intent in an\ninterface: the user says \"do this now.\" A button represents an _action_, not a\n_destination_; navigation to another location is the job of a link.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "sizes to content; may go full-width in tight containers"
+          },
+          {
+            "pattern": "truncate",
+            "note": "the label truncates before overflowing"
+          }
+        ]
+      },
       "props": [
         {
           "name": "variant",
@@ -327,6 +363,11 @@
     ],
     "intent": "A checkbox lets a person turn a single option on or off, or pick any number of\noptions from a set. It represents a discrete boolean choice whose effect is\ntypically applied on form submission rather than immediately.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": []
+      },
       "props": [
         {
           "name": "checked",
@@ -417,6 +458,11 @@
     ],
     "intent": "An icon button triggers an action using a glyph alone, trading an explicit text\nlabel for compactness. It suits dense contexts — toolbars, table rows, card\ncorners — where a full button would crowd the layout. Because it drops the\nvisible label, it carries a strict obligation: the icon must be recognizable and\nthe control must still expose an accessible name.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": []
+      },
       "props": [
         {
           "name": "variant",
@@ -497,6 +543,10 @@
     ],
     "intent": "An icon is a small symbol that conveys a concept at a glance — a magnifier for\nsearch, a trash can for delete — or reinforces a text label. Used well, icons speed\nrecognition and save space; used carelessly, they become decoration that assistive\ntechnology and unfamiliar users can't interpret. Meaning, not ornament, is the bar.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": []
+      },
       "props": [
         {
           "name": "name",
@@ -557,6 +607,17 @@
     ],
     "intent": "A one-time-code input collects a short verification code (from SMS, email, or an\nauthenticator) with one visible slot per character. The segmented layout makes the\nexpected length obvious, eases review, and pairs naturally with auto-advance and\npaste of the full code.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "wrap",
+            "note": "cells wrap to a second row on very narrow screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "length",
@@ -641,6 +702,16 @@
     ],
     "intent": "A text input captures a short, free-form value from the user — a name, an email,\na search query. It is the workhorse of data entry: a labelled field the user can\nfocus, type into, correct, and submit. A good input makes its purpose,\nconstraints, and current validity obvious at every moment.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "fills the width of its field"
+          }
+        ]
+      },
       "props": [
         {
           "name": "type",
@@ -719,6 +790,10 @@
     ],
     "intent": "A keyboard-key element renders a physical key or shortcut combination inline\n(\"⌘K\", \"Ctrl+S\") so users can discover and recall keyboard shortcuts. It is\ndisplay-only — it documents an interaction rather than performing one.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": []
+      },
       "props": [],
       "slots": [
         {
@@ -765,6 +840,15 @@
     ],
     "intent": "A label names a form control so people know what value to provide and assistive\ntechnology can announce the control correctly. Its defining property is not the\ntext itself but the **programmatic association** with a control — a label that\nisn't bound to anything is just text.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": [
+          {
+            "pattern": "truncate",
+            "note": "truncates in tight form layouts"
+          }
+        ]
+      },
       "props": [
         {
           "name": "for",
@@ -823,6 +907,16 @@
     ],
     "intent": "A legend is the key that tells the reader what a chart's colors, patterns, or\nsymbols mean — which line is revenue, which bar is churn. Without it a\nmulti-series chart is undecipherable; with it, the encoding becomes readable. It\noften doubles as a control for toggling series on and off.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "wrap",
+            "note": "legend items wrap onto multiple rows"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -873,6 +967,15 @@
     ],
     "intent": "A link takes the user somewhere — another page, a section of the current page,\nor an external resource. It represents _navigation_, not an action: activating a\nlink changes location, and users rightly expect to be able to open it in a new\ntab, copy its address, and go back. This is the defining distinction from a\nbutton, which performs an action in place.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": [
+          {
+            "pattern": "truncate",
+            "note": "long link text truncates in constrained space"
+          }
+        ]
+      },
       "props": [
         {
           "name": "variant",
@@ -952,6 +1055,16 @@
     ],
     "intent": "A logo is the brand's mark in the interface — a wordmark, symbol, or lockup that\nidentifies whose product this is. Beyond identity, it plays a functional role:\nplaced in the navbar it is the conventional \"home\" affordance users reach for,\nand it anchors trust on auth and marketing pages.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "hide-secondary",
+            "note": "the wordmark may reduce to the mark alone on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "href",
@@ -1022,6 +1135,15 @@
     ],
     "intent": "A progress indicator communicates that a task is underway and, when known, how\nmuch remains. It reassures the user that work is happening and sets expectations\nfor how long they must wait.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the track fills its container width"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -1089,6 +1211,17 @@
     ],
     "intent": "A radio group presents a small set of mutually exclusive options and lets the\nuser choose exactly one. Showing all options at once makes the full set of\nchoices visible and comparable, which aids decisions among a few alternatives.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "horizontal options stack vertically"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -1181,6 +1314,15 @@
     ],
     "intent": "A scroll area confines overflowing content to a bounded region with predictable,\nconsistently-styled scrollbars across platforms. It keeps long lists, menus, and\npanels contained without letting the whole page scroll.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the viewport fits its container; content scrolls within"
+          }
+        ]
+      },
       "props": [
         {
           "name": "orientation",
@@ -1246,6 +1388,15 @@
     ],
     "intent": "A separator divides content into distinct groups, giving structure and rhythm\nwithout adding a heavier container. It clarifies where one set of items ends and\nanother begins.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "spans the full available length"
+          }
+        ]
+      },
       "props": [
         {
           "name": "orientation",
@@ -1296,6 +1447,15 @@
     ],
     "intent": "A skeleton stands in for content that hasn't loaded yet, echoing its eventual\nlayout. By reserving space in the real shape, it reduces perceived wait and\nprevents layout shift when the content arrives.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "mirrors the footprint of the content it stands in for"
+          }
+        ]
+      },
       "props": [
         {
           "name": "shape",
@@ -1351,6 +1511,16 @@
     ],
     "intent": "A slider lets a person pick a value from a continuous or stepped range by moving\na handle along a track. It suits choices where the approximate position matters\nmore than exact typing, and where seeing the value's place within the range is\nuseful.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the track fills its container; the thumb keeps its target size"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -1444,6 +1614,10 @@
     ],
     "intent": "A spinner signals that something is happening and the user should wait, without\nclaiming to know how long. It is the lightest-weight loading cue — ideal inline,\ninside buttons, or over a small region during a brief, unmeasured wait.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": []
+      },
       "props": [],
       "a11y": {
         "role": "status",
@@ -1486,6 +1660,11 @@
     ],
     "intent": "A switch turns a single setting on or off, taking effect immediately like a\nphysical light switch. Its value is the instant, self-evident nature of the\nchange — no separate submit step.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": []
+      },
       "props": [
         {
           "name": "checked",
@@ -1560,6 +1739,16 @@
     ],
     "intent": "A textarea captures longer, multi-line text — a comment, description, or message.\nIt gives the user room to write and review several lines at once, unlike the\nsingle-line input.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "fills width; grows in height with content"
+          }
+        ]
+      },
       "props": [
         {
           "name": "placeholder",
@@ -1639,6 +1828,17 @@
     ],
     "intent": "A toggle group binds several toggles into one control so the user can pick one\noption (single-select, like a segmented control) or several (multi-select, like a\nformatting toolbar). It communicates that the options belong together and are\ngoverned as a set.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "wrap",
+            "note": "segments wrap when they exceed the row"
+          }
+        ]
+      },
       "props": [
         {
           "name": "type",
@@ -1722,6 +1922,11 @@
     ],
     "intent": "A toggle is a button that stays pressed or unpressed, representing an on/off state\nfor a formatting or view option — bold text, grid vs. list, mute. Unlike a switch\n(a setting) it reads as a momentary tool that happens to remember its state, which\nis why it lives naturally in toolbars.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": []
+      },
       "props": [
         {
           "name": "pressed",
@@ -1795,6 +2000,15 @@
     ],
     "intent": "Typography is the shared set of text styles — headings, body copy, lists, quotes,\ncode, and inline emphasis — that gives written content clear hierarchy and\ncomfortable reading rhythm. It is the connective tissue of nearly every screen;\nconsistent type is what makes an interface feel coherent.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the measure adapts; long words break to avoid overflow"
+          }
+        ]
+      },
       "props": [
         {
           "name": "variant",
@@ -1861,6 +2075,15 @@
     ],
     "intent": "An accordion organizes related content into collapsible sections so users can\nscan headers and expand only what they need. It reduces long pages to a\nmanageable overview and is a natural fit for FAQs and grouped settings.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "panels fill width; headers wrap long labels"
+          }
+        ]
+      },
       "props": [
         {
           "name": "type",
@@ -1956,6 +2179,17 @@
     ],
     "intent": "An alert dialog interrupts the user to confirm an action that is consequential or\nhard to undo — deleting data, discarding changes, or canceling a running job. It\ndemands an explicit decision before anything continues, making it distinct from a\ngeneral-purpose dialog used for tasks and forms.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "becomes a full-width sheet; actions stack and go full-width"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -2056,6 +2290,16 @@
     ],
     "intent": "An alert surfaces an important message in the flow of a page — a warning, a tip, a\nsuccess confirmation, or an error summary. Unlike a toast, it stays in place and\nin context; unlike an alert-dialog, it doesn't interrupt or block the user.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "trailing actions move below the message"
+          }
+        ]
+      },
       "props": [
         {
           "name": "variant",
@@ -2139,6 +2383,20 @@
     ],
     "intent": "A breadcrumb shows where the current page sits within a hierarchy and offers a\none-click path back to any ancestor. It answers \"where am I and how do I get\nback,\" reinforcing structure in deep or nested products.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "collapse-to-menu",
+            "note": "middle crumbs collapse behind an overflow (…)"
+          },
+          {
+            "pattern": "truncate",
+            "note": "long crumb labels truncate"
+          }
+        ]
+      },
       "props": [
         {
           "name": "separator",
@@ -2210,6 +2468,17 @@
     ],
     "intent": "A button group visually joins related buttons into one unit to signal that they\nbelong together — a set of related actions, or a primary action paired with a menu\nof alternatives (a split button). It clarifies relationships and conserves space in\ntoolbars and action areas.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "wrap",
+            "note": "buttons wrap; may stack full-width"
+          }
+        ]
+      },
       "props": [
         {
           "name": "orientation",
@@ -2279,6 +2548,17 @@
     ],
     "intent": "A calendar presents dates in a familiar month grid so users can orient by weekday\nand week, and select a day, a range, or several days. It is the visual core that a\ndate-picker wraps in a popover, but it also stands alone for scheduling views.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "horizontal-scroll",
+            "note": "the month grid keeps seven columns and scrolls if cramped"
+          }
+        ]
+      },
       "props": [
         {
           "name": "mode",
@@ -2374,6 +2654,15 @@
     ],
     "intent": "A card groups related content and actions about a single subject into one bounded\nsurface, making it scannable and manipulable as a unit. Cards turn a page of\ndisparate information into a tidy set of digestible objects, and tile naturally\ninto grids and lists.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "fills its grid cell; media and body stack"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -2469,6 +2758,16 @@
     ],
     "intent": "A carousel presents a sequence of items — images, cards, testimonials — in a\nhorizontally scrollable track, showing a subset at a time with controls to move\nthrough them. It suits browsable, non-essential content where saving vertical\nspace matters more than seeing everything at once.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "slides size to the viewport; fewer show per view as width drops"
+          }
+        ]
+      },
       "props": [
         {
           "name": "orientation",
@@ -2560,6 +2859,20 @@
     ],
     "intent": "A chart encodes data visually so people can perceive trends, comparisons, and\ndistributions faster than reading numbers. It turns a dataset into a shape the eye\ncan interpret, supporting decisions on dashboards and reports.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the plot area resizes; labels thin out"
+          },
+          {
+            "at": "sm",
+            "pattern": "hide-secondary",
+            "note": "legend and gridlines reduce on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "type",
@@ -2649,6 +2962,15 @@
     ],
     "intent": "A collapsible is a single show/hide region controlled by a trigger. It defers\nsecondary detail until the user asks for it — a \"show more\", an optional form\nsection, an expandable row of detail — keeping the default view clean.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "fills width; the trigger label truncates"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -2725,6 +3047,25 @@
     ],
     "intent": "A combobox combines a text input with a dynamically filtered list, letting users\neither type to narrow options or browse and pick one. It scales selection to large\noption sets where a plain select would be unwieldy, and supports free-form entry\nwhen allowed.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the input fills its field"
+          },
+          {
+            "pattern": "reposition",
+            "note": "the popover flips to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "the option list can present as a bottom sheet"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -2834,6 +3175,17 @@
     ],
     "intent": "A command palette gives power users a single, keyboard-first surface to search\nacross commands, navigation targets, and entities, then execute or jump with a\nkeystroke. It collapses deep menus into one fast query box, usually summoned by a\nshortcut from anywhere in the app.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "the palette spans near-full width on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -2936,6 +3288,16 @@
     ],
     "intent": "A comment is one contribution to a discussion — who said it, what they said, when,\nand what you can do about it (reply, react, edit). It's the repeating unit that\ncomposes threads and activity feeds, so its clarity about authorship and timing,\nand its handling of nesting and moderation, shape the whole conversation.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "stack",
+            "note": "avatar and meta stack above the body; indentation reduces with depth"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -3023,6 +3385,21 @@
     ],
     "intent": "A context menu offers actions specific to the element the user targeted, summoned\nin place by right-click (or long-press on touch). It surfaces object-specific\ncommands exactly where the user is working, without permanently occupying screen\nspace.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "reposition",
+            "note": "opens on the side with room and flips near edges"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "may present as a sheet on touch"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -3111,6 +3488,21 @@
     ],
     "intent": "A data table lets users explore and act on collections of structured records:\nsort, filter, paginate, select, and trigger row actions. It extends the static\ntable into a working surface for datasets too large to read at once, common in\nadmin and analytics contexts.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "horizontal-scroll",
+            "note": "keeps columns and scrolls horizontally with a frozen key column"
+          },
+          {
+            "at": "sm",
+            "pattern": "reflow-to-cards",
+            "note": "rows become stacked label/value cards"
+          }
+        ]
+      },
       "props": [
         {
           "name": "sortable",
@@ -3239,6 +3631,21 @@
     ],
     "intent": "A date picker helps users provide a date (or range) accurately by combining a\ntyped field with a calendar for browsing. It balances speed for those who know the\ndate with visual context for those who need to see the month, and it enforces valid\nranges and formats.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "reposition",
+            "note": "the calendar popover flips to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "the calendar presents as a sheet on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -3342,6 +3749,17 @@
     ],
     "intent": "A dialog overlays the page to give a focused, self-contained space for a task or\ncontent — a form, details, a confirmation with body content — while dimming and\ndisabling the rest of the interface. It concentrates attention without navigating\naway, then returns the user exactly where they were.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "becomes a full-width bottom sheet; footer actions stack"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -3435,6 +3853,21 @@
     ],
     "intent": "A drawer slides content in from an edge of the screen — commonly the bottom on\ntouch — keeping partial context visible and inviting gesture-driven dismissal. It\nsuits mobile-first flows and secondary content that should feel attached to the\ncurrent screen rather than replacing it.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the panel width tracks the viewport, up to a max"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "a side drawer may become a bottom sheet on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -3542,6 +3975,21 @@
     ],
     "intent": "A dropdown menu attaches a list of actions to a button, revealing them on demand\nso a surface can offer many operations without clutter. It's the workhorse for\n\"more actions\", account menus, and overflow — an explicitly triggered, keyboard-\nnavigable menu of commands.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "reposition",
+            "note": "flips and shifts to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "may present as a sheet on touch"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -3639,6 +4087,20 @@
     ],
     "intent": "An empty state fills the void when there's no content — a new list, no search\nresults, a cleared inbox — turning a dead end into guidance. It explains why the\nspace is empty and points to the next useful action, so absence of data doesn't\nfeel like a broken screen.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "illustration and copy center and scale down"
+          },
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "actions stack"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -3709,6 +4171,17 @@
     ],
     "intent": "A field is the connective wrapper that turns a bare control into a complete,\naccessible form element: label, the control itself, optional helper text, and\nvalidation feedback — all wired together. It standardizes structure, spacing, and\nthe label/description/error associations so every control behaves consistently.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "a side-by-side label/control becomes label-above-control"
+          }
+        ]
+      },
       "props": [
         {
           "name": "label",
@@ -3812,6 +4285,16 @@
     ],
     "intent": "A footer closes the page with the content users look for at the end: secondary\nnavigation, legal and policy links, contact and social, and trust signals. It is\nthe conventional home for everything that doesn't belong in primary navigation but\nshould be reliably findable, anchoring the bottom of nearly every marketing and\ncontent page.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "reflow-columns",
+            "note": "link columns step down, then stack"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -3887,6 +4370,17 @@
     ],
     "intent": "A form gathers structured input from a user, validates it, and submits it to\naccomplish a goal — signing in, creating a record, updating settings. It\norchestrates fields, guidance, validation, and submission into one coherent,\naccessible flow, minimizing effort and error.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "stack",
+            "note": "multi-column field rows collapse to a single column"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -3993,6 +4487,20 @@
     ],
     "intent": "A hover card shows a richer preview — a person's profile, a link's summary, an\nitem's details — when the pointer rests on a trigger. It offers a peek of related\ninformation without a click or navigation, richer than a plain tooltip but lighter\nthan opening a page.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": [
+          {
+            "pattern": "reposition",
+            "note": "flips to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "hide-secondary",
+            "note": "suppressed on touch; falls back to navigation"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -4068,6 +4576,21 @@
     ],
     "intent": "An input group binds an input with adjacent add-ons — a prefix/suffix, an icon, a\nunit, a select, or a button — into one composite control. It gives the value\ncontext (currency symbol, protocol, unit) or an attached action (search, copy,\napply) while reading as a single, cohesive field.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the field fills; addons keep their size"
+          },
+          {
+            "at": "sm",
+            "pattern": "wrap",
+            "note": "addons may wrap below the field"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -4133,6 +4656,20 @@
     ],
     "intent": "A list presents a set of related items as a vertical stack of rows, each showing\na compact summary and optional actions. It suits object-like items scanned top to\nbottom — messages, files, people, notifications — where a single primary attribute\nleads and a table's columns would be overkill.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "rows fill width"
+          },
+          {
+            "at": "sm",
+            "pattern": "truncate",
+            "note": "secondary metadata truncates or hides"
+          }
+        ]
+      },
       "props": [
         {
           "name": "interactive",
@@ -4221,6 +4758,17 @@
     ],
     "intent": "A menubar presents an application's commands as a persistent horizontal row of\ntop-level menus (File, Edit, View…), each opening a list of grouped actions. It\nmirrors the desktop-application menu model, giving power users a comprehensive,\npredictable home for commands.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "collapse-to-menu",
+            "note": "top-level menus collapse behind an overflow / hamburger"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -4299,6 +4847,22 @@
     ],
     "intent": "A navbar is the primary wayfinding surface of a product. It stays present across\nscreens to answer three questions at a glance: _where am I_, _where can I go_,\nand _what can I do from anywhere_. It anchors brand identity and the top level of\nthe information architecture, and it hosts the handful of global actions (search,\naccount, primary call to action) that should be reachable from every page.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "collapse-to-menu",
+            "note": "secondary items collapse first"
+          },
+          {
+            "at": "md",
+            "pattern": "drawer",
+            "note": "primary navigation moves into a drawer behind a menu toggle"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -4392,6 +4956,22 @@
     ],
     "intent": "A navigation menu presents a product's primary destinations, where top-level items\ncan reveal flyout panels grouping related links (a \"mega menu\"). It scales site\nnavigation beyond a flat row, organizing many destinations into browsable\ncategories while keeping the top level clean.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "collapse-to-menu",
+            "note": "top-level items collapse to a menu"
+          },
+          {
+            "at": "md",
+            "pattern": "drawer",
+            "note": "mega-menu content stacks inside a drawer"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -4468,6 +5048,17 @@
     ],
     "intent": "Pagination breaks a long set of results into pages and gives users controls to\nmove among them. It bounds how much loads and renders at once, and lets users\norient themselves (\"page 3 of 20\") within a large collection.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "collapse-to-menu",
+            "note": "middle page numbers collapse to an ellipsis; prev/next remain"
+          }
+        ]
+      },
       "props": [
         {
           "name": "page",
@@ -4559,6 +5150,21 @@
     ],
     "intent": "A popover is a general-purpose floating surface anchored to a trigger, used to\npresent contextual content or lightweight controls near what they relate to. It is\nthe shared foundation many overlays build on (menus, selects, date pickers), and\non its own it holds small interactive content without the weight of a modal dialog.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "reposition",
+            "note": "flips and shifts to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "may present as a sheet on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -4631,6 +5237,17 @@
     ],
     "intent": "Resizable panels divide a region into two or more areas separated by draggable\nhandles, letting users decide how to split available space — a file tree beside an\neditor, a list beside a detail pane. It hands layout control to the user for\nworkspace-style interfaces where preferred proportions vary.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "stack",
+            "note": "side-by-side panes stack vertically; the handle re-orients"
+          }
+        ]
+      },
       "props": [
         {
           "name": "orientation",
@@ -4714,6 +5331,21 @@
     ],
     "intent": "Search lets a person find content by typing a query. Beyond the field itself, the\npattern covers the affordances that make searching productive: a clear entry point,\na way to clear the query, live suggestions or recent searches, and a predictable\nresults and empty state. It's how users cut through volume to the one thing they\nwant.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the field fills the bar"
+          },
+          {
+            "at": "sm",
+            "pattern": "collapse-to-menu",
+            "note": "collapses to an icon that expands to full-width"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -4827,6 +5459,25 @@
     ],
     "intent": "A select lets users choose from a defined set of options by opening a list and\npicking one (or several). It conserves space compared to showing all options and\nsuits sets too long for radios but not large enough to need typed filtering.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the trigger fills its field"
+          },
+          {
+            "pattern": "reposition",
+            "note": "the listbox flips to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "options present as a sheet on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -4927,6 +5578,21 @@
     ],
     "intent": "A sheet slides a panel in from an edge of the screen (commonly the side) to host\nsecondary content or a task while keeping the page context adjacent. It's roomier\nthan a popover and less interruptive than a centered dialog — ideal for details,\nfilters, or edit forms that relate to what's on screen.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the panel size tracks the viewport edge it's docked to"
+          },
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "an edge sheet becomes full-width"
+          }
+        ]
+      },
       "props": [
         {
           "name": "open",
@@ -5025,6 +5691,17 @@
     ],
     "intent": "A sidebar provides persistent, vertically-organized navigation beside an\napplication's content, scaling to many sections and nested groups. It's the primary\nwayfinding surface for product/app shells where a horizontal navbar would run out\nof room, keeping destinations always visible or a click away.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "drawer",
+            "note": "the rail becomes a toggled off-canvas drawer"
+          }
+        ]
+      },
       "props": [
         {
           "name": "collapsed",
@@ -5120,6 +5797,20 @@
     ],
     "intent": "A stat surfaces one number that matters — revenue, active users, conversion rate —\nwith just enough context to interpret it: a label, and often a change indicator or\na tiny trend. It turns a single figure into a glanceable signal, the building block\nthat tiles into a dashboard's metric row.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "fluid",
+            "note": "the value scales"
+          },
+          {
+            "at": "sm",
+            "pattern": "reflow-columns",
+            "note": "a row of stats steps down to two, then one"
+          }
+        ]
+      },
       "props": [
         {
           "name": "trend",
@@ -5204,6 +5895,16 @@
     ],
     "intent": "A table arranges structured data into rows and columns so values align for easy\nscanning and comparison across records and attributes. It is the clearest way to\npresent tabular information where relationships between columns matter; the\ninteractive **data-table** builds on it.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "horizontal-scroll",
+            "note": "columns are preserved; the table scrolls horizontally"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -5277,6 +5978,21 @@
     ],
     "intent": "Tabs divide related content into peer sections and let users switch between them in\nplace, showing one panel at a time. They organize a moderate amount of content\nwithout navigation or scrolling, keeping the user in the same context while they\nmove between views of the same subject.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "horizontal-scroll",
+            "note": "the tab strip scrolls horizontally"
+          },
+          {
+            "pattern": "collapse-to-menu",
+            "note": "overflowing tabs collapse into a ‘More’ menu"
+          }
+        ]
+      },
       "props": [
         {
           "name": "value",
@@ -5370,6 +6086,17 @@
     ],
     "intent": "A toast briefly surfaces a low-friction message — \"Saved\", \"Copied\", \"Upload\nfailed\" — then dismisses itself, confirming an action or reporting a background\nevent without interrupting the user's flow. It's ephemeral and non-blocking, the\nopposite of a dialog.",
     "api": {
+      "responsive": {
+        "container": false,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "to-sheet",
+            "note": "toasts span the width and dock to an edge on small screens"
+          }
+        ]
+      },
       "props": [
         {
           "name": "variant",
@@ -5464,6 +6191,21 @@
     ],
     "intent": "A toolbar gathers the controls that act on the current context — a document,\ncanvas, selection, or list — into one consistent strip. It keeps frequently used\nactions visible and within reach, grouped by relationship, so users can operate\nwithout hunting through menus.",
     "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "wrap",
+            "note": "tool groups wrap before collapsing"
+          },
+          {
+            "at": "md",
+            "pattern": "collapse-to-menu",
+            "note": "lower-priority tools collapse into an overflow menu"
+          }
+        ]
+      },
       "props": [
         {
           "name": "orientation",
@@ -5568,6 +6310,20 @@
     ],
     "intent": "A tooltip shows a short, plain-text hint about an element when the user hovers or\nfocuses it — the meaning of an icon button, a truncated label, an extra detail. It\nsupplies supplementary clarification without permanently occupying space, and must\nnever carry essential or interactive content.",
     "api": {
+      "responsive": {
+        "container": false,
+        "reflow": [
+          {
+            "pattern": "reposition",
+            "note": "flips to stay in view"
+          },
+          {
+            "at": "sm",
+            "pattern": "hide-secondary",
+            "note": "suppressed on touch; the label must be reachable another way"
+          }
+        ]
+      },
       "props": [
         {
           "name": "content",
@@ -5631,6 +6387,16 @@
     ],
     "intent": "A CTA section is a focused band, usually near the end of a page, that restates the\none action you want the visitor to take. After they've scrolled the argument, it\ngives momentum a place to land — a clear prompt and a single button (or a short\nlead-capture) — without the distraction of surrounding content.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "heading, copy, and actions stack and center"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -5696,6 +6462,16 @@
     ],
     "intent": "An FAQ answers the questions that block a decision — pricing details, limits,\nsecurity, cancellation — in one scannable place. By surfacing common objections and\nanswering them plainly, it removes friction late in the funnel and reduces support\nload, letting users self-serve the reassurance they need.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "reflow-columns",
+            "note": "a two-column Q&A grid collapses to one"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -5752,6 +6528,21 @@
     ],
     "intent": "A feature grid presents a product's key features or benefits as a scannable set of\nshort, parallel items — each an icon, a title, and a sentence. It lets a visitor\ngrasp the breadth of what's offered at a glance, framed as outcomes for the user\nrather than a raw list of capabilities.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "reflow-columns",
+            "note": "three columns step to two"
+          },
+          {
+            "at": "sm",
+            "pattern": "reflow-columns",
+            "note": "two columns step to one"
+          }
+        ]
+      },
       "props": [
         {
           "name": "columns",
@@ -5812,6 +6603,16 @@
     ],
     "intent": "A hero is the first thing a visitor sees: a large opening section that states, in\na few words, what the product is and why it matters, and offers the single most\nimportant next step. It has one job — communicate the value proposition and get\nthe user to act — so everything in it earns its place toward that goal.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "stack",
+            "note": "side-by-side copy and media stack; media follows the copy"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
@@ -5888,6 +6689,26 @@
     ],
     "intent": "A pricing table lays out plans side by side so a visitor can compare what each\ncosts and includes, then choose. It makes differences legible at a glance,\nhighlights a recommended plan to guide the decision, and answers the practical\nquestions — price, billing period, and what's in each tier — that gate a purchase.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "reflow-columns",
+            "note": "tiers step down in columns"
+          },
+          {
+            "at": "md",
+            "pattern": "horizontal-scroll",
+            "note": "tiers scroll horizontally to keep them comparable"
+          },
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "tiers stack, highlighting the featured plan"
+          }
+        ]
+      },
       "props": [
         {
           "name": "interval",
@@ -5978,6 +6799,16 @@
     ],
     "intent": "A testimonial presents a real customer's words to build trust: a quote paired with\nwho said it. Its power comes from credibility and specificity — a named person,\ntheir role and company, and a concrete outcome — which reassures prospects far\nmore than the brand describing itself.",
     "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "reflow-columns",
+            "note": "a quote grid steps down, then stacks"
+          }
+        ]
+      },
       "props": [],
       "slots": [
         {
