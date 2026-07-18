@@ -1,0 +1,31 @@
+{
+  "name": "@ux-archetypes/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for UX Archetypes — CSS custom properties, a Tailwind v4 preset, theme overlays, and a typed JS export. Generated from the framework's W3C DTCG tokens.",
+  "license": "MIT",
+  "author": "brnrdog",
+  "keywords": ["design-tokens", "css-variables", "tailwind", "theme", "dtcg", "ux-archetypes"],
+  "type": "module",
+  "sideEffects": ["*.css"],
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./variables.css": "./dist/variables.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./themes.css": "./dist/themes.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./themes.json": "./dist/themes.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brnrdog/ux-archetypes",
+    "directory": "packages/tokens"
+  }
+}

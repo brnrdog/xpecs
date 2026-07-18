@@ -2,9 +2,14 @@
   "name": "ux-archetypes",
   "version": "0.7.0",
   "description": "A technology-agnostic collection of User Experience Archetypes: reusable definitions of UI patterns for humans and AI agents, spanning elements, components, blocks, pages, and flows.",
+  "workspaces": [
+    "packages/*",
+    "website"
+  ],
   "scripts": {
     "index": "node scripts/generate-index.mjs",
-    "skill": "node scripts/generate-skill.mjs"
+    "skill": "node scripts/generate-skill.mjs",
+    "build:tokens": "npm run build --workspace @ux-archetypes/tokens"
   },
   "license": "MIT",
   "author": "brnrdog",
