@@ -122,6 +122,32 @@ let open_ = Signal.make(false)
 let presetSel = Signal.make(readOr("ux.preset", "monochrome"))
 let darkMode = Signal.make(readOr("ux.mode", "light") == "dark")
 
+// Corner radius is a third orthogonal axis, like the light/dark mode: a chosen
+// preset overrides the whole `radius.*` ramp on top of the current theme.
+// `default` keeps whatever radii the theme itself defines.
+let radiusSel = Signal.make(readOr("ux.radius", "default"))
+let radiusPresets = [
+  ("sharp", "Sharp", "0.1875rem", [
+    ("radius.sm", "0.125rem"), ("radius.md", "0.1875rem"), ("radius.lg", "0.25rem"),
+    ("radius.xl", "0.375rem"), ("radius.2xl", "0.5rem"), ("radius.3xl", "0.625rem"),
+  ]),
+  ("default", "Default", "0.5rem", []),
+  ("rounded", "Rounded", "0.875rem", [
+    ("radius.sm", "0.5rem"), ("radius.md", "0.75rem"), ("radius.lg", "1rem"),
+    ("radius.xl", "1.5rem"), ("radius.2xl", "2rem"), ("radius.3xl", "2.5rem"),
+  ]),
+  ("round", "Round", "1.25rem", [
+    ("radius.sm", "0.875rem"), ("radius.md", "1.125rem"), ("radius.lg", "1.5rem"),
+    ("radius.xl", "2rem"), ("radius.2xl", "2.5rem"), ("radius.3xl", "3rem"),
+  ]),
+]
+let radiusById = id => radiusPresets->Array.find(((rid, _, _, _)) => rid == id)
+let applyRadius = () =>
+  switch radiusById(Signal.get(radiusSel)) {
+  | Some((_, _, _, tokens)) => tokens->Array.forEach(((path, v)) => applyByPath(path, v))
+  | None => ()
+  }
+
 let themeById = id => ThemesData.all->Array.find(t => t.id == id)
 
 // Tell the browser which scheme is active so native UI (scrollbars, form
@@ -137,6 +163,8 @@ let applyTheme = (t: ThemesData.theme, dark) => {
     ThemesData.darkMode->Array.forEach(((path, v)) => applyByPath(path, v))
     t.darkTokens->Array.forEach(((path, v)) => applyByPath(path, v))
   }
+  // Corner radius overlay sits on top of the theme's own radii.
+  applyRadius()
   Signal.set(presetSel, t.id)
   Signal.set(darkMode, dark)
   setColorScheme(dark ? "dark" : "light")
@@ -155,13 +183,26 @@ let setDark = dark =>
   | None => ()
   }
 
+// Pick a corner-radius preset, keeping the current theme and mode. Rebuilds the
+// override set so switching back to `default` cleanly restores the theme radii.
+let setRadius = id => {
+  Signal.set(radiusSel, id)
+  store("ux.radius", id)
+  switch themeById(Signal.get(presetSel)) {
+  | Some(t) => applyTheme(t, Signal.get(darkMode))
+  | None => applyRadius()
+  }
+}
+
 // Reset everything (theme + mode + per-token edits) back to the framework defaults.
 let resetTokens = () => {
   clearOverrides()
   Signal.set(presetSel, "monochrome")
   Signal.set(darkMode, false)
+  Signal.set(radiusSel, "default")
   store("ux.preset", "monochrome")
   store("ux.mode", "light")
+  store("ux.radius", "default")
   bumpOverrides()
 }
 let resetTokensAndReload = () => {
@@ -241,6 +282,33 @@ module Panel = {
               </button>
             }}
           />
+        </div>
+
+        // Corner radius — an orthogonal overlay on top of the theme.
+        <div class="mt-4">
+          <div class="mb-1.5 text-xs font-medium text-muted"> <View.Text> "Corners" </View.Text> </div>
+          <div class="grid grid-cols-4 gap-2">
+            <View.For
+              each={Prop.static(radiusPresets)}
+              render={p => {
+                let (rid, label, preview, _) = p
+                let cls = Computed.make(() =>
+                  "flex flex-col items-center gap-1.5 rounded-xl border p-2 transition-colors " ++ (
+                    Signal.get(radiusSel) == rid
+                      ? "border-neutral-900 bg-action-subtle"
+                      : "border-border hover:bg-action-subtle"
+                  )
+                )
+                <button class={Prop.signal(cls)} onClick={_ => setRadius(rid)}>
+                  <span
+                    class="size-6 border-2 border-neutral-900 bg-surface"
+                    style={"border-top-left-radius: " ++ preview ++ "; border-bottom-right-radius: " ++ preview}
+                  />
+                  <span class="text-[10px] font-medium text-ink"> <View.Text> label </View.Text> </span>
+                </button>
+              }}
+            />
+          </div>
         </div>
 
         <button
