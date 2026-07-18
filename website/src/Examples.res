@@ -307,10 +307,10 @@ module InputOtpEx = {
   }
 }
 
-module Card = {
+module CardEx = {
   @jsx.component
   let make = () =>
-    <div class={Ui.card ++ " w-80 overflow-hidden"}>
+    <Card extraClass="w-80 overflow-hidden">
       <div class="flex aspect-video items-center justify-center bg-neutral-100 text-neutral-400">
         <View.Text> "cover" </View.Text>
       </div>
@@ -327,7 +327,7 @@ module Card = {
           <Button variant=#ghost> <View.Text> "Details" </View.Text> </Button>
         </div>
       </div>
-    </div>
+    </Card>
 }
 
 module AlertEx = {
@@ -446,69 +446,30 @@ module TooltipEx = {
     </div>
 }
 
-module Breadcrumb = {
+module BreadcrumbEx = {
   @jsx.component
-  let make = () => {
-    let sep = <span class="text-neutral-300"> <View.Text> "/" </View.Text> </span>
-    <nav class="flex items-center gap-2 text-sm">
-      <a class="text-neutral-500 hover:text-neutral-900" href="#"> <View.Text> "Home" </View.Text> </a>
-      {sep}
-      <a class="text-neutral-500 hover:text-neutral-900" href="#"> <View.Text> "Projects" </View.Text> </a>
-      {sep}
-      <span class="font-medium text-neutral-900"> <View.Text> "Specs" </View.Text> </span>
-    </nav>
-  }
+  let make = () =>
+    <Breadcrumb items=[("Home", "#"), ("Projects", "#"), ("Specs", "")] />
 }
 
-module Pagination = {
+module PaginationEx = {
   @jsx.component
   let make = () => {
     let page = Signal.make(2)
-    let pages = [1, 2, 3, 4, 5]
-    let navBtn = "inline-flex size-9 items-center justify-center rounded-md text-sm transition-colors"
-    <div class="flex items-center gap-1">
-      <button
-        class={navBtn ++ " border border-neutral-300 text-neutral-700 hover:bg-neutral-100"}
-        onClick={_ => Signal.update(page, p => p > 1 ? p - 1 : 1)}>
-        <View.Text> "‹" </View.Text>
-      </button>
-      <View.For
-        each={Prop.static(pages)}
-        render={p => {
-          let cls = Computed.make(() =>
-            navBtn ++ (
-              Signal.get(page) == p
-                ? " bg-neutral-900 text-neutral-0"
-                : " text-neutral-700 hover:bg-neutral-100"
-            )
-          )
-          <button class={Prop.signal(cls)} onClick={_ => Signal.set(page, p)}>
-            <View.Text> {Int.toString(p)} </View.Text>
-          </button>
-        }}
-      />
-      <button
-        class={navBtn ++ " border border-neutral-300 text-neutral-700 hover:bg-neutral-100"}
-        onClick={_ => Signal.update(page, p => p < 5 ? p + 1 : 5)}>
-        <View.Text> "›" </View.Text>
-      </button>
-    </div>
+    <Pagination page total=5 />
   }
 }
 
-module EmptyState = {
+module EmptyStateEx = {
   @jsx.component
   let make = () =>
-    <div class="flex max-w-sm flex-col items-center gap-3 rounded-lg border border-dashed border-neutral-300 p-10 text-center">
-      <div class="flex size-12 items-center justify-center rounded-full bg-neutral-100 text-xl text-neutral-400">
-        <View.Text> "☰" </View.Text>
-      </div>
-      <div>
-        <p class="font-medium text-neutral-800"> <View.Text> "No projects yet" </View.Text> </p>
-        <p class="mt-1 text-sm text-neutral-500"> <View.Text> "Create your first project to get started." </View.Text> </p>
-      </div>
+    <EmptyState
+      icon="☰"
+      title="No projects yet"
+      description="Create your first project to get started."
+      extraClass="max-w-sm">
       <Button variant=#primary> <View.Text> "New project" </View.Text> </Button>
-    </div>
+    </EmptyState>
 }
 
 module FieldEx = {
@@ -563,26 +524,26 @@ module Form = {
   }
 }
 
-module ButtonGroup = {
+module ButtonGroupEx = {
   @jsx.component
   let make = () =>
-    <div class="inline-flex overflow-hidden rounded-md border border-neutral-300">
-      <button class="border-r border-neutral-300 bg-surface px-3 py-2 text-sm hover:bg-neutral-100"> <View.Text> "Bold" </View.Text> </button>
-      <button class="border-r border-neutral-300 bg-surface px-3 py-2 text-sm hover:bg-neutral-100"> <View.Text> "Italic" </View.Text> </button>
+    <ButtonGroup>
+      <button class="bg-surface px-3 py-2 text-sm hover:bg-neutral-100"> <View.Text> "Bold" </View.Text> </button>
+      <button class="bg-surface px-3 py-2 text-sm hover:bg-neutral-100"> <View.Text> "Italic" </View.Text> </button>
       <button class="bg-surface px-3 py-2 text-sm hover:bg-neutral-100"> <View.Text> "Underline" </View.Text> </button>
-    </div>
+    </ButtonGroup>
 }
 
-module InputGroup = {
+module InputGroupEx = {
   @jsx.component
   let make = () =>
-    <div class="flex max-w-sm">
+    <InputGroup extraClass="max-w-sm">
       <span class="inline-flex items-center rounded-l-md border border-r-0 border-neutral-300 bg-neutral-50 px-3 text-sm text-neutral-500">
         <View.Text> "https://" </View.Text>
       </span>
       <Input extraClass="rounded-none" placeholder="example.com" />
       <Button variant=#primary extraClass="rounded-l-none"> <View.Text> "Go" </View.Text> </Button>
-    </div>
+    </InputGroup>
 }
 
 module SelectEx = {
@@ -1909,7 +1870,7 @@ let get = (id: string): option<View.node> =>
   | "aspect-ratio" => Some(<AspectRatioEx />)
   | "scroll-area" => Some(<ScrollAreaEx />)
   | "input-otp" => Some(<InputOtpEx />)
-  | "card" => Some(<Card />)
+  | "card" => Some(<CardEx />)
   | "alert" => Some(<AlertEx />)
   | "tabs" => Some(<TabsEx />)
   | "accordion" => Some(<AccordionEx />)
@@ -1917,13 +1878,13 @@ let get = (id: string): option<View.node> =>
   | "dialog" => Some(<DialogEx />)
   | "alert-dialog" => Some(<AlertDialog />)
   | "tooltip" => Some(<TooltipEx />)
-  | "breadcrumb" => Some(<Breadcrumb />)
-  | "pagination" => Some(<Pagination />)
-  | "empty-state" => Some(<EmptyState />)
+  | "breadcrumb" => Some(<BreadcrumbEx />)
+  | "pagination" => Some(<PaginationEx />)
+  | "empty-state" => Some(<EmptyStateEx />)
   | "field" => Some(<FieldEx />)
   | "form" => Some(<Form />)
-  | "button-group" => Some(<ButtonGroup />)
-  | "input-group" => Some(<InputGroup />)
+  | "button-group" => Some(<ButtonGroupEx />)
+  | "input-group" => Some(<InputGroupEx />)
   | "select" => Some(<SelectEx />)
   | "dropdown-menu" => Some(<DropdownMenu />)
   | "context-menu" => Some(<ContextMenu />)
