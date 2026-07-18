@@ -10,6 +10,8 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const srcDir = join(here, "..", "src");
+// Reusable components now live in the @ux-archetypes/xote package.
+const compDir = join(here, "..", "..", "packages", "xote", "src");
 const examplesSrc = readFileSync(join(srcDir, "Examples.res"), "utf8");
 const outFile = join(srcDir, "ExampleSource.res");
 
@@ -22,7 +24,7 @@ const COMPONENTS = [
 
 // Read a component file and drop its leading // comment block.
 function componentBody(name) {
-  const raw = readFileSync(join(srcDir, `${name}.res`), "utf8").split("\n");
+  const raw = readFileSync(join(compDir, `${name}.res`), "utf8").split("\n");
   let i = 0;
   while (i < raw.length && (raw[i].startsWith("//") || raw[i].trim() === "")) i++;
   return raw.slice(i).join("\n").trimEnd();

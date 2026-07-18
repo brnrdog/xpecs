@@ -1,5 +1,6 @@
 {
-  "name": "ux-archetypes-website",
+  "name": "@ux-archetypes/xote",
+  "namespace": false,
   "sources": [
     {
       "dir": "src",
@@ -11,7 +12,7 @@
     "in-source": true
   },
   "suffix": ".res.mjs",
-  "dependencies": ["@rescript/core", "rescript-signals", "xote", "@ux-archetypes/xote"],
+  "dependencies": ["@rescript/core", "rescript-signals", "xote"],
   "jsx": {
     "version": 4,
     "module": "XoteJSX"

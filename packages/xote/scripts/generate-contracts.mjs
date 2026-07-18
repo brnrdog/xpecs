@@ -8,7 +8,7 @@ import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "archetypes");
+const archetypesDir = join(here, "..", "..", "..", "archetypes");
 const outFile = join(here, "..", "src", "Contracts.res");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 

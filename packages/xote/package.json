@@ -1,0 +1,29 @@
+{
+  "name": "@ux-archetypes/xote",
+  "version": "0.1.0",
+  "description": "Accessible UI components for Xote/ReScript that implement the UX Archetypes contracts. Styled against @ux-archetypes/tokens; prop types are generated from the archetype API contracts, so the implementation can't drift from the spec.",
+  "license": "MIT",
+  "author": "brnrdog",
+  "keywords": ["rescript", "xote", "components", "ui", "design-system", "ux-archetypes", "accessibility"],
+  "type": "module",
+  "files": ["src", "lib/ocaml", "rescript.json", "README.md"],
+  "scripts": {
+    "contracts": "node scripts/generate-contracts.mjs",
+    "build": "npm run contracts && rescript build",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "@rescript/core": ">=1.6.0",
+    "rescript": ">=12.0.0",
+    "rescript-signals": ">=3.0.0",
+    "xote": ">=7.0.0"
+  },
+  "dependencies": {
+    "@ux-archetypes/tokens": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brnrdog/ux-archetypes",
+    "directory": "packages/xote"
+  }
+}

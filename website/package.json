@@ -6,7 +6,7 @@
   "scripts": {
     "registry": "node scripts/generate-registry.mjs",
     "snippets": "node scripts/generate-snippets.mjs",
-    "contracts": "node scripts/generate-contracts.mjs",
+    "contracts": "node ../packages/xote/scripts/generate-contracts.mjs",
     "traits": "node scripts/generate-traits.mjs",
     "tokens": "node scripts/generate-tokens-css.mjs",
     "tokens:data": "node scripts/generate-tokens-data.mjs",
@@ -28,6 +28,8 @@
     "smoke": "node scripts/smoke-all.mjs"
   },
   "dependencies": {
+    "@ux-archetypes/tokens": "*",
+    "@ux-archetypes/xote": "*",
     "rescript-signals": "3.1.1",
     "xote": "7.0.0"
   },

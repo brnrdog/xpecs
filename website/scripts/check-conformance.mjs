@@ -9,7 +9,8 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const archetypesDir = join(here, "..", "..", "archetypes");
-const srcDir = join(here, "..", "src");
+// The component implementations live in the @ux-archetypes/xote package.
+const srcDir = join(here, "..", "..", "packages", "xote", "src");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
 // ReScript renames a few reserved words used as prop labels.
