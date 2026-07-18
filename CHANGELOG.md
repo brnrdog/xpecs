@@ -88,7 +88,7 @@ released.
   them in prose. The website renders trait chips on each spec, dedicated
   trait pages (with an "exhibited by" back-reference), and a Behaviors group in
   the sidebar.
-- **Traits are testable.** Each trait declares the keyboard `keys` an spec
+- **Traits are testable.** Each trait declares the keyboard `keys` a spec
   must support to legitimately claim it (`match: all | any`). A new build gate
   (`npm run conformance:traits`) verifies every trait claim against the
   spec's API `a11y.keyboard` — it caught that `command` (a modal palette)

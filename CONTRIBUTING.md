@@ -36,7 +36,7 @@ about keeping the shape uniform.
   - **MINOR** — a new variant, state, or compatible content addition.
   - **PATCH** — clarifications and wording fixes.
 - Reflect the change in `INDEX.md` and `CHANGELOG.md`.
-- To retire an spec, set `status: deprecated` (keep the file for reference)
+- To retire a spec, set `status: deprecated` (keep the file for reference)
   rather than deleting it; removal is a collection `MAJOR`.
 
 ## Writing principles
@@ -44,7 +44,7 @@ about keeping the shape uniform.
 - **Describe the pattern, not a design.** Capture intent, anatomy, states,
   behavior, and the accessibility contract — not pixels, colors, or framework
   code.
-- **Stay stack-agnostic.** An spec should map cleanly onto React, Vue,
+- **Stay stack-agnostic.** A spec should map cleanly onto React, Vue,
   SwiftUI, a design tool, or plain HTML.
 - **Accessibility is required**, not optional. Every spec states its
   keyboard, semantics, screen-reader, and focus expectations.

@@ -41,7 +41,7 @@ or a multi-step flow — or when setting up design tokens / theming.
    `focus-trap`, `anchored`, `roving-focus`, `typeahead`). Look each up in
    `reference/traits.json` for the exact keyboard/focus contract, and honor the
    `keys` it requires — they must appear in the spec's `a11y.keyboard`.
-4. **Wire its composition.** `composition` lists the parts an spec is built
+4. **Wire its composition.** `composition` lists the parts a spec is built
    from — each `ref` (another spec), the `slot` it fills, and any `props`
    passed. Reuse those specs rather than re-building them.
 5. **Implement to the contract**, in the user's framework and style. Cover every
@@ -73,7 +73,7 @@ equivalent.
 - `reference/traits.json` — the shared behavior contracts (+ required keys).
 - `reference/tokens.json` — the design tokens (DTCG), including `breakpoint.*`.
 - `reference/themes.json` — ready-made themes and light/dark modes.
-- `reference/responsive-patterns.json` — the reflow vocabulary an spec's
+- `reference/responsive-patterns.json` — the reflow vocabulary a spec's
   `responsive.reflow[].pattern` refers to (id → label + description).
 
 ## Principles

@@ -55,7 +55,7 @@ first paragraph of each `## Intent`) and emits `src/SpecsData.res`. That
 guarantees the sidebar always lists every spec in the collection.
 
 Each spec's example is a small self-contained Xote component in
-`Examples.res`; `Examples.get(id)` maps an spec `id` to its rendered node.
+`Examples.res`; `Examples.get(id)` maps a spec `id` to its rendered node.
 Specs without an example fall back to a graceful placeholder.
 
 ## Develop

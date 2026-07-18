@@ -1,6 +1,6 @@
 # Responsive patterns
 
-How an spec restructures as available width changes is a **contract**, not
+How a spec restructures as available width changes is a **contract**, not
 an afterthought — the same way behavior is captured as [traits](../traits/) and
 color/spacing as [tokens](../tokens/). This directory holds the shared
 vocabulary of **reflow patterns** that specs reference instead of
