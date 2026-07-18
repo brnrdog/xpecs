@@ -15,10 +15,16 @@ module Chip = {
     </Router.Link>
 }
 
-// A lightweight browser-window frame so a mock reads as a real screen.
+// A lightweight browser-window frame so a mock reads as a real screen. Takes a
+// render thunk (not children) so the mock can be instantiated twice — once
+// inline, once in the fullscreen overlay — the same way the detail-page preview
+// re-instantiates its example.
 module Frame = {
   @jsx.component
-  let make = (~label: string, ~children: View.node) =>
+  let make = (~label: string, ~render: unit => View.node) => {
+    let full = Signal.make(false)
+    // Close fullscreen on Escape while it is open.
+    Effect.run(() => Signal.get(full) ? Some(Ui.onEscape(() => Signal.set(full, false))) : None)
     <div class="overflow-hidden rounded-xl border border-border bg-surface shadow-md">
       <div class="flex items-center gap-2 border-b border-border bg-paper px-3 py-2">
         <span class="size-2.5 rounded-full bg-neutral-300" />
@@ -29,9 +35,32 @@ module Frame = {
             <View.Text> label </View.Text>
           </span>
         </div>
+        <button
+          class="shrink-0 rounded-md px-2 py-0.5 text-xs font-medium text-muted transition-colors hover:bg-action-subtle hover:text-ink"
+          onClick={_ => Signal.set(full, true)}>
+          <View.Text> "⤢ Fullscreen" </View.Text>
+        </button>
       </div>
-      <div class="max-h-[36rem] overflow-y-auto"> {children} </div>
+      <div class="max-h-[36rem] overflow-y-auto"> {render()} </div>
+      <View.Show when_={Prop.signal(full)}>
+        <div class="fixed inset-0 z-50 flex flex-col bg-paper">
+          <div class="flex h-12 shrink-0 items-center justify-between border-b border-border bg-surface px-4">
+            <span class="text-xs text-muted"> <View.Text> label </View.Text> </span>
+            <span class="flex items-center gap-2">
+              <span class="hidden items-center gap-1 text-xs text-muted sm:flex">
+                <Kbd> <View.Text> "esc" </View.Text> </Kbd>
+                <View.Text> "to exit" </View.Text>
+              </span>
+              <Button variant=#secondary size=#sm onClick={_ => Signal.set(full, false)}>
+                <View.Text> "Close ✕" </View.Text>
+              </Button>
+            </span>
+          </div>
+          <div class="flex-1 overflow-y-auto"> {render()} </div>
+        </div>
+      </View.Show>
     </div>
+  }
 }
 
 // ------------------------------------------------------------------ Landing --
@@ -262,10 +291,193 @@ module Auth = {
   }
 }
 
+// ----------------------------------------------------------------- Settings --
+module SettingsPage = {
+  @jsx.component
+  let make = () => {
+    let tz = Signal.make("UTC · GMT+0")
+    let role = Signal.make("Admin")
+    let productN = Signal.make(true)
+    let pushN = Signal.make(false)
+    let weekly = Signal.make(true)
+    let nav = (label, active) =>
+      <a
+        href="#"
+        class={"block rounded-lg px-3 py-1.5 text-sm transition-colors " ++ (active ? "bg-action text-on-action" : "text-muted hover:bg-action-subtle hover:text-ink")}>
+        <View.Text> label </View.Text>
+      </a>
+    let toggle = (title, desc, sig) =>
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-sm font-medium text-ink"> <View.Text> title </View.Text> </p>
+          <p class="text-xs text-muted"> <View.Text> desc </View.Text> </p>
+        </div>
+        <Switch on={sig} />
+      </div>
+    <div class="bg-paper text-ink">
+      <header class="border-b border-border bg-surface px-6 py-4">
+        <h1 class="text-lg font-semibold"> <View.Text> "Settings" </View.Text> </h1>
+        <p class="text-xs text-muted"> <View.Text> "Manage your profile and preferences" </View.Text> </p>
+      </header>
+      <div class="mx-auto grid max-w-3xl gap-8 px-6 py-8 sm:grid-cols-[11rem_1fr]">
+        <nav class="space-y-0.5">
+          {nav("Profile", true)} {nav("Account", false)} {nav("Notifications", false)} {nav("Billing", false)}
+        </nav>
+        <div class="space-y-6">
+          <div class="flex items-center gap-4">
+            <Avatar initials="AL" size="size-14 text-lg" />
+            <Button variant=#secondary size=#sm> <View.Text> "Change photo" </View.Text> </Button>
+          </div>
+          <Field label="Display name" for_="st-name"> <Input id="st-name" value="Ada Lovelace" /> </Field>
+          <Field label="Email" for_="st-email"> <Input id="st-email" type_="email" value="ada@acme.com" /> </Field>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="mb-1.5 block text-sm font-medium text-ink"> <View.Text> "Timezone" </View.Text> </label>
+              <Select value={tz} options=["UTC · GMT+0", "CET · GMT+1", "EST · GMT−5", "PST · GMT−8"] />
+            </div>
+            <div>
+              <label class="mb-1.5 block text-sm font-medium text-ink"> <View.Text> "Role" </View.Text> </label>
+              <Select value={role} options=["Admin", "Member", "Viewer"] />
+            </div>
+          </div>
+          <Separator />
+          <div class="space-y-4">
+            <h2 class="text-sm font-semibold text-ink"> <View.Text> "Notifications" </View.Text> </h2>
+            {toggle("Product updates", "News about features and releases.", productN)}
+            {toggle("Push notifications", "Get notified on your devices.", pushN)}
+            {toggle("Weekly digest", "A summary of activity every Monday.", weekly)}
+          </div>
+          <div class="flex justify-end gap-2 border-t border-border pt-4">
+            <Button variant=#ghost> <View.Text> "Cancel" </View.Text> </Button>
+            <Button> <View.Text> "Save changes" </View.Text> </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
+
+// ----------------------------------------------------------------- Checkout --
+module Checkout = {
+  @jsx.component
+  let make = () => {
+    let items = [
+      ("Pro plan · annual", "$120.00"),
+      ("Priority support", "$40.00"),
+      ("Extra seats (2)", "$24.00"),
+    ]
+    <div class="bg-paper text-ink">
+      <header class="border-b border-border bg-surface px-6 py-4">
+        <div class="mx-auto flex max-w-4xl items-center gap-2">
+          <span class="flex size-6 items-center justify-center rounded-md bg-action text-[10px] font-bold text-on-action"> <View.Text> "A" </View.Text> </span>
+          <span class="text-sm font-semibold"> <View.Text> "Acme Checkout" </View.Text> </span>
+        </div>
+      </header>
+      <div class="mx-auto grid max-w-4xl gap-8 px-6 py-8 lg:grid-cols-[1fr_20rem]">
+        <div class="space-y-6">
+          <div class="space-y-4">
+            <h2 class="text-sm font-semibold"> <View.Text> "Contact" </View.Text> </h2>
+            <Field label="Email" for_="co-email"> <Input id="co-email" type_="email" placeholder="you@example.com" /> </Field>
+          </div>
+          <div class="space-y-4">
+            <h2 class="text-sm font-semibold"> <View.Text> "Payment" </View.Text> </h2>
+            <Field label="Card number" for_="co-card"> <Input id="co-card" placeholder="1234 5678 9012 3456" /> </Field>
+            <div class="grid grid-cols-2 gap-4">
+              <Field label="Expiry" for_="co-exp"> <Input id="co-exp" placeholder="MM / YY" /> </Field>
+              <Field label="CVC" for_="co-cvc"> <Input id="co-cvc" placeholder="123" /> </Field>
+            </div>
+            <Field label="Name on card" for_="co-name"> <Input id="co-name" placeholder="Ada Lovelace" /> </Field>
+          </div>
+        </div>
+        <aside class="h-fit rounded-2xl border border-border bg-surface p-5 shadow-sm">
+          <h2 class="text-sm font-semibold"> <View.Text> "Order summary" </View.Text> </h2>
+          <ul class="mt-3 space-y-2 text-sm">
+            <View.For
+              each={Prop.static(items)}
+              render={it => {
+                let (name, price) = it
+                <li class="flex justify-between gap-3">
+                  <span class="text-muted"> <View.Text> name </View.Text> </span>
+                  <span class="text-ink"> <View.Text> price </View.Text> </span>
+                </li>
+              }}
+            />
+          </ul>
+          <div class="mt-3 flex items-center gap-2">
+            <Badge variant=#soft> <View.Text> "SAVE20" </View.Text> </Badge>
+            <span class="text-xs text-muted"> <View.Text> "−$20.00 applied" </View.Text> </span>
+          </div>
+          <Separator extraClass="my-4" />
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-muted"> <View.Text> "Total" </View.Text> </span>
+            <span class="text-lg font-bold text-ink"> <View.Text> "$164.00" </View.Text> </span>
+          </div>
+          <Button extraClass="mt-4 w-full"> <View.Text> "Pay $164.00" </View.Text> </Button>
+          <p class="mt-2 text-center text-xs text-muted"> <View.Text> "🔒 Secured by Acme Pay" </View.Text> </p>
+        </aside>
+      </div>
+    </div>
+  }
+}
+
+// ------------------------------------------------------------------ Article --
+module Article = {
+  @jsx.component
+  let make = () => {
+    let tab = Signal.make("guide")
+    let faq = Signal.make(["ship"])
+    let isGuide = Computed.make(() => Signal.get(tab) == "guide")
+    let isChangelog = Computed.make(() => Signal.get(tab) == "changelog")
+    <div class="bg-paper text-ink">
+      <div class="mx-auto max-w-2xl px-6 py-10">
+        <Badge variant=#outline> <View.Text> "Guide" </View.Text> </Badge>
+        <h1 class="mt-4 text-3xl font-bold tracking-tight"> <View.Text> "Getting started with Acme" </View.Text> </h1>
+        <div class="mt-3 flex items-center gap-3 text-sm">
+          <Avatar initials="GH" size="size-8 text-xs" />
+          <span class="font-medium"> <View.Text> "Grace Hopper" </View.Text> </span>
+          <span class="text-muted"> <View.Text> "· Jul 18, 2026 · 5 min read" </View.Text> </span>
+        </div>
+        <div class="mt-6"> <Tabs value={tab} tabs=[("guide", "Guide"), ("changelog", "Changelog")] /> </div>
+        <View.Show when_={Prop.signal(isGuide)}>
+          <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-neutral-700">
+            <p> <View.Text> "Acme takes you from idea to production without the busywork. This guide covers the core concepts and the fastest path to your first deploy." </View.Text> </p>
+            <Alert variant=#info title="Before you begin" description="You'll need a free account and the Acme CLI installed." />
+            <p> <View.Text> "Install the CLI, authenticate, and initialize your first project. Everything ships with sensible defaults you can override later." </View.Text> </p>
+          </div>
+        </View.Show>
+        <View.Show when_={Prop.signal(isChangelog)}>
+          <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-neutral-700">
+            <p> <span class="font-semibold text-ink"> <View.Text> "v2.1 " </View.Text> </span> <View.Text> "— Faster builds and a redesigned dashboard." </View.Text> </p>
+            <p> <span class="font-semibold text-ink"> <View.Text> "v2.0 " </View.Text> </span> <View.Text> "— New pricing, SSO, and audit logs." </View.Text> </p>
+          </div>
+        </View.Show>
+        <h2 class="mt-10 text-lg font-semibold"> <View.Text> "FAQ" </View.Text> </h2>
+        <div class="mt-3">
+          <Accordion
+            value={faq}
+            items=[
+              ("ship", "How fast can I ship?", "Most teams deploy their first project within an hour."),
+              ("cancel", "Can I cancel anytime?", "Yes — one click, no questions asked."),
+              ("stack", "Does it work with my stack?", "Acme is framework-agnostic and integrates with common CI providers."),
+            ]
+          />
+        </div>
+        <Separator extraClass="my-8" />
+        <p class="text-sm text-muted">
+          <View.Text> "Related: " </View.Text>
+          <Link href="#"> <View.Text> "CLI reference" </View.Text> </Link>
+          <View.Text> " · " </View.Text>
+          <Link href="#"> <View.Text> "Deploy guide" </View.Text> </Link>
+        </p>
+      </div>
+    </div>
+  }
+}
+
 // A showcase entry: title, one-liner, the parts it's composed from, and the mock.
 module Entry = {
   @jsx.component
-  let make = (~title: string, ~desc: string, ~url: string, ~ids: array<string>, ~children: View.node) =>
+  let make = (~title: string, ~desc: string, ~url: string, ~ids: array<string>, ~render: unit => View.node) =>
     <section class="mt-12">
       <h2 class="text-xl font-semibold tracking-tight text-ink"> <View.Text> title </View.Text> </h2>
       <p class="mt-1 max-w-2xl text-sm text-muted"> <View.Text> desc </View.Text> </p>
@@ -273,7 +485,7 @@ module Entry = {
         <span class="mr-1 text-xs font-medium uppercase tracking-wide text-neutral-400"> <View.Text> "Composed from" </View.Text> </span>
         <View.For each={Prop.static(ids)} render={id => <Chip id />} />
       </div>
-      <div class="mt-4"> <Frame label={url}> {children} </Frame> </div>
+      <div class="mt-4"> <Frame label={url} render /> </div>
     </section>
 }
 
@@ -289,30 +501,54 @@ let make = () =>
         onClick={_ => Settings.open_->Signal.set(true)}>
         <View.Text> "theme settings" </View.Text>
       </button>
-      <View.Text> " and watch every mock re-skin live — nothing here is hardcoded, it all reads the design tokens." </View.Text>
+      <View.Text> " and watch every mock re-skin live, or open any one fullscreen. Nothing here is hardcoded — it all reads the design tokens." </View.Text>
     </p>
 
     <Entry
       title="Marketing landing page"
       desc="A conversion page: identity and nav, a hero, a feature grid, social proof, pricing, a call to action, and a footer."
       url="acme.com"
-      ids=["navbar", "hero", "feature-grid", "testimonial", "pricing-table", "cta-section", "footer", "button", "badge", "avatar"]>
-      <Landing />
-    </Entry>
+      ids=["navbar", "hero", "feature-grid", "testimonial", "pricing-table", "cta-section", "footer", "button", "badge", "avatar"]
+      render={() => <Landing />}
+    />
 
     <Entry
       title="Application dashboard"
       desc="A signed-in surface: a sidebar, a top bar, a row of stats, a chart, and a data table of teammates."
       url="app.acme.com/overview"
-      ids=["sidebar", "navbar", "stat", "chart", "data-table", "avatar", "badge"]>
-      <Dashboard />
-    </Entry>
+      ids=["sidebar", "navbar", "stat", "chart", "data-table", "avatar", "badge"]
+      render={() => <Dashboard />}
+    />
+
+    <Entry
+      title="Account settings"
+      desc="A profile and preferences screen: section nav, avatar, form fields, selects, and notification toggles."
+      url="app.acme.com/settings"
+      ids=["settings", "field", "input", "select", "switch", "separator", "avatar", "button"]
+      render={() => <SettingsPage />}
+    />
+
+    <Entry
+      title="Checkout"
+      desc="A payment flow: contact and card fields beside a live order summary with a discount and total."
+      url="acme.com/checkout"
+      ids=["checkout", "field", "input", "badge", "separator", "button"]
+      render={() => <Checkout />}
+    />
+
+    <Entry
+      title="Docs article"
+      desc="A content page: title and byline, tabs, a callout, an FAQ accordion, and related links."
+      url="docs.acme.com/guide"
+      ids=["typography", "tabs", "alert", "accordion", "link", "avatar", "badge"]
+      render={() => <Article />}
+    />
 
     <Entry
       title="Sign in"
       desc="A focused authentication screen built from the form primitives."
       url="acme.com/login"
-      ids=["sign-in", "field", "input", "switch", "button", "link"]>
-      <Auth />
-    </Entry>
+      ids=["sign-in", "field", "input", "switch", "button", "link"]
+      render={() => <Auth />}
+    />
   </div>
