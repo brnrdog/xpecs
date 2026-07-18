@@ -1,6 +1,6 @@
 // GENERATED FILE — do not edit by hand.
 // Run `npm run contracts` (scripts/generate-contracts.mjs) to regenerate.
-// Types are derived from the `## API` contracts in the archetype markdown.
+// Types are derived from the `## API` contracts in the spec markdown.
 
 module Badge = {
   type variant = [#solid | #soft | #outline]

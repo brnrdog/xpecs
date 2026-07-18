@@ -1,6 +1,6 @@
 // Builds the distributable Agent Skill (skill/) from the framework source, so
-// the skill's reference data never drifts from the archetypes/tokens. Compiles
-// every archetype's contract, traits, and composition into a single JSON the
+// the skill's reference data never drifts from the specs/tokens. Compiles
+// every spec's contract, traits, and composition into a single JSON the
 // agent can look up, and copies the tokens and themes.
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, copyFileSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..");
-const archetypesDir = join(root, "archetypes");
+const specsDir = join(root, "specs");
 const traitsDir = join(root, "traits");
 const outDir = join(root, "skill", "reference");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
@@ -48,19 +48,19 @@ const section = (body, heading) => {
   return (next === -1 ? rest : rest.slice(0, next)).trim();
 };
 
-const archetypes = [];
+const specs = [];
 for (const layer of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layer)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layer)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files.sort()) {
-    const parsed = parse(readFileSync(join(archetypesDir, layer, file), "utf8"));
+    const parsed = parse(readFileSync(join(specsDir, layer, file), "utf8"));
     if (!parsed) continue;
     const { meta, body } = parsed;
-    archetypes.push({
+    specs.push({
       id: meta.id || basename(file, ".md"),
       title: meta.title || "",
       layer: meta.layer || "",
@@ -95,12 +95,12 @@ try {
   /* no traits */
 }
 
-writeFileSync(join(outDir, "archetypes.json"), JSON.stringify(archetypes, null, 2));
+writeFileSync(join(outDir, "specs.json"), JSON.stringify(specs, null, 2));
 writeFileSync(join(outDir, "traits.json"), JSON.stringify(traits, null, 2));
 copyFileSync(join(root, "tokens", "tokens.json"), join(outDir, "tokens.json"));
 copyFileSync(join(root, "tokens", "themes.json"), join(outDir, "themes.json"));
 copyFileSync(join(root, "responsive", "patterns.json"), join(outDir, "responsive-patterns.json"));
 
 console.log(
-  `Built skill/reference: ${archetypes.length} archetypes (${archetypes.filter((a) => a.api).length} with contracts), ${traits.length} traits, tokens + themes + responsive patterns.`,
+  `Built skill/reference: ${specs.length} specs (${specs.filter((a) => a.api).length} with contracts), ${traits.length} traits, tokens + themes + responsive patterns.`,
 );

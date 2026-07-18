@@ -1,4 +1,4 @@
-// Checks that each implemented component conforms to its archetype's `## API`
+// Checks that each implemented component conforms to its spec's `## API`
 // contract: every contract prop is exposed, and every enum prop's allowed
 // values match (either the inline polymorphic variant, or — better — a reference
 // to the generated Contracts.<Name>.<prop> type, which the compiler enforces).
@@ -8,8 +8,8 @@ import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "archetypes");
-// The component implementations live in the @ux-archetypes/xote package.
+const specsDir = join(here, "..", "..", "specs");
+// The component implementations live in the @xpecs/xote package.
 const srcDir = join(here, "..", "..", "packages", "xote", "src");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
@@ -56,12 +56,12 @@ const contracts = [];
 for (const layerDir of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layerDir)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layerDir)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files.sort()) {
-    const raw = readFileSync(join(archetypesDir, layerDir, file), "utf8");
+    const raw = readFileSync(join(specsDir, layerDir, file), "utf8");
     const id = basename(file, ".md");
     const api = apiOf(raw);
     if (api) contracts.push({ id, api, impl: frontmatter(raw).implementation || "" });

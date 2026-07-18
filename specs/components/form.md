@@ -62,7 +62,7 @@ accessible flow, minimizing effort and error.
 
 ## Anatomy
 
-- **Fields** (required) — label + control + help/error (the field archetype).
+- **Fields** (required) — label + control + help/error (the field spec).
 - **Groups / sections / fieldsets** (optional) — related fields with a legend.
 - **Guidance** (optional) — instructions and required-field conventions.
 - **Validation feedback** (required) — inline per-field and a summary for errors.

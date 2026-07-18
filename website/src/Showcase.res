@@ -1,9 +1,9 @@
-// Full-page compositions assembled entirely from the archetype components, to
+// Full-page compositions assembled entirely from the spec components, to
 // show how the catalogue composes into real screens. Everything here is
 // token-driven (semantic utilities — bg-surface, text-ink, bg-action…), so
 // switching the theme from the top bar re-skins every mock live.
 
-// A chip that links to an archetype's detail page — names the parts a mock is
+// A chip that links to an spec's detail page — names the parts a mock is
 // built from.
 module Chip = {
   @jsx.component
@@ -283,7 +283,7 @@ let make = () =>
     <Badge variant=#outline> <View.Text> "Examples" </View.Text> </Badge>
     <h1 class="mt-4 text-4xl font-bold tracking-tight text-ink sm:text-5xl"> <View.Text> "Composed in the wild" </View.Text> </h1>
     <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-      <View.Text> "Full pages assembled entirely from the archetype components — the same reusable pieces documented in the catalogue. Open the " </View.Text>
+      <View.Text> "Full pages assembled entirely from the spec components — the same reusable pieces documented in the catalogue. Open the " </View.Text>
       <button
         class="text-ink underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900"
         onClick={_ => Settings.open_->Signal.set(true)}>

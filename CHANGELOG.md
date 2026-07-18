@@ -8,7 +8,7 @@ follows [Semantic Versioning](https://semver.org/) and the format of
 
 ### Added
 
-- **Responsiveness is now a structured contract.** Every archetype that carries
+- **Responsiveness is now a structured contract.** Every spec that carries
   an `## API` block (all 74 elements/components/blocks) declares a `responsive`
   object — `container` (adapts to its container, not just the viewport),
   `minTarget` (smallest pointer target to preserve), and a `reflow[]` list where
@@ -24,10 +24,10 @@ follows [Semantic Versioning](https://semver.org/) and the format of
   `reflow-to-cards`, `reposition`, `truncate`, `hide-secondary` — documented in
   `responsive/README.md`.
 - **A fifth build gate.** `conformance:responsive` verifies every API-bearing
-  archetype declares `responsive`, every `pattern` is in the vocabulary, and
+  spec declares `responsive`, every `pattern` is in the vocabulary, and
   every `at` resolves to a real breakpoint token (74 contracts / 94 reflows).
   The website renders the contract on each detail page and surfaces breakpoints
-  on the Design Tokens page; the Agent Skill ships it in `archetypes.json` plus
+  on the Design Tokens page; the Agent Skill ships it in `specs.json` plus
   `responsive-patterns.json`.
 
 ### Changed
@@ -48,7 +48,7 @@ released.
 
 - **New `block` layer.** Page-sections (`hero`, `feature-grid`, `testimonial`,
   `pricing-table`, `faq`, `cta-section`) moved out of `components/` into
-  `archetypes/blocks/` and now declare `layer: block`. This restores a crisp
+  `specs/blocks/` and now declare `layer: block`. This restores a crisp
   meaning to "component" (a reusable, composable unit) versus "block" (a
   page-level section). The layer enum is now
   `element | component | block | page | flow`.
@@ -56,7 +56,7 @@ released.
 ### Added
 
 - **API contracts on every element, component, and block.** All 74
-  element/component/block archetypes now carry a `## API` contract (props,
+  element/component/block specs now carry a `## API` contract (props,
   slots, events, a11y, states, tokens); pages and flows are excluded as
   non-implementable. Ten are mapped to a reference implementation via a new
   `implementation:` frontmatter field and conformance-checked on every build;
@@ -71,27 +71,27 @@ released.
   enums compiler-enforced). `Accordion` genuinely implements both `single` and
   `multiple` from its `type` prop.
 - `INDEX.md` is now **generated** from the specs' frontmatter (`npm run index`),
-  so the registry can no longer drift from the archetypes.
+  so the registry can no longer drift from the specs.
 
 - **Structural composition.** The `## Composition` section can now carry a
   `json` block that wires each part to a **slot** with the **props** passed and a
   note, instead of a flat list of ids. The registry derives `composedOf` from
   these parts (the frontmatter `composedOf:` line is dropped in favor of the
   block), and the website renders composition grouped by slot with prop pills.
-  **Every composite archetype** (components, blocks, pages, and flows — 56 in
+  **Every composite spec** (components, blocks, pages, and flows — 56 in
   all) is now wired this way; only primitives have no parts.
 - **Behavior traits.** A new `traits/` layer captures cross-cutting interaction
   contracts — `dismissible`, `focus-trap`, `anchored`, `roving-focus`,
-  `typeahead` — that many archetypes share. Archetypes reference them via a new
+  `typeahead` — that many specs share. Specs reference them via a new
   `traits:` frontmatter field (schema in `schema/trait.schema.json`); 19
   overlays and collections now declare their behaviors instead of re-describing
-  them in prose. The website renders trait chips on each archetype, dedicated
+  them in prose. The website renders trait chips on each spec, dedicated
   trait pages (with an "exhibited by" back-reference), and a Behaviors group in
   the sidebar.
-- **Traits are testable.** Each trait declares the keyboard `keys` an archetype
+- **Traits are testable.** Each trait declares the keyboard `keys` an spec
   must support to legitimately claim it (`match: all | any`). A new build gate
   (`npm run conformance:traits`) verifies every trait claim against the
-  archetype's API `a11y.keyboard` — it caught that `command` (a modal palette)
+  spec's API `a11y.keyboard` — it caught that `command` (a modal palette)
   was missing `Tab` and `toast` was missing `Escape`; both are fixed. Trait
   pages list the required keys.
 
@@ -100,7 +100,7 @@ released.
   all aliased into the monochrome ramp, so the baseline stays grayscale but a
   retheme has real semantic hooks.
 - **Two more build gates.** `conformance:composition` verifies every composition
-  `ref` resolves and every `slot` is declared in the archetype's API (or the
+  `ref` resolves and every `slot` is declared in the spec's API (or the
   page-layout vocabulary); `conformance:tokens` verifies every token role a
   contract references exists in `tokens.json`. Both run in `npm run checks`
   alongside prop and trait conformance. Reconciling for the composition gate
@@ -111,9 +111,9 @@ released.
 
 - The conformance check is now driven by the `implementation:` frontmatter field
   rather than a hardcoded map, so mapping a component to its spec is a one-line
-  edit in the archetype.
+  edit in the spec.
 - The markdown→HTML renderer is now a shared module (`website/scripts/md.mjs`),
-  used by both the archetype and trait generators.
+  used by both the spec and trait generators.
 
 ## [0.5.0] - 2026-07-17
 
@@ -135,11 +135,11 @@ released.
   token-driven (`bg-surface` / `text-ink` / `text-neutral-0` instead of literal
   `bg-white` / `text-white`) so dark mode inverts cleanly. Scrollbars are
   token-styled (and `color-scheme` is set per mode) so they follow the theme too.
-- **Machine-readable API contracts.** Archetypes can now carry an `## API`
+- **Machine-readable API contracts.** Specs can now carry an `## API`
   section — a `json` block naming the props (with types, enum values, and
   defaults), slots, events, accessibility expectations, states, and design-token
   roles. This is the skin-agnostic interface an implementer builds against,
-  validated by `schema/api.schema.json`. `button` is the first archetype with a
+  validated by `schema/api.schema.json`. `button` is the first spec with a
   contract (element version → 1.1.0); the template documents the pattern.
 
 ### Website
@@ -188,7 +188,7 @@ released.
   intent colors — the primary `action` and the four `status` roles
   (info / success / warning / danger) — shown as multi-color swatches. Those
   roles are now consumed across components (all four `Alert` variants, the
-  archetype status badge), so a functional preset gives every feedback surface a
+  spec status badge), so a functional preset gives every feedback surface a
   purposeful color. Each preset also tints **both ends** of the neutral ramp —
   the light steps (backgrounds, borders, surfaces) as well as the dark ones
   (text, accents) — leaving the mid-greys neutral for readability, so switching a
@@ -196,12 +196,12 @@ released.
   per-token edits share one override store, so they persist, appear in the
   editor, and reset together.
 - New app shell: a topbar with a **spotlight search** (⌘K / Ctrl+K) that filters
-  and jumps to any archetype, a **collapsible sidebar**, and a **fullscreen** view
+  and jumps to any spec, a **collapsible sidebar**, and a **fullscreen** view
   for any live example (Escape to exit).
-- Each detail page now renders the **full archetype spec** (Intent, When to
+- Each detail page now renders the **full spec spec** (Intent, When to
   use, Anatomy, States, Variants, Accessibility, and the rest), generated from
-  the archetype's markdown source at build time.
-- The app shell now composes the reusable archetype components (Button, Badge,
+  the spec's markdown source at build time.
+- The app shell now composes the reusable spec components (Button, Badge,
   Kbd, Link, Icon Button) rather than bespoke markup.
 
 ## [0.4.0] - 2026-07-17
@@ -209,26 +209,26 @@ released.
 ### Added
 
 - **Flows** — the fourth layer is now populated: `authentication`, `onboarding`,
-  `checkout` (under `archetypes/flows/`).
+  `checkout` (under `specs/flows/`).
 - Landing-page **section** components: `hero`, `feature-grid`, `testimonial`,
   `pricing-table`, `faq`, `cta-section`.
 - Additional primitives and patterns: `icon`, `logo`, `legend` (elements);
   `stat`, `search`, `comment` (components).
-- Live Xote examples on the website for all new archetypes; the site now
+- Live Xote examples on the website for all new specs; the site now
   renders the Flows layer in the sidebar.
 
 ### Changed
 
 - The composition graph is now **fully closed** — every `composedOf` / `usedBy`
-  / `related` reference resolves to an existing archetype.
+  / `related` reference resolves to an existing spec.
 
 ## [0.3.0] - 2026-07-17
 
 ### Added
 
-- New **element** archetypes: `link`, `icon-button`.
-- New **component** archetypes: `toolbar`, `list`, `footer`.
-- New **page** archetypes: `dashboard`, `settings`, `sign-in`, `pricing`.
+- New **element** specs: `link`, `icon-button`.
+- New **component** specs: `toolbar`, `list`, `footer`.
+- New **page** specs: `dashboard`, `settings`, `sign-in`, `pricing`.
 - Design tokens (`tokens/tokens.json`, W3C DTCG format) with a monochrome
   baseline, documented in `tokens/README.md`; the website generates its theme
   from them.
@@ -243,35 +243,35 @@ released.
 
 ### Changed
 
-- Renamed the collection to **UX Archetypes** (`ux-archetypes`), framing it as
-  User Experience archetypes spanning elements through full experiences.
+- Renamed the collection to **Xpecs** (`ux-archetypes`), framing it as
+  User Experience specs spanning elements through full experiences.
 
 ### Added
 
-- A comprehensive baseline of **element** archetypes: avatar, badge, checkbox,
+- A comprehensive baseline of **element** specs: avatar, badge, checkbox,
   label, progress, radio-group, separator, skeleton, slider, switch, textarea,
   toggle, toggle-group, aspect-ratio, scroll-area, input-otp, kbd, spinner,
   typography (joining button and input).
-- A comprehensive baseline of **component** archetypes: accordion, alert,
+- A comprehensive baseline of **component** specs: accordion, alert,
   alert-dialog, breadcrumb, calendar, card, carousel, chart, collapsible,
   combobox, command, context-menu, data-table, date-picker, dialog, drawer,
   dropdown-menu, form, hover-card, menubar, navigation-menu, pagination, popover,
   resizable, select, sheet, sidebar, table, tabs, toast, tooltip, empty-state,
   field, button-group, input-group (joining navbar).
-- Composition links (`composedOf` / `usedBy` / `related`) wiring the archetypes
+- Composition links (`composedOf` / `usedBy` / `related`) wiring the specs
   into a connected graph.
 
 ## [0.1.0] - 2026-07-16
 
 ### Added
 
-- Initial repository structure for the UX Archetypes collection.
+- Initial repository structure for the Xpecs collection.
 - Layer taxonomy: `element`, `component`, `page`, with `flow` as an extension.
-- Canonical archetype document pattern (`templates/ARCHETYPE_TEMPLATE.md`).
-- Metadata schema for frontmatter (`schema/archetype.schema.json`).
+- Canonical spec document pattern (`templates/SPEC_TEMPLATE.md`).
+- Metadata schema for frontmatter (`schema/spec.schema.json`).
 - Registry (`INDEX.md`), contribution guide (`CONTRIBUTING.md`), and two-level
-  semantic versioning (collection + per-archetype).
-- Example archetypes:
+  semantic versioning (collection + per-spec).
+- Example specs:
   - `button` (element)
   - `input` (element)
   - `navbar` (component)

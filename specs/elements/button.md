@@ -115,7 +115,7 @@ owned by the surrounding component) when the action resolves.
   distinct and often paired with confirmation.
 - **Icon-only** — compact; requires an accessible name and usually a tooltip.
 
-Emphasis is a spectrum expressed through your design tokens; the archetype only
+Emphasis is a spectrum expressed through your design tokens; the spec only
 requires that emphasis map to _importance of the action_.
 
 ## Layout & responsiveness

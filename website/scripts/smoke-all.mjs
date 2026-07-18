@@ -2,7 +2,7 @@ import { chromium } from "playwright-core";
 import { readFileSync } from "node:fs";
 
 // Pull every id from the generated data module.
-const data = readFileSync(new URL("../src/ArchetypesData.res", import.meta.url), "utf8");
+const data = readFileSync(new URL("../src/SpecsData.res", import.meta.url), "utf8");
 const ids = [...data.matchAll(/^\s*id: "([^"]+)",/gm)].map((m) => m[1]);
 
 const base = "http://localhost:4173";

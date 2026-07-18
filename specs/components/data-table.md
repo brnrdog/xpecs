@@ -71,7 +71,7 @@ admin and analytics contexts.
 
 ## Anatomy
 
-- **Table core** (required) — header and body rows/cells (the table archetype).
+- **Table core** (required) — header and body rows/cells (the table spec).
 - **Column headers with sort** (required) — sortable indicators.
 - **Toolbar** (optional) — search, filters, column visibility, view switches.
 - **Row selection** (optional) — checkboxes and a bulk-action bar.

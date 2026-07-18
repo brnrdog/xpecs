@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/brnrdog/ux-archetypes/schema/api.schema.json",
-  "title": "UI Archetype API contract",
-  "description": "Machine-readable interface contract embedded as a `json` fenced block under the `## API` heading of an archetype document. Skin-agnostic: it names the axes of variation, structural slots, events, accessibility expectations, and the design-token roles the archetype consumes. Implementations are validated against it.",
+  "title": "UI Spec API contract",
+  "description": "Machine-readable interface contract embedded as a `json` fenced block under the `## API` heading of an spec document. Skin-agnostic: it names the axes of variation, structural slots, events, accessibility expectations, and the design-token roles the spec consumes. Implementations are validated against it.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "props": {
       "type": "array",
-      "description": "The configurable inputs of the archetype.",
+      "description": "The configurable inputs of the spec.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -38,7 +38,7 @@
     },
     "slots": {
       "type": "array",
-      "description": "Named structural regions the archetype exposes for content.",
+      "description": "Named structural regions the spec exposes for content.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -52,7 +52,7 @@
     },
     "events": {
       "type": "array",
-      "description": "Semantic events the archetype emits (implementation-agnostic names).",
+      "description": "Semantic events the spec emits (implementation-agnostic names).",
       "items": { "type": "string" },
       "uniqueItems": true
     },
@@ -67,32 +67,32 @@
     },
     "states": {
       "type": "array",
-      "description": "The interaction states the archetype can be in.",
+      "description": "The interaction states the spec can be in.",
       "items": { "type": "string" },
       "uniqueItems": true
     },
     "tokens": {
       "type": "array",
-      "description": "Design-token roles this archetype consumes (may use `*` wildcards).",
+      "description": "Design-token roles this spec consumes (may use `*` wildcards).",
       "items": { "type": "string" },
       "uniqueItems": true
     },
     "responsive": {
       "type": "object",
-      "description": "How the archetype adapts to available width. Patterns reference the shared vocabulary in responsive/patterns.json; breakpoints reference tokens.json `breakpoint.*` ids.",
+      "description": "How the spec adapts to available width. Patterns reference the shared vocabulary in responsive/patterns.json; breakpoints reference tokens.json `breakpoint.*` ids.",
       "additionalProperties": false,
       "properties": {
         "container": {
           "type": "boolean",
-          "description": "True when the archetype adapts to its container's width, not just the viewport."
+          "description": "True when the spec adapts to its container's width, not just the viewport."
         },
         "minTarget": {
           "type": "string",
-          "description": "Minimum pointer target size the archetype must preserve at any width (e.g. `44px`)."
+          "description": "Minimum pointer target size the spec must preserve at any width (e.g. `44px`)."
         },
         "reflow": {
           "type": "array",
-          "description": "The structural adaptations the archetype makes, each a named pattern optionally bound to a breakpoint.",
+          "description": "The structural adaptations the spec makes, each a named pattern optionally bound to a breakpoint.",
           "items": {
             "type": "object",
             "additionalProperties": false,

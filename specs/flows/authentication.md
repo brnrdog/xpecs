@@ -31,7 +31,7 @@ recovery paths, and honest, non-leaky handling of failures.
   steps.
 
 **Avoid when**
-- A single screen fully covers it — that's the **sign-in** page archetype on its
+- A single screen fully covers it — that's the **sign-in** page spec on its
   own.
 - Establishing a new account is the goal — that's a sign-up flow (related).
 

@@ -95,7 +95,7 @@ const groupMeta = {
   borderWidth: "Stroke widths.",
   duration: "Motion timings.",
   zIndex: "Stacking order for layered surfaces.",
-  breakpoint: "Viewport widths where layouts may adapt. Referenced by archetypes' responsive contracts; shown for reference (media queries can't read CSS variables).",
+  breakpoint: "Viewport widths where layouts may adapt. Referenced by specs' responsive contracts; shown for reference (media queries can't read CSS variables).",
 };
 
 const ordered = [...groups.keys()].sort((a, b) => {

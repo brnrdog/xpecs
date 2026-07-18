@@ -102,7 +102,7 @@ on small and large screens without overwhelming the layout.
 
 **Composed of:** Not applicable — a foundational element used throughout.
 
-**Used by:** card, landing-page, dialog, form, and essentially every archetype
+**Used by:** card, landing-page, dialog, form, and essentially every spec
 containing text.
 
 ## Do / Don't

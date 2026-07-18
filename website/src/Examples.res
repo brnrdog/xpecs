@@ -1,5 +1,5 @@
-// Live Xote implementations of the archetypes. Each example is a small,
-// self-contained component. `get` maps an archetype id to its example node
+// Live Xote implementations of the specs. Each example is a small,
+// self-contained component. `get` maps an spec id to its example node
 // (returning None when only the written spec exists yet).
 
 module ButtonEx = {
@@ -472,8 +472,8 @@ module AccordionEx = {
   let make = () => {
     let value = Signal.make(["what"])
     let items = [
-      ("what", "What is an archetype?", "A technology-agnostic definition of a UI pattern, described in words."),
-      ("framework", "Is it tied to a framework?", "No. Each archetype maps onto any stack — this site happens to use Xote."),
+      ("what", "What is an spec?", "A technology-agnostic definition of a UI pattern, described in words."),
+      ("framework", "Is it tied to a framework?", "No. Each spec maps onto any stack — this site happens to use Xote."),
       ("contribute", "Can I contribute?", "Yes. Copy the template, fill every section, and open a pull request."),
     ]
     <Accordion value items />
@@ -557,7 +557,7 @@ module Breadcrumb = {
       {sep}
       <a class="text-neutral-500 hover:text-neutral-900" href="#"> <View.Text> "Projects" </View.Text> </a>
       {sep}
-      <span class="font-medium text-neutral-900"> <View.Text> "Archetypes" </View.Text> </span>
+      <span class="font-medium text-neutral-900"> <View.Text> "Specs" </View.Text> </span>
     </nav>
   }
 }

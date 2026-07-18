@@ -7,7 +7,7 @@ import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "archetypes");
+const specsDir = join(here, "..", "..", "specs");
 const tokensFile = join(here, "..", "..", "tokens", "tokens.json");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
@@ -48,16 +48,16 @@ function apiTokens(raw) {
 
 let failures = 0;
 let checked = 0;
-const unknown = new Map(); // role → [archetype ids]
+const unknown = new Map(); // role → [spec ids]
 for (const layer of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layer)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layer)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files) {
-    const raw = readFileSync(join(archetypesDir, layer, file), "utf8");
+    const raw = readFileSync(join(specsDir, layer, file), "utf8");
     const id = (raw.match(/^id:\s*(.*)$/m) || [])[1]?.trim() || basename(file, ".md");
     for (const role of apiTokens(raw) || []) {
       checked++;
@@ -71,7 +71,7 @@ for (const layer of layers) {
 }
 
 for (const [role, ids] of unknown) {
-  console.log(`✗ unknown token role \`${role}\` — referenced by ${ids.length} archetype(s): ${ids.slice(0, 6).join(", ")}${ids.length > 6 ? "…" : ""}`);
+  console.log(`✗ unknown token role \`${role}\` — referenced by ${ids.length} spec(s): ${ids.slice(0, 6).join(", ")}${ids.length > 6 ? "…" : ""}`);
 }
 
 // Themes and mode overlays must override real tokens (concrete leaf paths).

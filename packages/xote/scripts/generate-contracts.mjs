@@ -1,6 +1,6 @@
-// Generates src/Contracts.res from the `## API` blocks in the archetype
+// Generates src/Contracts.res from the `## API` blocks in the spec
 // markdown. For every enum prop it emits a polymorphic-variant type, grouped in
-// a module named after the archetype. Components annotate their props with
+// a module named after the spec. Components annotate their props with
 // these types, so the ReScript compiler itself enforces that the implementation
 // stays in sync with the contract's allowed values.
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
@@ -8,7 +8,7 @@ import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "..", "archetypes");
+const specsDir = join(here, "..", "..", "..", "specs");
 const outFile = join(here, "..", "src", "Contracts.res");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
@@ -33,12 +33,12 @@ const modules = [];
 for (const layerDir of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layerDir)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layerDir)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files.sort()) {
-    const raw = readFileSync(join(archetypesDir, layerDir, file), "utf8");
+    const raw = readFileSync(join(specsDir, layerDir, file), "utf8");
     const api = apiOf(raw);
     if (!api || !Array.isArray(api.props)) continue;
     const enums = api.props.filter((p) => p.type === "enum" && p.values?.length);
@@ -56,7 +56,7 @@ for (const layerDir of layers) {
 
 const out = `// GENERATED FILE — do not edit by hand.
 // Run \`npm run contracts\` (scripts/generate-contracts.mjs) to regenerate.
-// Types are derived from the \`## API\` contracts in the archetype markdown.
+// Types are derived from the \`## API\` contracts in the spec markdown.
 
 ${modules.join("\n\n")}
 `;

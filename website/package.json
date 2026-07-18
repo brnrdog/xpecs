@@ -1,5 +1,5 @@
 {
-  "name": "ux-archetypes-website",
+  "name": "xpecs-website",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -28,8 +28,8 @@
     "smoke": "node scripts/smoke-all.mjs"
   },
   "dependencies": {
-    "@ux-archetypes/tokens": "*",
-    "@ux-archetypes/xote": "*",
+    "@xpecs/tokens": "*",
+    "@xpecs/xote": "*",
     "rescript-signals": "3.1.1",
     "xote": "7.0.0"
   },

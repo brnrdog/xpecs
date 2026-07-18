@@ -1,6 +1,6 @@
 // Validates structured composition: every part's `ref` resolves to a real
-// archetype, and every `slot` is a region the archetype actually declares — its
-// API `slots` for element/component/block archetypes, or a fixed page-layout
+// spec, and every `slot` is a region the spec actually declares — its
+// API `slots` for element/component/block specs, or a fixed page-layout
 // vocabulary for pages and flows (which have no component API). Exits non-zero
 // on any dangling ref or undeclared slot, so composition can't drift.
 import { readFileSync, readdirSync } from "node:fs";
@@ -8,7 +8,7 @@ import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "archetypes");
+const specsDir = join(here, "..", "..", "specs");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
 // Slots a page or flow may wire parts into (they have no component-level API).
@@ -26,18 +26,18 @@ function jsonUnder(raw, heading) {
   }
 }
 
-// Pass 1: collect every archetype id.
+// Pass 1: collect every spec id.
 const ids = new Set();
 const records = [];
 for (const layer of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layer)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layer)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files) {
-    const raw = readFileSync(join(archetypesDir, layer, file), "utf8");
+    const raw = readFileSync(join(specsDir, layer, file), "utf8");
     const id = (raw.match(/^id:\s*(.*)$/m) || [])[1]?.trim() || basename(file, ".md");
     ids.add(id);
     records.push({ id, layer, raw });
@@ -57,7 +57,7 @@ for (const { id, layer, raw } of records) {
   for (const p of parts) {
     checkedRefs++;
     if (!ids.has(p.ref)) {
-      console.log(`✗ ${id}: composition ref \`${p.ref}\` does not resolve to an archetype`);
+      console.log(`✗ ${id}: composition ref \`${p.ref}\` does not resolve to an spec`);
       failures++;
     }
     checkedSlots++;

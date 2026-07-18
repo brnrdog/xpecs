@@ -1,10 +1,10 @@
 ---
-id: archetype-id
-title: Archetype Title
+id: spec-id
+title: Spec Title
 layer: element # element | component | page | flow
 version: 0.1.0
 status: draft # draft | stable | deprecated
-summary: One sentence describing what this archetype is and the value it provides.
+summary: One sentence describing what this spec is and the value it provides.
 since: 0.1.0
 updated: YYYY-MM-DD
 tags: []
@@ -15,7 +15,7 @@ related: []
 maintainers: []
 ---
 
-# Archetype Title
+# Spec Title
 
 ## Intent
 
@@ -24,14 +24,14 @@ maintainers: []
 
 ## API
 
-<!-- Optional but recommended for element/component archetypes. A
+<!-- Optional but recommended for element/component specs. A
      machine-readable, skin-agnostic interface contract in a `json` fenced
      block. It names the axes of variation (props), structural regions (slots),
      semantic events, accessibility expectations, states, and the design-token
      roles consumed. Validated by schema/api.schema.json. Generated prop types
      (Contracts.res) and the conformance check (npm run conformance) are derived
      from it, so implementations are provably kept in sync. Remove this section
-     for archetypes that have no implementable interface (most pages/flows). -->
+     for specs that have no implementable interface (most pages/flows). -->
 
 ```json
 {
@@ -56,8 +56,8 @@ maintainers: []
 }
 ```
 
-<!-- `responsive` (required on any archetype with an API contract): how the
-     archetype adapts to width. `container` = adapts to its container, not just
+<!-- `responsive` (required on any spec with an API contract): how the
+     spec adapts to width. `container` = adapts to its container, not just
      the viewport. `minTarget` = smallest pointer target to preserve. Each
      `reflow` names a pattern from responsive/patterns.json; `at` is a breakpoint
      id from tokens.json `breakpoint.*` (omit for fluid/wrap/reposition/truncate,
@@ -71,11 +71,11 @@ maintainers: []
 - <!-- situation -->
 
 **Avoid when**
-- <!-- situation, and point to the better alternative archetype -->
+- <!-- situation, and point to the better alternative spec -->
 
 ## Anatomy
 
-<!-- The structural parts (slots) that make up the archetype. Name each part
+<!-- The structural parts (slots) that make up the spec. Name each part
      and describe its purpose. Mark parts as required or optional. -->
 
 - **Part name** (required) — purpose.
@@ -97,14 +97,14 @@ maintainers: []
 
 ## Layout & responsiveness
 
-<!-- How parts are arranged and how the archetype adapts across viewport
+<!-- How parts are arranged and how the spec adapts across viewport
      sizes and containers. Describe reflow/stacking behavior, not pixel values. -->
 
 ## Accessibility
 
 <!-- The accessibility contract. Cover keyboard interaction, roles/semantics,
      screen-reader expectations, focus management, and contrast/target-size
-     requirements. This section is required for every archetype. -->
+     requirements. This section is required for every spec. -->
 
 - **Keyboard** — <!-- expected keys and focus order -->
 - **Semantics** — <!-- roles, landmarks, name/role/value -->
@@ -118,8 +118,8 @@ maintainers: []
 
 ## Composition
 
-<!-- For composite archetypes, describe the structural wiring in a `json` block:
-     each part references another archetype (`ref`), the `slot` it fills, the
+<!-- For composite specs, describe the structural wiring in a `json` block:
+     each part references another spec (`ref`), the `slot` it fills, the
      `props` passed to it, and an optional `note`. The registry derives the flat
      `composedOf` list from these refs, so the frontmatter `composedOf:` line can
      be dropped once this block exists. Primitive elements have no parts — leave

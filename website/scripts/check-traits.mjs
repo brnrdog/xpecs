@@ -1,4 +1,4 @@
-// Checks that every archetype claiming a behavior trait actually declares the
+// Checks that every spec claiming a behavior trait actually declares the
 // keyboard keys that trait requires, in its `## API` a11y.keyboard. A trait is a
 // promise ("this is dismissible"); this verifies the interface backs it up.
 // Exits non-zero on a violation, so an unmet behavior claim fails the build.
@@ -7,7 +7,7 @@ import { join, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "archetypes");
+const specsDir = join(here, "..", "..", "specs");
 const traitsDir = join(here, "..", "..", "traits");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
@@ -51,12 +51,12 @@ let checked = 0;
 for (const layer of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layer)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layer)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files.sort()) {
-    const raw = readFileSync(join(archetypesDir, layer, file), "utf8");
+    const raw = readFileSync(join(specsDir, layer, file), "utf8");
     const meta = frontmatter(raw);
     const claimed = meta.traits || [];
     if (claimed.length === 0) continue;

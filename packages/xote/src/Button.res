@@ -1,6 +1,6 @@
 // Button — the reusable action control. Reused directly (`<Button ...>`) by the
-// card, dialog, form, navbar, and other archetypes — and by the site's own
-// chrome. Its `variant`/`size` prop types come from the archetype's `## API`
+// card, dialog, form, navbar, and other specs — and by the site's own
+// chrome. Its `variant`/`size` prop types come from the spec's `## API`
 // contract (see Contracts.res, generated), so the compiler enforces that this
 // implementation stays in sync with the spec's allowed values.
 @jsx.component

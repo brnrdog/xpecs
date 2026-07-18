@@ -1,9 +1,9 @@
 # Responsive patterns
 
-How an archetype restructures as available width changes is a **contract**, not
+How an spec restructures as available width changes is a **contract**, not
 an afterthought — the same way behavior is captured as [traits](../traits/) and
 color/spacing as [tokens](../tokens/). This directory holds the shared
-vocabulary of **reflow patterns** that archetypes reference instead of
+vocabulary of **reflow patterns** that specs reference instead of
 re-describing responsiveness in prose.
 
 ## The pieces
@@ -15,7 +15,7 @@ re-describing responsiveness in prose.
   the ways a layout adapts (`stack`, `reflow-columns`, `collapse-to-menu`,
   `drawer`, `to-sheet`, `horizontal-scroll`, `reflow-to-cards`, `reposition`,
   `wrap`, `truncate`, `hide-secondary`, `fluid`).
-- **The contract** is the `responsive` block inside each archetype's `## API`
+- **The contract** is the `responsive` block inside each spec's `## API`
   section (schema: [`schema/api.schema.json`](../schema/api.schema.json)):
 
   ```json
@@ -29,7 +29,7 @@ re-describing responsiveness in prose.
   }
   ```
 
-  - `container` — the archetype adapts to its container's width, not just the
+  - `container` — the spec adapts to its container's width, not just the
     viewport (so it behaves in a narrow column on a wide screen).
   - `minTarget` — the smallest pointer target to preserve at any width.
   - `reflow[]` — each adaptation names a `pattern` from the vocabulary and,
@@ -39,9 +39,9 @@ re-describing responsiveness in prose.
 
 ## Guarantees
 
-`npm run conformance:responsive` (in `website/`) validates that every archetype
+`npm run conformance:responsive` (in `website/`) validates that every spec
 with an API contract declares `responsive`, that every `pattern` is in the
 vocabulary, and that every `at` resolves to a real breakpoint token — so the
-responsive contract can't drift. The website renders it on each archetype's
-detail page, and the Agent Skill ships it in `reference/archetypes.json` plus
+responsive contract can't drift. The website renders it on each spec's
+detail page, and the Agent Skill ships it in `reference/specs.json` plus
 the vocabulary in `reference/responsive-patterns.json`.

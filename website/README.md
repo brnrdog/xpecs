@@ -1,7 +1,7 @@
-# UX Archetypes — Website
+# Xpecs — Website
 
-An interactive catalogue for the archetypes in this repository. Browse every
-archetype in the sidebar and see a **live implementation rendered with
+An interactive catalogue for the specs in this repository. Browse every
+spec in the sidebar and see a **live implementation rendered with
 [Xote](https://xote.dev)** for each one.
 
 ## Stack
@@ -22,12 +22,12 @@ tokens/tokens.json            (design tokens, one directory up)
         ▼
 src/tokens.generated.css      Tailwind @theme + --ux-* vars (drives the theme)
 
-archetypes/**/*.md            (the specs, one directory up)
+specs/**/*.md            (the specs, one directory up)
         │  scripts/generate-registry.mjs    (npm run registry)
         ▼
-src/ArchetypesData.res        generated, typed list of every archetype
+src/SpecsData.res        generated, typed list of every spec
 
-src/Examples.res              a live Xote component per archetype (`get`)
+src/Examples.res              a live Xote component per spec (`get`)
         │  scripts/generate-snippets.mjs    (npm run snippets)
         ▼
 src/ExampleSource.res         each example's source, shown in the Code tab
@@ -50,19 +50,19 @@ thin showcases (`ButtonEx`, `BadgeEx`, …) built from the same components. The
 Code tab prepends the component sources an example composes, so each snippet
 stays self-contained and shows the reuse.
 
-The **registry generator** reads the archetype markdown frontmatter (plus the
-first paragraph of each `## Intent`) and emits `src/ArchetypesData.res`. That
-guarantees the sidebar always lists every archetype in the collection.
+The **registry generator** reads the spec markdown frontmatter (plus the
+first paragraph of each `## Intent`) and emits `src/SpecsData.res`. That
+guarantees the sidebar always lists every spec in the collection.
 
-Each archetype's example is a small self-contained Xote component in
-`Examples.res`; `Examples.get(id)` maps an archetype `id` to its rendered node.
-Archetypes without an example fall back to a graceful placeholder.
+Each spec's example is a small self-contained Xote component in
+`Examples.res`; `Examples.get(id)` maps an spec `id` to its rendered node.
+Specs without an example fall back to a graceful placeholder.
 
 ## Develop
 
 ```bash
 npm install
-npm run registry     # generate src/ArchetypesData.res from ../archetypes
+npm run registry     # generate src/SpecsData.res from ../specs
 npm run res:dev      # ReScript compiler in watch mode  (terminal 1)
 npm run dev          # Vite dev server                  (terminal 2)
 ```
@@ -82,7 +82,7 @@ npm run preview      # serve the production build
 
 The site deploys automatically via
 [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml)
-on every push to the deploy branch that touches `website/`, `archetypes/`, or
+on every push to the deploy branch that touches `website/`, `specs/`, or
 the workflow itself. It builds with `BASE_PATH=/<repo>/`, adds a `404.html`
 SPA fallback and `.nojekyll`, and publishes `website/dist`.
 
@@ -116,7 +116,7 @@ Requires a Chromium available to `playwright-core`.
 ## Adding a live example
 
 1. Add a `@jsx.component` module to `src/Examples.res`.
-2. Register it in `Examples.get` under the archetype's `id`.
+2. Register it in `Examples.get` under the spec's `id`.
 3. Recompile — the detail page picks it up automatically.
 
 Keep examples framework-idiomatic and monochrome: reach for the shared tokens in

@@ -95,7 +95,7 @@ layout shift, since landing traffic is often first-touch and impatient.
   marked as such; no essential meaning is carried by color alone.
 - **Motion** — respect reduced-motion preferences for animated or autoplaying
   content.
-- **Forms** — lead-capture fields follow the input archetype's accessibility
+- **Forms** — lead-capture fields follow the input spec's accessibility
   contract.
 
 ## Content guidelines

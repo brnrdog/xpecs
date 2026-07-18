@@ -1,7 +1,7 @@
 // App shell: a topbar with spotlight search (⌘K), a collapsible sidebar of every
-// archetype, and a router that renders the overview or an archetype detail page.
+// spec, and a router that renders the overview or an spec detail page.
 
-open ArchetypesData
+open SpecsData
 
 let byId = id => all->Array.find(a => a.id == id)
 let existsId = id => all->Array.some(a => a.id == id)
@@ -9,10 +9,10 @@ let inLayer = layer => all->Array.filter(a => a.layer == layer)
 
 // Behavior traits (cross-cutting interaction contracts).
 let traitById = id => TraitsData.all->Array.find(t => t.id == id)
-let archetypesWithTrait = tid => all->Array.filter(a => a.traits->Array.includes(tid))
+let specsWithTrait = tid => all->Array.filter(a => a.traits->Array.includes(tid))
 let layerPlural = layer => layer ++ "s"
 let docUrl = a =>
-  "https://github.com/brnrdog/ux-archetypes/blob/main/archetypes/" ++
+  "https://github.com/brnrdog/ux-archetypes/blob/main/specs/" ++
   layerPlural(a.layer) ++ "/" ++ a.id ++ ".md"
 
 let matches = (a, q) =>
@@ -75,7 +75,7 @@ module Chip = {
 // an optional note. Parts group under their slot name.
 module Composition = {
   @jsx.component
-  let make = (~parts: array<ArchetypesData.compPart>) => {
+  let make = (~parts: array<SpecsData.compPart>) => {
     // Distinct slot names, in first-seen order.
     let slots = []
     parts->Array.forEach(p =>
@@ -259,15 +259,15 @@ module Topbar = {
         <span class="text-lg"> <View.Text> "☰" </View.Text> </span>
       </IconButton>
       <Router.Link to="/" class="flex items-center gap-2">
-        <span class="flex size-7 items-center justify-center rounded-lg bg-action text-xs font-bold text-on-action"> <View.Text> "U" </View.Text> </span>
-        <span class="hidden text-sm font-semibold tracking-tight text-neutral-900 sm:block"> <View.Text> "UX Archetypes" </View.Text> </span>
+        <span class="flex size-7 items-center justify-center rounded-lg bg-action text-xs font-bold text-on-action"> <View.Text> "X" </View.Text> </span>
+        <span class="hidden text-sm font-semibold tracking-tight text-neutral-900 sm:block"> <View.Text> "Xpecs" </View.Text> </span>
       </Router.Link>
       <div class="flex flex-1 justify-center">
         <button
           class="flex w-full min-w-0 max-w-sm items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-sm text-neutral-400 transition-colors hover:bg-neutral-100"
           onClick={_ => Signal.set(spotlightOpen, true)}>
           <span> <View.Text> "🔍" </View.Text> </span>
-          <span class="flex-1 truncate text-left"> <View.Text> "Search archetypes…" </View.Text> </span>
+          <span class="flex-1 truncate text-left"> <View.Text> "Search specs…" </View.Text> </span>
           <span class="hidden sm:block"> <Kbd> <View.Text> "⌘K" </View.Text> </Kbd> </span>
         </button>
       </div>
@@ -336,7 +336,7 @@ module Spotlight = {
             <input
               id="spotlight-input"
               class="w-full bg-transparent py-3.5 text-sm focus:outline-none"
-              placeholder="Search archetypes…"
+              placeholder="Search specs…"
               onInput={e => {
                 Signal.set(q, Ui.inputValue(e))
                 Signal.set(active, 0)
@@ -368,7 +368,7 @@ module Spotlight = {
               }}
             />
             <View.Show when_={Prop.signal(empty)}>
-              <li class="px-3 py-8 text-center text-sm text-neutral-400"> <View.Text> "No archetypes found" </View.Text> </li>
+              <li class="px-3 py-8 text-center text-sm text-neutral-400"> <View.Text> "No specs found" </View.Text> </li>
             </View.Show>
           </ul>
         </div>
@@ -380,7 +380,7 @@ module Spotlight = {
 module Home = {
   @jsx.component
   let make = () => {
-    // A stat card links into its layer (first archetype) and lifts on hover.
+    // A stat card links into its layer (first spec) and lifts on hover.
     let stat = (layer, title) => {
       let dest = switch inLayer(layer)->Array.get(0) {
       | Some(a) => "/a/" ++ a.id
@@ -419,10 +419,10 @@ module Home = {
           <h1 class="mt-6 text-4xl font-bold leading-[1.05] tracking-tight text-neutral-900 sm:text-5xl">
             <View.Text> "User Experience" </View.Text>
             <br />
-            <span class="text-neutral-400"> <View.Text> "Archetypes" </View.Text> </span>
+            <span class="text-neutral-400"> <View.Text> "Specs" </View.Text> </span>
           </h1>
           <p class="mt-5 max-w-xl text-lg leading-relaxed text-neutral-600">
-            <View.Text> "A technology-agnostic catalogue of UI patterns. Browse every archetype in the sidebar and see a live implementation rendered with " </View.Text>
+            <View.Text> "A technology-agnostic catalogue of UI patterns. Browse every spec in the sidebar and see a live implementation rendered with " </View.Text>
             <Link href="https://xote.dev" newTab=true> <View.Text> "Xote" </View.Text> </Link>
             <View.Text> "." </View.Text>
           </p>
@@ -498,11 +498,11 @@ module Guide = {
     <div class="mx-auto max-w-3xl px-5 sm:px-8 py-14">
       <Badge variant=#outline> <View.Text> "Get started" </View.Text> </Badge>
       <h1 class="mt-5 text-4xl font-bold tracking-tight text-neutral-900">
-        <View.Text> "UX Archetypes" </View.Text>
+        <View.Text> "Xpecs" </View.Text>
       </h1>
       <p class="mt-4 text-lg leading-relaxed text-neutral-600">
         <View.Text>
-          "A technology-agnostic catalogue of UI patterns — for people and AI agents. Each archetype defines the "
+          "A technology-agnostic catalogue of UI patterns — for people and AI agents. Each spec defines the "
         </View.Text>
         <em class="text-neutral-900"> <View.Text> "idea" </View.Text> </em>
         <View.Text>
@@ -513,7 +513,7 @@ module Guide = {
       <Section title="Why">
         <p>
           <View.Text>
-            "Most UI is rebuilt from scratch on every project and every framework, and the accessibility and edge cases are reinvented (often incompletely) each time. UX Archetypes captures the durable part — what a pattern "
+            "Most UI is rebuilt from scratch on every project and every framework, and the accessibility and edge cases are reinvented (often incompletely) each time. Xpecs captures the durable part — what a pattern "
           </View.Text>
           <em class="text-neutral-900"> <View.Text> "is" </View.Text> </em>
           <View.Text>
@@ -523,7 +523,7 @@ module Guide = {
       </Section>
 
       <Section title="The layers">
-        <p> <View.Text> "Archetypes are organized from the smallest primitives up to whole journeys." </View.Text> </p>
+        <p> <View.Text> "Specs are organized from the smallest primitives up to whole journeys." </View.Text> </p>
         <div>
           <Def term="element" meta={count("element")}> <View.Text> "Indivisible primitives — button, input, badge, avatar, checkbox." </View.Text> </Def>
           <Def term="component" meta={count("component")}> <View.Text> "Composed, interactive units — dialog, tabs, select, form, data-table, navbar." </View.Text> </Def>
@@ -533,14 +533,14 @@ module Guide = {
         </div>
       </Section>
 
-      <Section title="What's in an archetype">
+      <Section title="What's in an spec">
         <p>
           <View.Text> "Open " </View.Text>
           <Router.Link to="/a/button" class="text-neutral-900 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900"> <View.Text> "Button" </View.Text> </Router.Link>
-          <View.Text> " to see the shape every archetype follows:" </View.Text>
+          <View.Text> " to see the shape every spec follows:" </View.Text>
         </p>
         <div>
-          <Def term="Intent"> <View.Text> "The problem it solves and when to use it (or reach for a different archetype)." </View.Text> </Def>
+          <Def term="Intent"> <View.Text> "The problem it solves and when to use it (or reach for a different spec)." </View.Text> </Def>
           <Def term="API"> <View.Text> "A machine-readable contract: props (with types, allowed values, defaults), slots, events, accessibility (role, keyboard, announcements), states, and the design-token roles it consumes." </View.Text> </Def>
           <Def term="Traits"> <View.Text> "Shared behaviors it exhibits (dismissible, focus-trap, …)." </View.Text> </Def>
           <Def term="Composition"> <View.Text> "The parts it is built from, each wired to a slot with the props passed." </View.Text> </Def>
@@ -550,7 +550,7 @@ module Guide = {
       </Section>
 
       <Section title="Behaviors">
-        <p> <View.Text> "Cross-cutting interaction contracts many archetypes share, so a dialog and a drawer don't each re-describe focus trapping." </View.Text> </p>
+        <p> <View.Text> "Cross-cutting interaction contracts many specs share, so a dialog and a drawer don't each re-describe focus trapping." </View.Text> </p>
         <div>
           <View.For
             each={Prop.static(TraitsData.all)}
@@ -582,18 +582,18 @@ module Guide = {
         <p class="pt-2 font-medium text-neutral-900"> <View.Text> "2 · Consume" </View.Text> </p>
         <p>
           <View.Text> "Install the package (" </View.Text>
-          <code class="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[13px] text-neutral-800"> <View.Text> "npm i ux-archetypes" </View.Text> </code>
+          <code class="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[13px] text-neutral-800"> <View.Text> "npm i xpecs" </View.Text> </code>
           <View.Text> ") to read the specs, tokens, and contracts in your build tooling — or add the bundled " </View.Text>
           <Link href="https://github.com/brnrdog/ux-archetypes/blob/main/skill/SKILL.md" newTab=true> <View.Text> "Agent Skill" </View.Text> </Link>
           <View.Text> " so an AI implements to the contracts for you." </View.Text>
         </p>
         <p class="pt-2 font-medium text-neutral-900"> <View.Text> "3 · Implement" </View.Text> </p>
-        <p> <View.Text> "For each pattern: match the contract's prop names, enum values, and defaults; handle every state; honor the accessibility and trait keyboard contracts; reuse the archetypes it composes. Render it in your framework and style it with the token roles." </View.Text> </p>
+        <p> <View.Text> "For each pattern: match the contract's prop names, enum values, and defaults; handle every state; honor the accessibility and trait keyboard contracts; reuse the specs it composes. Render it in your framework and style it with the token roles." </View.Text> </p>
       </Section>
 
       <div class="mt-12 flex flex-wrap gap-3 border-t border-neutral-200 pt-8">
         <Router.Link to="/a/button">
-          <Button variant=#primary> <View.Text> "Browse archetypes" </View.Text> </Button>
+          <Button variant=#primary> <View.Text> "Browse specs" </View.Text> </Button>
         </Router.Link>
         <Router.Link to="/tokens">
           <Button variant=#secondary> <View.Text> "Design tokens" </View.Text> </Button>
@@ -617,7 +617,7 @@ module Preview = {
       <div class="flex min-h-48 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-neutral-300 p-10 text-center">
         <span class="text-sm font-medium text-neutral-600"> <View.Text> "Live example coming soon" </View.Text> </span>
         <span class="max-w-xs text-xs text-neutral-400">
-          <View.Text> "The written specification is complete. An interactive Xote implementation for this archetype is on the way." </View.Text>
+          <View.Text> "The written specification is complete. An interactive Xote implementation for this spec is on the way." </View.Text>
         </span>
       </div>
     }
@@ -627,7 +627,7 @@ module NotFound = {
   @jsx.component
   let make = () =>
     <div class="mx-auto max-w-3xl px-5 sm:px-8 py-16">
-      <h1 class="text-2xl font-bold text-neutral-900"> <View.Text> "Archetype not found" </View.Text> </h1>
+      <h1 class="text-2xl font-bold text-neutral-900"> <View.Text> "Spec not found" </View.Text> </h1>
       <Router.Link to="/" class="mt-4 inline-block text-sm underline underline-offset-4">
         <View.Text> "← Back to overview" </View.Text>
       </Router.Link>
@@ -636,7 +636,7 @@ module NotFound = {
 
 module ExampleBlock = {
   @jsx.component
-  let make = (~a: archetype) => {
+  let make = (~a: spec) => {
     let mode = Signal.make("preview")
     let copied = Signal.make(false)
     let full = Signal.make(false)
@@ -832,7 +832,7 @@ module TraitDetail = {
         </View.Show>
 
         <div class="mt-10">
-          <ChipRow title="Exhibited by" ids={archetypesWithTrait(id)->Array.map(a => a.id)} />
+          <ChipRow title="Exhibited by" ids={specsWithTrait(id)->Array.map(a => a.id)} />
         </div>
       </div>
     }
@@ -918,7 +918,7 @@ module Tokens = {
         </Button>
       </div>
       <p class="mt-4 text-lg leading-relaxed text-neutral-600">
-        <View.Text> "The primitives every archetype is built on — generated from the framework's " </View.Text>
+        <View.Text> "The primitives every spec is built on — generated from the framework's " </View.Text>
         <Link href="https://github.com/brnrdog/ux-archetypes/blob/main/tokens/tokens.json" newTab=true>
           <View.Text> "tokens.json" </View.Text>
         </Link>

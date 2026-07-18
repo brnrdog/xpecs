@@ -156,7 +156,7 @@ let all: array<group> = [
   },
   {
     group: "breakpoint",
-    description: "Viewport widths where layouts may adapt. Referenced by archetypes' responsive contracts; shown for reference (media queries can't read CSS variables).",
+    description: "Viewport widths where layouts may adapt. Referenced by specs' responsive contracts; shown for reference (media queries can't read CSS variables).",
     tokens: [
       { name: "sm", path: "breakpoint.sm", value: "40rem", raw: "", description: "≥ 640px — large phone / small tablet.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-sm" },
       { name: "md", path: "breakpoint.md", value: "48rem", raw: "", description: "≥ 768px — tablet.", sample: "text", themeVar: "", uxVar: "--ux-breakpoint-md" },

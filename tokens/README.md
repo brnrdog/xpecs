@@ -1,10 +1,10 @@
 # Design Tokens
 
-The **shared, technology-agnostic design decisions** behind the archetypes —
+The **shared, technology-agnostic design decisions** behind the specs —
 color, type, spacing, radius, elevation, motion — defined once so every
 implementation can stay visually consistent.
 
-Archetypes describe a pattern's _structure and behavior_ in words and
+Specs describe a pattern's _structure and behavior_ in words and
 deliberately avoid pixels and hues. Tokens are the other half: the concrete,
 named values a project plugs in. Together they let the same pattern render
 consistently across projects and stacks.
@@ -32,7 +32,7 @@ Dictionary, Tokens Studio, etc.).
 
 | Group         | What it holds |
 | ------------- | ------------- |
-| `color`       | A single grayscale `neutral` ramp (0–1000) plus semantic aliases: `ink`, `paper`, `surface`, `muted`, `border`, `accent`, `accentContrast`. **Semantic roles** the archetype contracts bind to: `action` (`default`/`hover`/`subtle`/`onAction`), `status` (`info`/`success`/`warning`/`danger`), and `chart` (`1`–`6`). Monochrome by design — hierarchy comes from value, not hue; retheme by pointing these roles at brand hues. |
+| `color`       | A single grayscale `neutral` ramp (0–1000) plus semantic aliases: `ink`, `paper`, `surface`, `muted`, `border`, `accent`, `accentContrast`. **Semantic roles** the spec contracts bind to: `action` (`default`/`hover`/`subtle`/`onAction`), `status` (`info`/`success`/`warning`/`danger`), and `chart` (`1`–`6`). Monochrome by design — hierarchy comes from value, not hue; retheme by pointing these roles at brand hues. |
 | `font`        | `family` (sans/mono), `weight`, `size` scale, `lineHeight`. |
 | `space`       | Spacing scale for padding, margin, and gaps, plus semantic `inline` padding (`sm`/`md`/`lg`) for controls. |
 | `radius`      | Corner radii, `none` → `full`. |
@@ -40,7 +40,7 @@ Dictionary, Tokens Studio, etc.).
 | `shadow`      | Elevation `sm` / `md` / `lg`. |
 | `duration`    | Motion timings. |
 | `zIndex`      | Stacking order for overlays, modals, toasts. |
-| `breakpoint`  | Minimum viewport widths where layouts may adapt (`sm` 40rem → `2xl` 96rem). Archetype API `responsive` contracts reference these ids (see [`responsive/`](../responsive/)), so "small screen" has a shared, concrete meaning. |
+| `breakpoint`  | Minimum viewport widths where layouts may adapt (`sm` 40rem → `2xl` 96rem). Spec API `responsive` contracts reference these ids (see [`responsive/`](../responsive/)), so "small screen" has a shared, concrete meaning. |
 
 ## Consuming tokens
 
@@ -80,7 +80,7 @@ To re-skin an implementation, override token values — most usefully the
 `color.neutral` ramp (which the semantic roles alias by default) or the semantic
 roles themselves (`color.action.*`, `color.status.*`) for finer control.
 Swapping the ramp for a tinted palette restyles everything downstream without
-touching a single archetype or component.
+touching a single spec or component.
 
 ### Themes (presets)
 

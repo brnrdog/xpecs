@@ -1,7 +1,7 @@
 {
-  "name": "ux-archetypes",
+  "name": "xpecs",
   "version": "0.7.0",
-  "description": "A technology-agnostic collection of User Experience Archetypes: reusable definitions of UI patterns for humans and AI agents, spanning elements, components, blocks, pages, and flows.",
+  "description": "A technology-agnostic collection of User Experience Specs: reusable definitions of UI patterns for humans and AI agents, spanning elements, components, blocks, pages, and flows.",
   "workspaces": [
     "packages/*",
     "website"
@@ -9,13 +9,13 @@
   "scripts": {
     "index": "node scripts/generate-index.mjs",
     "skill": "node scripts/generate-skill.mjs",
-    "build:tokens": "npm run build --workspace @ux-archetypes/tokens"
+    "build:tokens": "npm run build --workspace @xpecs/tokens"
   },
   "license": "MIT",
   "author": "brnrdog",
   "keywords": [
     "ui",
-    "archetypes",
+    "specs",
     "design-system",
     "component-library",
     "ux",
@@ -24,7 +24,7 @@
     "ai-agents"
   ],
   "files": [
-    "archetypes",
+    "specs",
     "traits",
     "templates",
     "schema",

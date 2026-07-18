@@ -1,5 +1,5 @@
 // Alert — an inline message drawing attention to contextual information. The
-// `variant` type comes from the archetype's `## API` contract (Contracts.res),
+// `variant` type comes from the spec's `## API` contract (Contracts.res),
 // so the compiler enforces the spec's allowed severities. Monochrome baseline:
 // severity is conveyed by fill weight, not hue.
 @jsx.component

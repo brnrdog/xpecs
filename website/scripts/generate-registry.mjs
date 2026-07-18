@@ -1,7 +1,7 @@
-// Generates src/ArchetypesData.res from the archetype markdown files.
+// Generates src/SpecsData.res from the spec markdown files.
 // Parses the YAML frontmatter (simple, line-based), extracts the first
 // paragraph of the "Intent" section for a teaser, and converts the full body
-// to HTML so each archetype's complete spec renders on its detail page. Emits
+// to HTML so each spec's complete spec renders on its detail page. Emits
 // a typed ReScript module.
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { join, dirname, basename } from "node:path";
@@ -9,8 +9,8 @@ import { fileURLToPath } from "node:url";
 import { mdToHtml } from "./md.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const archetypesDir = join(here, "..", "..", "archetypes");
-const outFile = join(here, "..", "src", "ArchetypesData.res");
+const specsDir = join(here, "..", "..", "specs");
+const outFile = join(here, "..", "src", "SpecsData.res");
 
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
@@ -108,14 +108,14 @@ const records = [];
 for (const layerDir of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layerDir)).filter((f) =>
+    files = readdirSync(join(specsDir, layerDir)).filter((f) =>
       f.endsWith(".md"),
     );
   } catch {
     continue;
   }
   for (const file of files.sort()) {
-    const raw = readFileSync(join(archetypesDir, layerDir, file), "utf8");
+    const raw = readFileSync(join(specsDir, layerDir, file), "utf8");
     const parsed = parseFrontmatter(raw);
     if (!parsed) continue;
     const { meta, body: rawBody } = parsed;
@@ -282,7 +282,7 @@ type apiContract = {
   responsive: option<responsive>,
 }
 
-type archetype = {
+type spec = {
   id: string,
   title: string,
   layer: string,
@@ -301,10 +301,10 @@ type archetype = {
   api: option<apiContract>,
 }
 
-let all: array<archetype> = [
+let all: array<spec> = [
 ${body},
 ]
 `;
 
 writeFileSync(outFile, out);
-console.log(`Wrote ${records.length} archetypes to ${outFile}`);
+console.log(`Wrote ${records.length} specs to ${outFile}`);

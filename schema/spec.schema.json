@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/brnrdog/ux-archetypes/schema/archetype.schema.json",
-  "title": "UI Archetype metadata",
-  "description": "Schema for the YAML frontmatter metadata block of an archetype document.",
+  "$id": "https://github.com/brnrdog/ux-archetypes/schema/spec.schema.json",
+  "title": "UI Spec metadata",
+  "description": "Schema for the YAML frontmatter metadata block of an spec document.",
   "type": "object",
   "required": ["id", "title", "layer", "version", "status", "summary", "since", "updated"],
   "additionalProperties": false,
@@ -19,12 +19,12 @@
     },
     "layer": {
       "type": "string",
-      "description": "The layer this archetype belongs to.",
+      "description": "The layer this spec belongs to.",
       "enum": ["element", "component", "block", "page", "flow"]
     },
     "version": {
       "type": "string",
-      "description": "Semantic version of this archetype, independent of the collection.",
+      "description": "Semantic version of this spec, independent of the collection.",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "status": {
@@ -39,7 +39,7 @@
     },
     "since": {
       "type": "string",
-      "description": "Collection version in which the archetype first appeared.",
+      "description": "Collection version in which the spec first appeared.",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "updated": {
@@ -62,31 +62,31 @@
     },
     "composedOf": {
       "type": "array",
-      "description": "ids of archetypes this one is built from.",
+      "description": "ids of specs this one is built from.",
       "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
       "uniqueItems": true
     },
     "usedBy": {
       "type": "array",
-      "description": "ids of archetypes that commonly include this one.",
+      "description": "ids of specs that commonly include this one.",
       "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
       "uniqueItems": true
     },
     "related": {
       "type": "array",
-      "description": "ids of adjacent archetypes worth comparing.",
+      "description": "ids of adjacent specs worth comparing.",
       "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
       "uniqueItems": true
     },
     "traits": {
       "type": "array",
-      "description": "ids of behavior traits this archetype exhibits (see traits/).",
+      "description": "ids of behavior traits this spec exhibits (see traits/).",
       "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
       "uniqueItems": true
     },
     "maintainers": {
       "type": "array",
-      "description": "People accountable for the archetype.",
+      "description": "People accountable for the spec.",
       "items": { "type": "string" },
       "uniqueItems": true
     },

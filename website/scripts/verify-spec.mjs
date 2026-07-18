@@ -5,7 +5,7 @@ import { createServer } from "node:http";
 
 const dist = new URL("../dist/", import.meta.url).pathname;
 const ids = [
-  ...readFileSync(new URL("../src/ArchetypesData.res", import.meta.url), "utf8").matchAll(
+  ...readFileSync(new URL("../src/SpecsData.res", import.meta.url), "utf8").matchAll(
     /^\s*id: "([^"]+)",/gm,
   ),
 ].map((m) => m[1]);

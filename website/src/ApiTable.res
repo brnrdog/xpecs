@@ -1,4 +1,4 @@
-// Renders an archetype's machine-readable `## API` contract: the prop table,
+// Renders an spec's machine-readable `## API` contract: the prop table,
 // slots, accessibility expectations, states, and token roles. The same contract
 // drives the generated prop types (Contracts.res) and the conformance check, so
 // what you read here is provably what the implementation exposes.
@@ -21,7 +21,7 @@ let code = (v: string) =>
   </code>
 
 @jsx.component
-let make = (~api: ArchetypesData.apiContract) =>
+let make = (~api: SpecsData.apiContract) =>
   <section class="mt-10 rounded-2xl border border-neutral-200 bg-surface p-6 shadow-sm">
     <div class="flex items-center gap-2">
       <h2 class="text-lg font-semibold tracking-tight text-neutral-900">
@@ -182,7 +182,7 @@ let make = (~api: ArchetypesData.apiContract) =>
         </View.Show>
         <View.Show
           when_={Prop.static(Array.length(r.reflow) > 0)}
-          fallback={<p class="text-sm text-neutral-500"> <View.Text> "No structural reflow — this archetype keeps its shape at every width." </View.Text> </p>}>
+          fallback={<p class="text-sm text-neutral-500"> <View.Text> "No structural reflow — this spec keeps its shape at every width." </View.Text> </p>}>
           <ul class="space-y-2 text-sm">
             <View.For
               each={Prop.static(r.reflow)}

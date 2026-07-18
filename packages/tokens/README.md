@@ -1,6 +1,6 @@
-# @ux-archetypes/tokens
+# @xpecs/tokens
 
-The design tokens of [UX Archetypes](https://github.com/brnrdog/ux-archetypes)
+The design tokens of [Xpecs](https://github.com/brnrdog/ux-archetypes)
 as ready-to-consume artifacts — CSS custom properties, a Tailwind v4 preset,
 theme overlays, and a typed JS export. Generated from the framework's W3C DTCG
 source of truth, so they never drift from the specs.
@@ -8,7 +8,7 @@ source of truth, so they never drift from the specs.
 ## Install
 
 ```sh
-npm install @ux-archetypes/tokens
+npm install @xpecs/tokens
 ```
 
 ## Use
@@ -16,7 +16,7 @@ npm install @ux-archetypes/tokens
 **Plain CSS** — every token as a `--ux-*` custom property:
 
 ```css
-@import "@ux-archetypes/tokens/variables.css";
+@import "@xpecs/tokens/variables.css";
 
 .button { background: var(--ux-color-action-default); color: var(--ux-color-action-onAction); }
 ```
@@ -26,14 +26,14 @@ npm install @ux-archetypes/tokens
 
 ```css
 @import "tailwindcss";
-@import "@ux-archetypes/tokens/tailwind.css";
+@import "@xpecs/tokens/tailwind.css";
 ```
 
 **Theming** — opt into a named theme and light/dark by setting attributes on any
 ancestor (usually `<html>`); the overlays re-point the token variables:
 
 ```css
-@import "@ux-archetypes/tokens/themes.css";
+@import "@xpecs/tokens/themes.css";
 ```
 ```html
 <html data-theme="ocean" data-mode="dark">
@@ -42,7 +42,7 @@ ancestor (usually `<html>`); the overlays re-point the token variables:
 **JS / TS** — the resolved values as data:
 
 ```js
-import { tokens, flat, themes } from "@ux-archetypes/tokens";
+import { tokens, flat, themes } from "@xpecs/tokens";
 
 flat["color.action.default"]; // "#1b1917"
 tokens.color.neutral["900"];  // "#1b1917"

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/brnrdog/ux-archetypes/schema/trait.schema.json",
   "title": "UX Behavior Trait metadata",
-  "description": "Frontmatter for a behavior trait — a reusable, cross-cutting interaction contract (dismiss, focus-trap, anchored positioning, roving focus, typeahead) that many archetypes share instead of re-describing it each time.",
+  "description": "Frontmatter for a behavior trait — a reusable, cross-cutting interaction contract (dismiss, focus-trap, anchored positioning, roving focus, typeahead) that many specs share instead of re-describing it each time.",
   "type": "object",
   "required": ["id", "title", "summary", "since", "updated"],
   "additionalProperties": false,
@@ -19,13 +19,13 @@
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "keys": {
       "type": "array",
-      "description": "Keyboard keys an archetype must support to legitimately claim this trait. Checked against each archetype's API a11y.keyboard.",
+      "description": "Keyboard keys an spec must support to legitimately claim this trait. Checked against each spec's API a11y.keyboard.",
       "items": { "type": "string" }
     },
     "match": {
       "type": "string",
       "enum": ["all", "any"],
-      "description": "Whether an archetype must declare all of `keys` or at least one."
+      "description": "Whether an spec must declare all of `keys` or at least one."
     }
   }
 }

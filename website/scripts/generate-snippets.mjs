@@ -1,5 +1,5 @@
 // Generates src/ExampleSource.res — the ReScript source of every example in
-// Examples.res, keyed by archetype id — so each detail page can show the exact
+// Examples.res, keyed by spec id — so each detail page can show the exact
 // implementation that produces its live preview. Examples.res and the reusable
 // component modules stay the single source of truth; this just extracts them.
 // Any reusable component an example composes (Button, Badge, …) is prepended so
@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const srcDir = join(here, "..", "src");
-// Reusable components now live in the @ux-archetypes/xote package.
+// Reusable components now live in the @xpecs/xote package.
 const compDir = join(here, "..", "..", "packages", "xote", "src");
 const examplesSrc = readFileSync(join(srcDir, "Examples.res"), "utf8");
 const outFile = join(srcDir, "ExampleSource.res");
@@ -92,7 +92,7 @@ function collect(seed) {
 const indent = (t) => t.split("\n").map((l) => (l.length ? "  " + l : l)).join("\n");
 const wrapComponent = (name) => `module ${name} = {\n${indent(componentSrc[name])}\n}`;
 
-// Map archetype id -> example module name from the `get` switch.
+// Map spec id -> example module name from the `get` switch.
 const idToModule = {};
 for (const m of examplesSrc.matchAll(/\|\s*"([^"]+)"\s*=>\s*Some\(<(\w+)\s*\/>\)/g)) {
   idToModule[m[1]] = m[2];

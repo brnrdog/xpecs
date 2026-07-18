@@ -1,13 +1,13 @@
 ---
-name: ux-archetypes
+name: xpecs
 description: Implement UI to a technology-agnostic spec. Use when building or reviewing user-interface elements, components, page sections, pages, or flows (buttons, inputs, dialogs, tabs, menus, forms, navbars, cards, data tables, etc.), a design system, or design tokens — in any framework. Provides each pattern's interface contract (props, slots, events, states), accessibility and keyboard behavior, structural composition, shared behavior traits, and a themeable design-token system, so the implementation is correct and consistent instead of improvised.
 ---
 
-# UX Archetypes
+# Xpecs
 
-A catalogue of **UX archetypes** — technology-agnostic definitions of UI patterns
+A catalogue of **UX specs** — technology-agnostic definitions of UI patterns
 — plus a design-token system. Use it to implement UI **to a contract** rather
-than inventing prop names, states, and accessibility each time. The archetypes
+than inventing prop names, states, and accessibility each time. The specs
 describe the *idea* (structure, behavior, a11y); you implement it in whatever
 stack the user is working in (React, Vue, Svelte, SwiftUI, plain HTML, …).
 
@@ -20,11 +20,11 @@ or a multi-step flow — or when setting up design tokens / theming.
 
 ## Workflow
 
-1. **Find the archetype.** Look it up in `reference/archetypes.json` (keyed by
+1. **Find the spec.** Look it up in `reference/specs.json` (keyed by
    `id`, e.g. `button`, `dialog`, `data-table`). Match the user's request to the
    closest `id`/`title`/`tags`. If nothing fits, it may genuinely be a novel
    pattern — say so.
-2. **Read its contract.** Each archetype has an `api` block:
+2. **Read its contract.** Each spec has an `api` block:
    - `props` — the axes of variation with their `type`, allowed `values` (for
      enums), and `default`. Implement exactly these; keep the names.
    - `slots` — the named content regions.
@@ -40,12 +40,12 @@ or a multi-step flow — or when setting up design tokens / theming.
 3. **Apply its traits.** `traits` lists shared behaviors (`dismissible`,
    `focus-trap`, `anchored`, `roving-focus`, `typeahead`). Look each up in
    `reference/traits.json` for the exact keyboard/focus contract, and honor the
-   `keys` it requires — they must appear in the archetype's `a11y.keyboard`.
-4. **Wire its composition.** `composition` lists the parts an archetype is built
-   from — each `ref` (another archetype), the `slot` it fills, and any `props`
-   passed. Reuse those archetypes rather than re-building them.
+   `keys` it requires — they must appear in the spec's `a11y.keyboard`.
+4. **Wire its composition.** `composition` lists the parts an spec is built
+   from — each `ref` (another spec), the `slot` it fills, and any `props`
+   passed. Reuse those specs rather than re-building them.
 5. **Implement to the contract**, in the user's framework and style. Cover every
-   prop, state, and a11y requirement. Prefer composing existing archetypes.
+   prop, state, and a11y requirement. Prefer composing existing specs.
 
 ## Design tokens
 
@@ -68,12 +68,12 @@ equivalent.
 
 ## Reference files
 
-- `reference/archetypes.json` — every archetype: `id`, `layer`, `summary`,
+- `reference/specs.json` — every spec: `id`, `layer`, `summary`,
   `intent`, `api` contract, `traits`, `composition`, `usedBy`, `related`.
 - `reference/traits.json` — the shared behavior contracts (+ required keys).
 - `reference/tokens.json` — the design tokens (DTCG), including `breakpoint.*`.
 - `reference/themes.json` — ready-made themes and light/dark modes.
-- `reference/responsive-patterns.json` — the reflow vocabulary an archetype's
+- `reference/responsive-patterns.json` — the reflow vocabulary an spec's
   `responsive.reflow[].pattern` refers to (id → label + description).
 
 ## Principles

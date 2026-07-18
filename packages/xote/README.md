@@ -1,12 +1,12 @@
-# @ux-archetypes/xote
+# @xpecs/xote
 
 Accessible UI components for [Xote](https://xote.dev) / ReScript that implement
-the [UX Archetypes](https://github.com/brnrdog/ux-archetypes) contracts. Each
-component's prop types are **generated from the archetype's `## API` contract**
+the [Xpecs](https://github.com/brnrdog/ux-archetypes) contracts. Each
+component's prop types are **generated from the spec's `## API` contract**
 (`Contracts.res`), so the compiler enforces that the implementation can't drift
 from the spec's allowed values.
 
-Styled against [`@ux-archetypes/tokens`](../tokens) via the semantic utilities
+Styled against [`@xpecs/tokens`](../tokens) via the semantic utilities
 (`bg-action`, `text-ink`, …), so re-theming is a token change, not a code change.
 
 ## Components
@@ -18,7 +18,7 @@ Styled against [`@ux-archetypes/tokens`](../tokens) via the semantic utilities
 ## Install
 
 ```sh
-npm install @ux-archetypes/xote @ux-archetypes/tokens
+npm install @xpecs/xote @xpecs/tokens
 ```
 
 Peer dependencies: `rescript`, `@rescript/core`, `rescript-signals`, `xote`.
@@ -29,7 +29,7 @@ Add it to your `rescript.json` dependencies (the package builds `namespace:false
 so its modules are available unqualified):
 
 ```json
-{ "dependencies": ["@rescript/core", "rescript-signals", "xote", "@ux-archetypes/xote"] }
+{ "dependencies": ["@rescript/core", "rescript-signals", "xote", "@xpecs/xote"] }
 ```
 
 ```rescript
@@ -38,14 +38,14 @@ so its modules are available unqualified):
 </Button>
 ```
 
-Import the token CSS once at your app entry (see `@ux-archetypes/tokens`):
+Import the token CSS once at your app entry (see `@xpecs/tokens`):
 
 ```css
 @import "tailwindcss";
-@import "@ux-archetypes/tokens/tailwind.css";
+@import "@xpecs/tokens/tailwind.css";
 ```
 
 ## Build
 
-`npm run build` regenerates `Contracts.res` from the archetype specs and compiles
+`npm run build` regenerates `Contracts.res` from the spec specs and compiles
 the package with ReScript.

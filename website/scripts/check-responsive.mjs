@@ -1,5 +1,5 @@
-// Validates the responsive contract on every implementable archetype:
-//   • an archetype that carries an `## API` contract must declare `responsive`;
+// Validates the responsive contract on every implementable spec:
+//   • an spec that carries an `## API` contract must declare `responsive`;
 //   • each `reflow[].pattern` must be a known id in responsive/patterns.json;
 //   • each `reflow[].at`, when present, must be a breakpoint id in tokens.json.
 // Exits non-zero on any violation, so responsiveness can't drift from the
@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "..", "..");
-const archetypesDir = join(root, "archetypes");
+const specsDir = join(root, "specs");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 
 const patterns = new Set(
@@ -34,21 +34,21 @@ function apiOf(raw, id) {
 }
 
 let failures = 0;
-let checkedArchetypes = 0;
+let checkedSpecs = 0;
 let checkedReflows = 0;
 for (const layer of layers) {
   let files;
   try {
-    files = readdirSync(join(archetypesDir, layer)).filter((f) => f.endsWith(".md"));
+    files = readdirSync(join(specsDir, layer)).filter((f) => f.endsWith(".md"));
   } catch {
     continue;
   }
   for (const file of files) {
-    const raw = readFileSync(join(archetypesDir, layer, file), "utf8");
+    const raw = readFileSync(join(specsDir, layer, file), "utf8");
     const id = (raw.match(/^id:\s*(.*)$/m) || [])[1]?.trim() || basename(file, ".md");
     const api = apiOf(raw, id);
     if (!api) continue; // pages/flows carry no API contract
-    checkedArchetypes++;
+    checkedSpecs++;
     const r = api.responsive;
     if (!r) {
       failures++;
@@ -70,6 +70,6 @@ for (const layer of layers) {
 }
 
 console.log(
-  `\n${failures ? "✗" : "✓"} responsive: ${checkedArchetypes} contract(s) + ${checkedReflows} reflow(s) checked against ${patterns.size} pattern(s) / ${breakpoints.size} breakpoint(s), ${failures} issue(s)`,
+  `\n${failures ? "✗" : "✓"} responsive: ${checkedSpecs} contract(s) + ${checkedReflows} reflow(s) checked against ${patterns.size} pattern(s) / ${breakpoints.size} breakpoint(s), ${failures} issue(s)`,
 );
 process.exitCode = failures ? 1 : 0;

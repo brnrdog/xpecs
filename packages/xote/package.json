@@ -1,7 +1,7 @@
 {
-  "name": "@ux-archetypes/xote",
+  "name": "@xpecs/xote",
   "version": "0.1.0",
-  "description": "Accessible UI components for Xote/ReScript that implement the UX Archetypes contracts. Styled against @ux-archetypes/tokens; prop types are generated from the archetype API contracts, so the implementation can't drift from the spec.",
+  "description": "Accessible UI components for Xote/ReScript that implement the Xpecs contracts. Styled against @xpecs/tokens; prop types are generated from the spec API contracts, so the implementation can't drift from the spec.",
   "license": "MIT",
   "author": "brnrdog",
   "keywords": ["rescript", "xote", "components", "ui", "design-system", "ux-archetypes", "accessibility"],
@@ -19,7 +19,7 @@
     "xote": ">=7.0.0"
   },
   "dependencies": {
-    "@ux-archetypes/tokens": "^0.1.0"
+    "@xpecs/tokens": "^0.1.0"
   },
   "repository": {
     "type": "git",
