@@ -236,6 +236,7 @@ module Sidebar = {
           }
           <div class="mb-4 space-y-0.5">
             {link("/guide", "Get Started")}
+            {link("/showcase", "Examples")}
             {link("/tokens", "Design Tokens")}
           </div>
         }
@@ -959,6 +960,7 @@ let make = () => {
   let routes = Router.routes([
     {pattern: "/", render: _ => <Home />},
     {pattern: "/guide", render: _ => <Guide />},
+    {pattern: "/showcase", render: _ => <Showcase />},
     {pattern: "/tokens", render: _ => <Tokens />},
     {pattern: "/a/:id", render: params => <Detail id={params->Dict.get("id")->Option.getOr("")} />},
     {pattern: "/t/:id", render: params => <TraitDetail id={params->Dict.get("id")->Option.getOr("")} />},
