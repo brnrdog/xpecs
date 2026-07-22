@@ -9,7 +9,7 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [form, input, validation, data-entry]
 aliases: [data-entry, input-form]
-usedBy: [sign-in, settings, dialog, landing-page]
+usedBy: [sign-in, settings, dialog, landing-page, contact-section]
 related: [field, input, dialog]
 maintainers: [brnrdog]
 ---

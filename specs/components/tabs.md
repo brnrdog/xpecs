@@ -9,7 +9,7 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, content, sections, in-page]
 aliases: [tab-group, segmented-views]
-usedBy: [dashboard, settings, card]
+usedBy: [dashboard, settings, card, page-header]
 related: [accordion, toggle-group, navigation-menu]
 traits: [roving-focus]
 maintainers: [brnrdog]

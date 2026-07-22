@@ -1,6 +1,6 @@
 {
   "name": "xpecs",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A technology-agnostic collection of User Experience Specs: reusable definitions of UI patterns for humans and AI agents, spanning elements, components, blocks, pages, and flows.",
   "workspaces": [
     "packages/*",

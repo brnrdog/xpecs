@@ -4,6 +4,43 @@ All notable changes to this collection are documented here. The collection
 follows [Semantic Versioning](https://semver.org/) and the format of
 [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.8.0] - 2026-07-22
+
+### Added
+
+- **Seven new blocks**, closing gaps the page specs already named — and the
+  first blocks serving application pages, not just marketing ones:
+  - `page-header` — the band that opens an application view: breadcrumb,
+    title, context, and view actions (used by `dashboard`, `settings`).
+  - `stat-grid` — the KPI summary band a dashboard opens with, formalizing
+    the "row of stat cards" the dashboard spec required.
+  - `logo-cloud` — the social-proof strip of customer/partner marks the
+    landing-page spec called for.
+  - `steps` — an ordered "how it works" sequence; the sequential counterpart
+    to `feature-grid`.
+  - `contact-section` — a message form beside direct contact channels, the
+    landing page's lead-gen section.
+  - `newsletter` — a one-field email-capture band with explicit
+    success/error states.
+  - `announcement-bar` — a slim, dismissible, page-width strip for one
+    timely message (a launch, promotion, or notice).
+- **First block-level Xote components.** All seven new blocks ship with
+  `implementation:`-mapped components in `@xpecs/xote` (`PageHeader`,
+  `StatGrid`, `LogoCloud`, `Steps`, `ContactSection`, `Newsletter`,
+  `AnnouncementBar`), so the conformance gate now checks blocks too. The
+  `steps` and `announcement-bar` enum props are compiler-enforced via the
+  generated contracts.
+
+### Changed
+
+- The `dashboard`, `landing-page`, and `settings` pages (1.1.0) wire the new
+  blocks into their compositions and anatomy.
+- Reverse `usedBy`/`related` references added across the graph (`stat`,
+  `breadcrumb`, `logo`, `form`, `input-group`, `tabs`, `icon-button`, `hero`,
+  `cta-section`, `alert`, `toolbar`), keeping the composition graph closed.
+- `VERSION` re-synced with the collection version (it had stayed at 0.6.0
+  through the 0.7.0 release).
+
 ## [0.7.0] - 2026-07-18
 
 ### Added

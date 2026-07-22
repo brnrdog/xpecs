@@ -10,7 +10,7 @@ updated: 2026-07-17
 tags: [actions, controls, editor, grouping]
 aliases: [action-bar, command-bar, tool-strip]
 usedBy: [data-table, dashboard]
-related: [button-group, menubar, navbar]
+related: [button-group, menubar, navbar, page-header]
 traits: [roving-focus]
 maintainers: [brnrdog]
 ---

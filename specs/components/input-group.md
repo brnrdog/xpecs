@@ -9,7 +9,7 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [form, input, layout, control]
 aliases: [input-addon, combined-input]
-usedBy: [form, field, navbar, data-table]
+usedBy: [form, field, navbar, data-table, newsletter]
 related: [input, field, button-group]
 maintainers: [brnrdog]
 ---

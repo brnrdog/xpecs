@@ -2,11 +2,11 @@
 id: settings
 title: Settings
 layer: page
-version: 1.0.0
+version: 1.1.0
 status: stable
 summary: A page for viewing and changing a user's or system's configuration, organized into sections.
 since: 0.3.0
-updated: 2026-07-17
+updated: 2026-07-22
 tags: [configuration, preferences, forms, account]
 aliases: [preferences, account-settings, options]
 usedBy: []
@@ -86,6 +86,7 @@ Keep a consistent field rhythm and clear section headings.
 {
   "parts": [
     {"ref":"sidebar","slot":"chrome"},
+    {"ref":"page-header","slot":"content","note":"section title and context"},
     {"ref":"tabs","slot":"content"},
     {"ref":"navigation-menu","slot":"chrome"},
     {"ref":"form","slot":"content"},

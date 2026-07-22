@@ -15,6 +15,9 @@ Styled against [`@xpecs/tokens`](../tokens) via the semantic utilities
 `Spinner`, `Input`, `Field`, `Switch`, `Alert`, `Accordion`, `Collapsible`,
 `Tabs`, `Tooltip`, `Dialog`, `Select`, `Backdrop`, plus shared `Ui` helpers.
 
+Block-level sections: `PageHeader`, `StatGrid`, `LogoCloud`, `Steps`,
+`ContactSection`, `Newsletter`, `AnnouncementBar`.
+
 ## Icons
 
 `Icon` renders a named glyph from a small, modern **outline icon set** (`Icons`)

@@ -87,21 +87,28 @@ frontmatter (`npm run index`).
 
 | Spec | id | Version | Status | Summary |
 | --------- | -- | ------- | ------ | ------- |
+| [Announcement Bar](specs/blocks/announcement-bar.md) | `announcement-bar` | 1.0.0 | stable | A slim, page-width strip that surfaces one timely message — a launch, promotion, or notice — with an optional action and dismissal. |
+| [Contact Section](specs/blocks/contact-section.md) | `contact-section` | 1.0.0 | stable | A section pairing a short message form with direct contact details so visitors can reach you. |
 | [CTA Section](specs/blocks/cta-section.md) | `cta-section` | 1.0.0 | stable | A focused section that restates the primary action to drive conversion. |
 | [FAQ](specs/blocks/faq.md) | `faq` | 1.0.0 | stable | A list of common questions with expandable answers that removes last-mile objections. |
 | [Feature Grid](specs/blocks/feature-grid.md) | `feature-grid` | 1.0.0 | stable | A grid of concise, icon-led items that communicate a product's key features or benefits. |
 | [Hero](specs/blocks/hero.md) | `hero` | 1.0.0 | stable | A prominent opening section that states the value proposition and the primary call to action. |
+| [Logo Cloud](specs/blocks/logo-cloud.md) | `logo-cloud` | 1.0.0 | stable | A band of customer or partner logos that lends credibility at a glance. |
+| [Newsletter](specs/blocks/newsletter.md) | `newsletter` | 1.0.0 | stable | A focused email-capture band that converts interest into a subscription with a single field. |
+| [Page Header](specs/blocks/page-header.md) | `page-header` | 1.0.0 | stable | A page-opening band that names the current view and offers its primary actions. |
 | [Pricing Table](specs/blocks/pricing-table.md) | `pricing-table` | 1.0.0 | stable | A side-by-side comparison of plans and their features to help a visitor choose. |
+| [Stat Grid](specs/blocks/stat-grid.md) | `stat-grid` | 1.0.0 | stable | A responsive band of key-metric tiles that gives a view its at-a-glance summary. |
+| [Steps](specs/blocks/steps.md) | `steps` | 1.0.0 | stable | An ordered sequence of numbered items that explains how a process works. |
 | [Testimonial](specs/blocks/testimonial.md) | `testimonial` | 1.0.0 | stable | A customer quote with attribution that builds trust through credible social proof. |
 
 ## Pages
 
 | Spec | id | Version | Status | Summary |
 | --------- | -- | ------- | ------ | ------- |
-| [Dashboard](specs/pages/dashboard.md) | `dashboard` | 1.0.0 | stable | An at-a-glance overview page that surfaces key metrics, status, and entry points to act. |
-| [Landing Page](specs/pages/landing-page.md) | `landing-page` | 1.0.0 | stable | A standalone marketing page designed to convert a focused audience toward a single primary action. |
+| [Dashboard](specs/pages/dashboard.md) | `dashboard` | 1.1.0 | stable | An at-a-glance overview page that surfaces key metrics, status, and entry points to act. |
+| [Landing Page](specs/pages/landing-page.md) | `landing-page` | 1.1.0 | stable | A standalone marketing page designed to convert a focused audience toward a single primary action. |
 | [Pricing Page](specs/pages/pricing.md) | `pricing` | 1.0.0 | stable | A page that presents plans and their value to help a visitor choose and convert. |
-| [Settings](specs/pages/settings.md) | `settings` | 1.0.0 | stable | A page for viewing and changing a user's or system's configuration, organized into sections. |
+| [Settings](specs/pages/settings.md) | `settings` | 1.1.0 | stable | A page for viewing and changing a user's or system's configuration, organized into sections. |
 | [Sign In](specs/pages/sign-in.md) | `sign-in` | 1.0.0 | stable | A focused page that authenticates a returning user with minimal friction. |
 
 ## Flows

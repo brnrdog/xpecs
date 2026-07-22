@@ -10,7 +10,7 @@ updated: 2026-07-16
 tags: [feedback, message, status, inline]
 aliases: [callout, banner, notice, inline-message]
 usedBy: [form, card, dashboard, settings]
-related: [toast, alert-dialog, badge]
+related: [toast, alert-dialog, badge, announcement-bar]
 maintainers: [brnrdog]
 implementation: Alert.res
 ---
