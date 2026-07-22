@@ -9,7 +9,7 @@ since: 0.2.0
 updated: 2026-07-16
 tags: [navigation, wayfinding, hierarchy]
 aliases: [breadcrumbs, path-nav]
-usedBy: [dashboard, settings, data-table]
+usedBy: [dashboard, settings, data-table, page-header]
 related: [navbar, pagination, tabs, sidebar]
 maintainers: [brnrdog]
 ---

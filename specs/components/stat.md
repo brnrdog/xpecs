@@ -9,7 +9,7 @@ since: 0.4.0
 updated: 2026-07-17
 tags: [data, metric, kpi, dashboard]
 aliases: [kpi, metric, stat-card, metric-card]
-usedBy: [dashboard]
+usedBy: [dashboard, stat-grid]
 related: [card, chart]
 maintainers: [brnrdog]
 ---

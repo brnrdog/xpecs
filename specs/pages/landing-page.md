@@ -2,11 +2,11 @@
 id: landing-page
 title: Landing Page
 layer: page
-version: 1.0.0
+version: 1.1.0
 status: stable
 summary: A standalone marketing page designed to convert a focused audience toward a single primary action.
 since: 0.1.0
-updated: 2026-07-16
+updated: 2026-07-22
 tags: [marketing, conversion, page, funnel]
 aliases: [landing, marketing-page, splash]
 usedBy: []
@@ -45,8 +45,8 @@ the hero and a primary call to action are required.
 - **Navbar** (required) — minimal, conversion-oriented; often just logo + CTA.
 - **Hero** (required) — headline, supporting subhead, and the primary CTA above
   the fold; optionally a visual or product shot.
-- **Social proof** (optional) — logos, ratings, or user counts that build trust
-  early.
+- **Social proof** (optional) — a **logo-cloud**, ratings, or user counts that
+  build trust early.
 - **Feature / benefit sections** (optional) — framed as user outcomes, not raw
   features.
 - **Testimonials / case studies** (optional) — credible, specific proof.
@@ -111,13 +111,18 @@ layout shift, since landing traffic is often first-touch and impatient.
 ```json
 {
   "parts": [
+    {"ref":"announcement-bar","slot":"chrome","note":"optional timely message above the navbar"},
     {"ref":"navbar","slot":"chrome"},
     {"ref":"hero","slot":"content"},
+    {"ref":"logo-cloud","slot":"content","note":"early social proof"},
+    {"ref":"steps","slot":"content","note":"how it works"},
     {"ref":"feature-grid","slot":"content"},
     {"ref":"testimonial","slot":"content"},
     {"ref":"pricing-table","slot":"content"},
     {"ref":"faq","slot":"content"},
     {"ref":"cta-section","slot":"content"},
+    {"ref":"newsletter","slot":"content","note":"fallback conversion"},
+    {"ref":"contact-section","slot":"content","note":"lead-gen variant"},
     {"ref":"footer","slot":"chrome"},
     {"ref":"button","slot":"content"},
     {"ref":"input","slot":"content"}

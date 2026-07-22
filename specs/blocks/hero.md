@@ -10,7 +10,7 @@ updated: 2026-07-17
 tags: [marketing, landing, section, conversion]
 aliases: [hero-section, banner, masthead]
 usedBy: [landing-page, pricing]
-related: [cta-section, navbar]
+related: [cta-section, navbar, logo-cloud]
 maintainers: [brnrdog]
 ---
 

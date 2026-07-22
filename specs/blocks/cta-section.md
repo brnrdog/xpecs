@@ -10,7 +10,7 @@ updated: 2026-07-17
 tags: [marketing, landing, section, conversion]
 aliases: [call-to-action, cta-banner, conversion-section]
 usedBy: [landing-page, pricing]
-related: [hero, footer]
+related: [hero, footer, newsletter]
 maintainers: [brnrdog]
 ---
 

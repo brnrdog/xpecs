@@ -10,7 +10,7 @@ updated: 2026-07-17
 tags: [action, control, interactive, icon, compact]
 aliases: [icon-btn, square-button]
 composedOf: []
-usedBy: [toolbar, navbar, data-table, dialog, card]
+usedBy: [toolbar, navbar, data-table, dialog, card, announcement-bar]
 related: [button, tooltip, toggle]
 maintainers: [brnrdog]
 implementation: IconButton.res

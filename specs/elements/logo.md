@@ -10,7 +10,7 @@ updated: 2026-07-17
 tags: [brand, identity, navigation, display]
 aliases: [brand, brandmark, wordmark]
 composedOf: []
-usedBy: [navbar, footer, sign-in]
+usedBy: [navbar, footer, sign-in, logo-cloud]
 related: [icon, link]
 maintainers: [brnrdog]
 ---

@@ -449,7 +449,8 @@
       "navbar",
       "data-table",
       "dialog",
-      "card"
+      "card",
+      "announcement-bar"
     ],
     "related": [
       "button",
@@ -1054,7 +1055,8 @@
     "usedBy": [
       "navbar",
       "footer",
-      "sign-in"
+      "sign-in",
+      "logo-cloud"
     ],
     "related": [
       "icon",
@@ -2293,7 +2295,8 @@
     "related": [
       "toast",
       "alert-dialog",
-      "badge"
+      "badge",
+      "announcement-bar"
     ],
     "intent": "An alert surfaces an important message in the flow of a page — a warning, a tip, a\nsuccess confirmation, or an error summary. Unlike a toast, it stays in place and\nin context; unlike an alert-dialog, it doesn't interrupt or block the user.",
     "api": {
@@ -2380,7 +2383,8 @@
     "usedBy": [
       "dashboard",
       "settings",
-      "data-table"
+      "data-table",
+      "page-header"
     ],
     "related": [
       "navbar",
@@ -4368,7 +4372,8 @@
       "sign-in",
       "settings",
       "dialog",
-      "landing-page"
+      "landing-page",
+      "contact-section"
     ],
     "related": [
       "field",
@@ -4574,7 +4579,8 @@
       "form",
       "field",
       "navbar",
-      "data-table"
+      "data-table",
+      "newsletter"
     ],
     "related": [
       "input",
@@ -5796,7 +5802,8 @@
     ],
     "traits": [],
     "usedBy": [
-      "dashboard"
+      "dashboard",
+      "stat-grid"
     ],
     "related": [
       "card",
@@ -5976,7 +5983,8 @@
     "usedBy": [
       "dashboard",
       "settings",
-      "card"
+      "card",
+      "page-header"
     ],
     "related": [
       "accordion",
@@ -6194,7 +6202,8 @@
     "related": [
       "button-group",
       "menubar",
-      "navbar"
+      "navbar",
+      "page-header"
     ],
     "intent": "A toolbar gathers the controls that act on the current context — a document,\ncanvas, selection, or list — into one consistent strip. It keeps frequently used\nactions visible and within reach, grouped by relationship, so users can operate\nwithout hunting through menus.",
     "api": {
@@ -6373,6 +6382,225 @@
     "implementation": "Tooltip.res"
   },
   {
+    "id": "announcement-bar",
+    "title": "Announcement Bar",
+    "layer": "block",
+    "summary": "A slim, page-width strip that surfaces one timely message — a launch, promotion, or notice — with an optional action and dismissal.",
+    "tags": [
+      "marketing",
+      "application",
+      "section",
+      "notification",
+      "promotion"
+    ],
+    "traits": [],
+    "usedBy": [
+      "landing-page"
+    ],
+    "related": [
+      "alert",
+      "toast",
+      "navbar",
+      "hero"
+    ],
+    "intent": "An announcement bar carries one timely, site-wide message in the least intrusive\nplace that still gets seen: a slim strip above the navbar. A launch, a\npromotion, a maintenance notice — one sentence, one optional action, and a way\nto make it go away for good. It differs from an **alert** (contextual, inline\nwith content) and a **toast** (transient feedback to an action): the bar is\npage-level, present on arrival, and persists until dismissed or expired.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "pattern": "wrap",
+            "note": "message and action wrap onto a second line; the dismiss control stays reachable"
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "values": [
+            "neutral",
+            "accent",
+            "warning"
+          ],
+          "default": "neutral",
+          "description": "The strip's tone: quiet notice, promotional emphasis, or a cautionary heads-up."
+        }
+      ],
+      "slots": [
+        {
+          "name": "message",
+          "required": true
+        },
+        {
+          "name": "action",
+          "required": false
+        },
+        {
+          "name": "dismiss",
+          "required": false
+        }
+      ],
+      "events": [
+        "onDismiss"
+      ],
+      "a11y": {
+        "announces": [
+          "message when injected after load"
+        ]
+      },
+      "states": [
+        "default",
+        "dismissed"
+      ],
+      "tokens": [
+        "color.neutral.*",
+        "color.accent",
+        "color.status.warning"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "icon",
+        "slot": "message"
+      },
+      {
+        "ref": "link",
+        "slot": "action"
+      },
+      {
+        "ref": "button",
+        "slot": "action",
+        "props": {
+          "variant": "ghost",
+          "size": "sm"
+        }
+      },
+      {
+        "ref": "icon-button",
+        "slot": "dismiss",
+        "note": "the close control"
+      }
+    ],
+    "implementation": "AnnouncementBar.res"
+  },
+  {
+    "id": "contact-section",
+    "title": "Contact Section",
+    "layer": "block",
+    "summary": "A section pairing a short message form with direct contact details so visitors can reach you.",
+    "tags": [
+      "marketing",
+      "landing",
+      "section",
+      "conversion",
+      "lead-gen",
+      "support"
+    ],
+    "traits": [],
+    "usedBy": [
+      "landing-page"
+    ],
+    "related": [
+      "form",
+      "cta-section",
+      "faq",
+      "footer",
+      "newsletter"
+    ],
+    "intent": "A contact section turns \"I have a question\" into a message you actually receive.\nIt pairs the two things a visitor needs at that moment: a short form for\nwriting now, and direct channels (email, phone, address, hours) for people who\nprefer their own client or need a human. It is the lead-gen and support\nentry point of a marketing page — so it minimizes fields, sets response\nexpectations, and confirms clearly that the message went through.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "stack",
+            "note": "the form and the details column stack; the form leads"
+          }
+        ]
+      },
+      "props": [],
+      "slots": [
+        {
+          "name": "heading",
+          "required": true
+        },
+        {
+          "name": "description",
+          "required": false
+        },
+        {
+          "name": "form",
+          "required": true
+        },
+        {
+          "name": "details",
+          "required": false
+        }
+      ],
+      "a11y": {
+        "announces": [
+          "submission success",
+          "validation errors"
+        ]
+      },
+      "states": [
+        "default",
+        "submitting",
+        "success",
+        "error"
+      ],
+      "tokens": [
+        "color.neutral.*",
+        "color.action.*",
+        "color.status.*"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "typography",
+        "slot": "heading"
+      },
+      {
+        "ref": "form",
+        "slot": "form"
+      },
+      {
+        "ref": "field",
+        "slot": "form"
+      },
+      {
+        "ref": "input",
+        "slot": "form"
+      },
+      {
+        "ref": "textarea",
+        "slot": "form"
+      },
+      {
+        "ref": "button",
+        "slot": "form",
+        "props": {
+          "variant": "primary",
+          "type": "submit"
+        }
+      },
+      {
+        "ref": "link",
+        "slot": "details",
+        "note": "mailto / tel links"
+      },
+      {
+        "ref": "icon",
+        "slot": "details"
+      }
+    ],
+    "implementation": "ContactSection.res"
+  },
+  {
     "id": "cta-section",
     "title": "CTA Section",
     "layer": "block",
@@ -6390,7 +6618,8 @@
     ],
     "related": [
       "hero",
-      "footer"
+      "footer",
+      "newsletter"
     ],
     "intent": "A CTA section is a focused band, usually near the end of a page, that restates the\none action you want the visitor to take. After they've scrolled the argument, it\ngives momentum a place to land — a clear prompt and a single button (or a short\nlead-capture) — without the distraction of surrounding content.",
     "api": {
@@ -6606,7 +6835,8 @@
     ],
     "related": [
       "cta-section",
-      "navbar"
+      "navbar",
+      "logo-cloud"
     ],
     "intent": "A hero is the first thing a visitor sees: a large opening section that states, in\na few words, what the product is and why it matters, and offers the single most\nimportant next step. It has one job — communicate the value proposition and get\nthe user to act — so everything in it earns its place toward that goal.",
     "api": {
@@ -6672,6 +6902,291 @@
       }
     ],
     "implementation": null
+  },
+  {
+    "id": "logo-cloud",
+    "title": "Logo Cloud",
+    "layer": "block",
+    "summary": "A band of customer or partner logos that lends credibility at a glance.",
+    "tags": [
+      "marketing",
+      "landing",
+      "section",
+      "social-proof",
+      "trust"
+    ],
+    "traits": [],
+    "usedBy": [
+      "landing-page"
+    ],
+    "related": [
+      "testimonial",
+      "hero",
+      "carousel"
+    ],
+    "intent": "A logo cloud borrows trust: a quiet strip of recognizable customer or partner\nmarks that says \"companies you know rely on this\" without a word of copy. It\nworks by recognition, not reading — placed right after the hero, it answers the\ncredibility question in the second before a visitor decides whether to keep\nscrolling. Where a **testimonial** proves depth with one voice, a logo cloud\nproves breadth with many.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "pattern": "wrap",
+            "note": "the logo row wraps onto additional lines as width decreases"
+          }
+        ]
+      },
+      "props": [],
+      "slots": [
+        {
+          "name": "heading",
+          "required": false
+        },
+        {
+          "name": "logos",
+          "required": true
+        }
+      ],
+      "states": [
+        "default"
+      ],
+      "tokens": [
+        "color.neutral.*"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "typography",
+        "slot": "heading"
+      },
+      {
+        "ref": "logo",
+        "slot": "logos"
+      },
+      {
+        "ref": "link",
+        "slot": "logos",
+        "note": "linked marks"
+      }
+    ],
+    "implementation": "LogoCloud.res"
+  },
+  {
+    "id": "newsletter",
+    "title": "Newsletter",
+    "layer": "block",
+    "summary": "A focused email-capture band that converts interest into a subscription with a single field.",
+    "tags": [
+      "marketing",
+      "landing",
+      "section",
+      "conversion",
+      "email",
+      "lead-gen"
+    ],
+    "traits": [],
+    "usedBy": [
+      "landing-page"
+    ],
+    "related": [
+      "cta-section",
+      "contact-section",
+      "footer"
+    ],
+    "intent": "A newsletter block captures the visitors who aren't ready to buy but don't want\nto lose the thread: one email field, one button, one promise about what they'll\nget. It is the lowest-commitment conversion on the page, so friction is the\nenemy — a single visible field, an honest value proposition (\"what and how\noften\"), and an immediate, unmistakable confirmation. Where a **cta-section**\npushes the primary action, a newsletter offers the fallback relationship.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "the inline field-and-button pair stacks; the button goes full-width"
+          }
+        ]
+      },
+      "props": [],
+      "slots": [
+        {
+          "name": "heading",
+          "required": true
+        },
+        {
+          "name": "description",
+          "required": false
+        },
+        {
+          "name": "form",
+          "required": true
+        },
+        {
+          "name": "consent",
+          "required": false
+        }
+      ],
+      "a11y": {
+        "announces": [
+          "subscription success",
+          "validation error"
+        ]
+      },
+      "states": [
+        "default",
+        "submitting",
+        "success",
+        "error"
+      ],
+      "tokens": [
+        "color.neutral.*",
+        "color.action.*",
+        "color.status.*"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "typography",
+        "slot": "heading"
+      },
+      {
+        "ref": "input-group",
+        "slot": "form",
+        "note": "field + attached button"
+      },
+      {
+        "ref": "input",
+        "slot": "form",
+        "props": {
+          "type": "email"
+        }
+      },
+      {
+        "ref": "button",
+        "slot": "form",
+        "props": {
+          "variant": "primary",
+          "type": "submit"
+        }
+      },
+      {
+        "ref": "checkbox",
+        "slot": "consent",
+        "note": "explicit opt-in variant"
+      },
+      {
+        "ref": "alert",
+        "slot": "form",
+        "note": "success / error outcome"
+      }
+    ],
+    "implementation": "Newsletter.res"
+  },
+  {
+    "id": "page-header",
+    "title": "Page Header",
+    "layer": "block",
+    "summary": "A page-opening band that names the current view and offers its primary actions.",
+    "tags": [
+      "application",
+      "section",
+      "header",
+      "navigation",
+      "actions"
+    ],
+    "traits": [],
+    "usedBy": [
+      "dashboard",
+      "settings"
+    ],
+    "related": [
+      "navbar",
+      "breadcrumb",
+      "toolbar",
+      "tabs"
+    ],
+    "intent": "A page header opens every application view with the same three answers: where am\nI, what is this page, and what can I do here. It carries the page title (the\nview's one `h1`), optional wayfinding back up the hierarchy, a line of context,\nand the view's primary actions — so users orient instantly and the actions that\nmatter most are always in the same, predictable place.\n\nWhere a **navbar** anchors the whole product and a **toolbar** operates on the\ncontent below it, the page header names and frames *this* view.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "minTarget": "44px",
+        "reflow": [
+          {
+            "at": "sm",
+            "pattern": "stack",
+            "note": "the title row and the actions cluster stack; actions align start"
+          },
+          {
+            "pattern": "truncate",
+            "note": "a long title truncates rather than wrapping the actions away"
+          }
+        ]
+      },
+      "props": [],
+      "slots": [
+        {
+          "name": "breadcrumb",
+          "required": false
+        },
+        {
+          "name": "title",
+          "required": true
+        },
+        {
+          "name": "description",
+          "required": false
+        },
+        {
+          "name": "actions",
+          "required": false
+        },
+        {
+          "name": "tabs",
+          "required": false
+        }
+      ],
+      "a11y": {
+        "announces": [
+          "page title as the view's top-level heading"
+        ]
+      },
+      "states": [
+        "default"
+      ],
+      "tokens": [
+        "color.neutral.*"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "breadcrumb",
+        "slot": "breadcrumb"
+      },
+      {
+        "ref": "typography",
+        "slot": "title",
+        "note": "the h1"
+      },
+      {
+        "ref": "badge",
+        "slot": "title",
+        "note": "status meta beside the title"
+      },
+      {
+        "ref": "button",
+        "slot": "actions",
+        "props": {
+          "variant": "primary"
+        }
+      },
+      {
+        "ref": "button-group",
+        "slot": "actions"
+      },
+      {
+        "ref": "tabs",
+        "slot": "tabs"
+      }
+    ],
+    "implementation": "PageHeader.res"
   },
   {
     "id": "pricing-table",
@@ -6784,6 +7299,180 @@
     "implementation": null
   },
   {
+    "id": "stat-grid",
+    "title": "Stat Grid",
+    "layer": "block",
+    "summary": "A responsive band of key-metric tiles that gives a view its at-a-glance summary.",
+    "tags": [
+      "application",
+      "dashboard",
+      "data",
+      "metrics",
+      "kpi",
+      "section"
+    ],
+    "traits": [],
+    "usedBy": [
+      "dashboard"
+    ],
+    "related": [
+      "stat",
+      "card",
+      "chart",
+      "page-header"
+    ],
+    "intent": "A stat grid is the summary row a dashboard opens with: a small set of key\nmetrics, tiled side by side, that answers \"how are we doing?\" before the user\nreads anything else. Each tile is a **stat** (value, label, change); the grid's\njob is the arrangement — consistent tile sizing, a sensible reflow, and shared\nloading/empty behavior — so the metrics read as one glanceable band rather than\nscattered numbers.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "lg",
+            "pattern": "reflow-columns",
+            "note": "four tiles step down to two columns, then one"
+          }
+        ]
+      },
+      "props": [],
+      "slots": [
+        {
+          "name": "heading",
+          "required": false
+        },
+        {
+          "name": "stats",
+          "required": true
+        }
+      ],
+      "a11y": {
+        "announces": [
+          "each stat's label and value"
+        ]
+      },
+      "states": [
+        "default",
+        "loading",
+        "empty"
+      ],
+      "tokens": [
+        "color.neutral.*",
+        "color.status.*"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "typography",
+        "slot": "heading"
+      },
+      {
+        "ref": "stat",
+        "slot": "stats"
+      },
+      {
+        "ref": "card",
+        "slot": "stats",
+        "note": "card-tile variant"
+      },
+      {
+        "ref": "skeleton",
+        "slot": "stats",
+        "note": "loading state"
+      },
+      {
+        "ref": "separator",
+        "slot": "stats",
+        "note": "plain-band variant"
+      }
+    ],
+    "implementation": "StatGrid.res"
+  },
+  {
+    "id": "steps",
+    "title": "Steps",
+    "layer": "block",
+    "summary": "An ordered sequence of numbered items that explains how a process works.",
+    "tags": [
+      "marketing",
+      "landing",
+      "section",
+      "onboarding",
+      "process"
+    ],
+    "traits": [],
+    "usedBy": [
+      "landing-page"
+    ],
+    "related": [
+      "feature-grid",
+      "hero",
+      "list"
+    ],
+    "intent": "A steps section makes a process feel easy by showing it in order: sign up,\nconnect, done. Each step pairs a number (or icon) with a short title and one\nline of explanation, connected visually so the sequence reads as one path.\nWhere a **feature-grid** says *what you get* in any order, steps say *what\nhappens next* — the order is the message, and a short list of steps is itself\nthe claim that getting started is simple.",
+    "api": {
+      "responsive": {
+        "container": true,
+        "reflow": [
+          {
+            "at": "md",
+            "pattern": "stack",
+            "note": "horizontal steps stack vertically; connectors turn vertical"
+          }
+        ]
+      },
+      "props": [
+        {
+          "name": "orientation",
+          "type": "enum",
+          "values": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "horizontal",
+          "description": "Whether the sequence runs across the container or down it."
+        }
+      ],
+      "slots": [
+        {
+          "name": "heading",
+          "required": false
+        },
+        {
+          "name": "steps",
+          "required": true
+        }
+      ],
+      "states": [
+        "default"
+      ],
+      "tokens": [
+        "color.neutral.*",
+        "color.action.*"
+      ]
+    },
+    "composition": [
+      {
+        "ref": "typography",
+        "slot": "heading"
+      },
+      {
+        "ref": "icon",
+        "slot": "steps",
+        "note": "icon-led markers"
+      },
+      {
+        "ref": "separator",
+        "slot": "steps",
+        "note": "connectors"
+      },
+      {
+        "ref": "button",
+        "slot": "steps",
+        "note": "optional start-here action"
+      }
+    ],
+    "implementation": "Steps.res"
+  },
+  {
     "id": "testimonial",
     "title": "Testimonial",
     "layer": "block",
@@ -6892,6 +7581,16 @@
         "slot": "chrome"
       },
       {
+        "ref": "page-header",
+        "slot": "content",
+        "note": "title, context, view actions"
+      },
+      {
+        "ref": "stat-grid",
+        "slot": "content",
+        "note": "the metric summary row"
+      },
+      {
         "ref": "toolbar",
         "slot": "content"
       },
@@ -6945,12 +7644,27 @@
     "api": null,
     "composition": [
       {
+        "ref": "announcement-bar",
+        "slot": "chrome",
+        "note": "optional timely message above the navbar"
+      },
+      {
         "ref": "navbar",
         "slot": "chrome"
       },
       {
         "ref": "hero",
         "slot": "content"
+      },
+      {
+        "ref": "logo-cloud",
+        "slot": "content",
+        "note": "early social proof"
+      },
+      {
+        "ref": "steps",
+        "slot": "content",
+        "note": "how it works"
       },
       {
         "ref": "feature-grid",
@@ -6971,6 +7685,16 @@
       {
         "ref": "cta-section",
         "slot": "content"
+      },
+      {
+        "ref": "newsletter",
+        "slot": "content",
+        "note": "fallback conversion"
+      },
+      {
+        "ref": "contact-section",
+        "slot": "content",
+        "note": "lead-gen variant"
       },
       {
         "ref": "footer",
@@ -7075,6 +7799,11 @@
       {
         "ref": "sidebar",
         "slot": "chrome"
+      },
+      {
+        "ref": "page-header",
+        "slot": "content",
+        "note": "section title and context"
       },
       {
         "ref": "tabs",

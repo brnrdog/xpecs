@@ -100,6 +100,14 @@ module Toolbar = {
   type orientation = [#horizontal | #vertical]
 }
 
+module AnnouncementBar = {
+  type variant = [#neutral | #accent | #warning]
+}
+
 module PricingTable = {
   type interval = [#monthly | #yearly]
+}
+
+module Steps = {
+  type orientation = [#horizontal | #vertical]
 }

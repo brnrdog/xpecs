@@ -2,11 +2,11 @@
 id: dashboard
 title: Dashboard
 layer: page
-version: 1.0.0
+version: 1.1.0
 status: stable
 summary: An at-a-glance overview page that surfaces key metrics, status, and entry points to act.
 since: 0.3.0
-updated: 2026-07-17
+updated: 2026-07-22
 tags: [analytics, overview, application, data]
 aliases: [home, overview, console]
 usedBy: []
@@ -39,7 +39,7 @@ scannable overview, with drill-downs to the detail behind each summary.
 - **App shell** (required) — navbar and/or sidebar for global navigation, plus
   breadcrumbs or a page title for context.
 - **Toolbar / filters** (optional) — date range, scope, and view controls.
-- **Metric summary** (required) — a row of stat/KPI cards.
+- **Metric summary** (required) — a row of stat/KPI cards (a **stat-grid**).
 - **Visualizations** (optional) — charts for trends and comparisons.
 - **Detail regions** (optional) — data-tables and lists of recent activity.
 - **States** (required) — loading (skeletons), empty (first-run), and error.
@@ -89,6 +89,8 @@ Prioritize the most important summary above the fold; let detail regions scroll.
     {"ref":"navbar","slot":"chrome"},
     {"ref":"sidebar","slot":"chrome"},
     {"ref":"breadcrumb","slot":"chrome"},
+    {"ref":"page-header","slot":"content","note":"title, context, view actions"},
+    {"ref":"stat-grid","slot":"content","note":"the metric summary row"},
     {"ref":"toolbar","slot":"content"},
     {"ref":"card","slot":"content"},
     {"ref":"stat","slot":"content"},
