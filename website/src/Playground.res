@@ -109,6 +109,7 @@ let checkboxDef = {
   knobs: [
     text("label", "Subscribe"),
     text("description", "Get product updates by email."),
+    bool_("indeterminate", false),
     bool_("disabled", false),
   ],
   render: get => {
@@ -117,16 +118,17 @@ let checkboxDef = {
       checked
       label={get("label")}
       description={get("description")}
+      indeterminate={isTrue(get("indeterminate"))}
       disabled={isTrue(get("disabled"))}
     />
   },
 }
 
 let switchDef = {
-  knobs: [text("label", "Airplane mode")],
+  knobs: [text("label", "Airplane mode"), bool_("disabled", false)],
   render: get => {
-    let on = Signal.make(true)
-    <Switch on label={get("label")} />
+    let checked = Signal.make(true)
+    <Switch checked label={get("label")} disabled={isTrue(get("disabled"))} />
   },
 }
 
@@ -277,10 +279,15 @@ let toggleDef = {
 }
 
 let toggleGroupDef = {
-  knobs: [bool_("disabled", false)],
+  knobs: [enum("type", ["single", "multiple"], "single"), bool_("disabled", false)],
   render: get => {
-    let value = Signal.make("center")
+    let value = Signal.make(["center"])
+    let type_ = switch get("type") {
+    | "multiple" => #multiple
+    | _ => #single
+    }
     <ToggleGroup
+      type_
       value
       options=[("left", "Left"), ("center", "Center"), ("right", "Right")]
       disabled={isTrue(get("disabled"))}
