@@ -1,0 +1,11 @@
+; Compiles xpecs_reativa.mlx to JavaScript ES modules under
+; website/reativa/_build/default/output/. The emitted entry
+; (output/xpecs_reativa.js) is bundled for the browser with esbuild by the
+; `npm run reativa` script; see README.md.
+(melange.emit
+ (target output)
+ (modules xpecs_reativa)
+ (libraries reativa)
+ (preprocess
+  (pps reativa.mlx_ppx melange.ppx))
+ (module_systems es6))

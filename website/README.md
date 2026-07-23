@@ -58,6 +58,19 @@ Each spec's example is a small self-contained Xote component in
 `Examples.res`; `Examples.get(id)` maps a spec `id` to its rendered node.
 Specs without an example fall back to a graceful placeholder.
 
+## Reativa tab (OCaml + Melange) — proof of concept
+
+A few specs (`button`, `badge`, `alert`, `cta-section`) are **also** implemented
+in OCaml with [reativa](https://github.com/brnrdog/reativa) — the signal-based
+sibling of Xote — under [`reativa/`](reativa). The example block gains a
+**Reativa** tab next to **Preview**, rendering the same spec from the same
+design tokens, so the two implementations sit side by side.
+
+That build is a self-contained Melange workspace, kept **separate** from this
+ReScript/Vite build (it needs opam + melange, the website doesn't). A checked-in
+placeholder bundle keeps the site compiling until you run `npm run reativa`; see
+[`reativa/README.md`](reativa/README.md).
+
 ## Develop
 
 ```bash

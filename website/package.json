@@ -22,6 +22,9 @@
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:dev": "rescript -w",
+    "reativa:build": "cd reativa && opam exec -- dune build @melange",
+    "reativa:bundle": "esbuild reativa/_build/default/output/xpecs_reativa.js --bundle --format=esm --outfile=src/reativa.bundle.js",
+    "reativa": "npm run reativa:build && npm run reativa:bundle",
     "dev": "npm run gen && npm run res:build && vite",
     "build": "npm run gen && npm run res:build && npm run checks && vite build",
     "preview": "vite preview",
@@ -36,6 +39,7 @@
   "devDependencies": {
     "@rescript/core": "1.6.1",
     "@tailwindcss/vite": "4.1.14",
+    "esbuild": "0.25.0",
     "playwright-core": "1.56",
     "rescript": "12.3.0",
     "tailwindcss": "4.1.14",
