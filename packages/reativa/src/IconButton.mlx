@@ -1,0 +1,26 @@
+[@@@warning "-a"]
+
+(* IconButton — a compact, icon-only action with a required accessible name.
+   Reused by toolbar, list, and other dense contexts. *)
+
+open Reativa
+
+let make ?(variant : Contracts.IconButton.variant = `ghost) ?on_click ~label ~children () =
+  let tone =
+    match variant with
+    | `solid -> "bg-action text-on-action hover:bg-action-hover"
+    | `ghost -> "text-ink hover:bg-action-subtle"
+  in
+  let attrs =
+    [
+      View.Attr.type_ (View.static "button");
+      View.Attr.make "aria-label" (View.static label);
+      View.Attr.className
+        (View.static
+           ("inline-flex size-9 items-center justify-center rounded-md text-sm transition-colors \
+             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action \
+             focus-visible:ring-offset-2 " ^ tone));
+    ]
+  in
+  let events = match on_click with Some f -> [ View.On.click f ] | None -> [] in
+  View.element ~attrs ~events "button" [ View.fragment children ]

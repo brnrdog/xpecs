@@ -1,0 +1,25 @@
+[@@@warning "-a"]
+
+(* Field — pairs a label with a control (and optional hint). Reused by form,
+   dialog, and the input/textarea examples. [for] is not one of the attributes
+   the mlx element helper exposes, so the label is built with [View.element]. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(hint = "") ~label ~for_ ~children () =
+  let label_node =
+    View.element
+      ~attrs:[ View.Attr.className (View.static Ui.label); View.Attr.make "for" (View.static for_) ]
+      "label"
+      [ View.text (View.static label) ]
+  in
+  let hint_node =
+    if hint = "" then View.empty
+    else <p className="text-xs text-neutral-500">(hint)</p>
+  in
+  <div className="space-y-1.5">
+    (label_node)
+    (View.fragment children)
+    (hint_node)
+  </div>

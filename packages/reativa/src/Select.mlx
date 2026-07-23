@@ -1,0 +1,63 @@
+[@@@warning "-a"]
+
+(* Select — a control that opens a list for choosing one option. Controlled via
+   the [value] signal; [disabled] blocks interaction (both contract props). The
+   open state is internal. Dismisses on outside click (Backdrop). *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(disabled = false) ~value ~options () =
+  let open_ = Signal.make false in
+  let label () = Signal.get value in
+  let option_row o =
+    let mark () = if Signal.get value = o then "\xe2\x9c\x93" else "" in
+    View.element ~attrs:[] "li"
+      [
+        View.element
+          ~attrs:
+            [
+              View.Attr.make "role" (View.static "option");
+              View.Attr.className
+                (View.static
+                   "flex w-full items-center justify-between px-3 py-1.5 text-left text-sm text-neutral-700 hover:bg-neutral-100");
+            ]
+          ~events:[ View.On.click (fun _ -> Signal.set value o; Signal.set open_ false) ]
+          "button"
+          [
+            View.text (View.static o);
+            View.element
+              ~attrs:[ View.Attr.className (View.static "text-neutral-900") ]
+              "span"
+              [ View.dyn_text mark ];
+          ];
+      ]
+  in
+  <div className="relative w-56">
+    (View.element
+       ~attrs:
+         [
+           View.Attr.disabled (fun () -> disabled);
+           View.Attr.className
+             (View.static (Ui.input_base ^ " flex items-center justify-between disabled:opacity-40"));
+         ]
+       ~events:[ View.On.click (fun _ -> Signal.update open_ (fun v -> not v)) ]
+       "button"
+       [ View.dyn_text label; <span className="text-neutral-400">("\xe2\x8c\x84")</span> ])
+    (View.show
+       (fun () -> Signal.get open_)
+       (View.fragment
+          [
+            Backdrop.make ~on_close:(fun () -> Signal.set open_ false) ();
+            View.element
+              ~attrs:
+                [
+                  View.Attr.make "role" (View.static "listbox");
+                  View.Attr.className
+                    (View.static
+                       "absolute z-20 mt-1 w-full rounded-md border border-neutral-200 bg-surface py-1 shadow-lg");
+                ]
+              "ul"
+              (List.map option_row options);
+          ]))
+  </div>

@@ -1,0 +1,33 @@
+[@@@warning "-a"]
+
+(* Progress — a determinate or indeterminate progress bar bound to an int
+   signal. Implements the `progress` spec. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(max = 100) ?(indeterminate = false) ?(extra_class = "") ~value () =
+  let bar () =
+    let pct = if max <= 0 then 0 else Signal.get value * 100 / max in
+    let clamped = if pct < 0 then 0 else if pct > 100 then 100 else pct in
+    "height:100%;width:" ^ string_of_int clamped ^ "%"
+  in
+  let inner =
+    if indeterminate then <div className="h-full w-1/3 animate-pulse rounded-full bg-neutral-900" />
+    else
+      View.element
+        ~attrs:
+          [
+            View.Attr.className (View.static "rounded-full bg-neutral-900 transition-all");
+            View.Attr.make "style" (View.dynamic bar);
+          ]
+        "div" []
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.className
+          (View.static (Ui.cx "h-2 w-full overflow-hidden rounded-full bg-neutral-200" extra_class));
+        View.Attr.make "role" (View.static "progressbar");
+      ]
+    "div" [ inner ]

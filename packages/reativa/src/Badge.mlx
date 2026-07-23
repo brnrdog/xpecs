@@ -1,0 +1,19 @@
+[@@@warning "-a"]
+
+(* Badge — a compact status/category label. Reused by card, table, and others.
+   The [variant] type comes from the spec's `## API` contract (Contracts.ml),
+   so the compiler enforces the spec's allowed values. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(variant : Contracts.Badge.variant = `solid) ~children () =
+  let tone =
+    match variant with
+    | `solid -> "bg-neutral-900 text-neutral-0"
+    | `soft -> "bg-neutral-200 text-neutral-800"
+    | `outline -> "border border-neutral-300 text-neutral-700"
+  in
+  <span className=("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium " ^ tone)>
+    (View.fragment children)
+  </span>

@@ -1,0 +1,16 @@
+[@@@warning "-a"]
+
+(* Spinner — an indeterminate loading indicator. Reused inside Button (loading)
+   and elsewhere. [tone] picks a spinner that reads on a light surface ([`ink])
+   or on an accent/dark one ([`on_accent]). *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(size = "size-4") ?(tone = `ink) () =
+  let colors =
+    match tone with
+    | `ink -> "border-neutral-300 border-t-neutral-900"
+    | `on_accent -> "border-white/40 border-t-white"
+  in
+  <span className=("inline-block animate-spin rounded-full border-2 " ^ colors ^ " " ^ size) />

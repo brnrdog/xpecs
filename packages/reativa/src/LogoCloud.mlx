@@ -1,0 +1,41 @@
+[@@@warning "-a"]
+
+(* Logo Cloud — a quiet band of customer/partner marks that lends credibility at
+   a glance. Marks render as optically-equal wordmarks in a single muted tone so
+   no brand dominates; each carries its company name for assistive tech. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(heading = "") ~logos () =
+  let logo_item name =
+    View.element ~attrs:[] "li"
+      [
+        View.element
+          ~attrs:
+            [
+              View.Attr.make "role" (View.static "img");
+              View.Attr.make "aria-label" (View.static name);
+              View.Attr.className
+                (View.static "text-lg font-semibold tracking-tight text-neutral-400 select-none");
+            ]
+          "span"
+          [ View.text (View.static name) ];
+      ]
+  in
+  View.element
+    ~attrs:[ View.Attr.className (View.static "w-full py-6 text-center") ]
+    "section"
+    [
+      (if heading = "" then View.empty
+       else
+         <p className="mb-5 text-xs font-medium uppercase tracking-widest text-muted">(heading)</p>);
+      View.element
+        ~attrs:
+          [
+            View.Attr.className
+              (View.static "flex flex-wrap items-center justify-center gap-x-10 gap-y-5");
+          ]
+        "ul"
+        (List.map logo_item logos);
+    ]

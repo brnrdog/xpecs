@@ -1,0 +1,527 @@
+[@@@warning "-a"]
+
+(* Registry — per-spec example compositions plus the JS surface the website
+   consumes. Each [*_example] function renders the same demo as the Xote
+   Examples in the website (website/src/Examples.res), built from the reativa
+   components in this package, so the site can show the two implementations side
+   by side. [mount_example], [example_ids] and [built] are the ES exports the
+   website's reativa.bundle.js is built from (see packages/reativa/scripts/
+   build.mjs and website/src/ReativaExamples.res). *)
+
+(* Capture this package's Link component before `open Reativa`, which exposes
+   Router's [Link] and would otherwise shadow it. *)
+module Link_ = Link
+
+open Reativa
+open Reativa.View.Mlx
+
+let txt s = View.text (View.static s)
+
+(* ------------------------------------------------------------------ *)
+(* elements                                                            *)
+(* ------------------------------------------------------------------ *)
+
+let button_example () =
+  let loading = Signal.make false in
+  <div className="flex flex-wrap items-center gap-3">
+    (Button.make ~variant:`primary ~children:[ txt "Primary" ] ())
+    (Button.make ~variant:`secondary ~children:[ txt "Secondary" ] ())
+    (Button.make ~variant:`ghost ~children:[ txt "Ghost" ] ())
+    (Button.make ~variant:`destructive ~children:[ txt "Delete" ] ())
+    (Button.make ~variant:`secondary ~disabled:true ~children:[ txt "Disabled" ] ())
+    (Button.make ~variant:`primary
+       ~on_click:(fun _ ->
+         Signal.set loading true;
+         Ui.set_timeout (fun () -> Signal.set loading false) 1200)
+       ~children:
+         [
+           View.show ~fallback:(txt "Save")
+             (fun () -> Signal.get loading)
+             (View.fragment [ Spinner.make ~tone:`on_accent (); txt "Saving\xe2\x80\xa6" ]);
+         ]
+       ())
+  </div>
+
+let input_example () =
+  let value = Signal.make "" in
+  <div className="max-w-sm">
+    (Field.make ~label:"Email" ~for_:"ex-email"
+       ~children:
+         [
+           Input.make ~id:"ex-email" ~type_:"email" ~placeholder:"you@example.com"
+             ~on_input:(fun e -> Signal.set value (Ui.input_value e))
+             ();
+         ]
+       ())
+    <p className="mt-2 text-xs text-neutral-500">
+      ("You typed: ")
+      (View.dyn_text (fun () -> Signal.get value))
+    </p>
+  </div>
+
+let textarea_example () =
+  let value = Signal.make "" in
+  <div className="max-w-sm">
+    (Field.make ~label:"Message" ~for_:"ex-ta"
+       ~children:[ Textarea.make ~id:"ex-ta" ~rows:4 ~value ~placeholder:"Write something\xe2\x80\xa6" () ]
+       ())
+    <p className="mt-2 text-right text-xs text-neutral-500">
+      (View.dyn_text (fun () -> string_of_int (String.length (Signal.get value))))
+      (" characters")
+    </p>
+  </div>
+
+let badge_example () =
+  <div className="flex flex-wrap items-center gap-2">
+    (Badge.make ~variant:`solid ~children:[ txt "Default" ] ())
+    (Badge.make ~variant:`soft ~children:[ txt "Secondary" ] ())
+    (Badge.make ~variant:`outline ~children:[ txt "Outline" ] ())
+    (Badge.make ~variant:`soft
+       ~children:
+         [ <span className="mr-1 size-1.5 rounded-full bg-neutral-500" />; txt "Idle" ]
+       ())
+    (Badge.make ~variant:`solid ~children:[ txt "99+" ] ())
+  </div>
+
+let avatar_example () =
+  <div className="flex items-center gap-4">
+    (Avatar.make ~initials:"BG" ~size:"size-10 text-sm" ())
+    (Avatar.make ~initials:"AK" ~size:"size-12" ())
+    <div className="flex -space-x-2">
+      (Avatar.make ~initials:"JD" ~size:"size-9 text-xs" ())
+      (Avatar.make ~initials:"MP" ~size:"size-9 text-xs" ())
+      (Avatar.make ~initials:"RM" ~size:"size-9 text-xs" ())
+      <span className="inline-flex size-9 items-center justify-center rounded-full bg-neutral-900 text-xs font-medium text-neutral-0 ring-2 ring-white">
+        ("+3")
+      </span>
+    </div>
+  </div>
+
+let checkbox_example () =
+  let on = Signal.make true in
+  Checkbox.make ~checked:on ~label:"Subscribe" ~description:"Get product updates by email." ()
+
+let switch_example () =
+  let checked = Signal.make false in
+  Switch.make ~checked ~label:"Airplane mode" ()
+
+let slider_example () =
+  let value = Signal.make 40 in
+  <div className="max-w-sm space-y-2">
+    <div className="flex justify-between text-sm text-neutral-800">
+      <span>("Volume")</span>
+      <span className="tabular-nums">
+        (View.dyn_text (fun () -> string_of_int (Signal.get value)))
+        ("%")
+      </span>
+    </div>
+    (Slider.make ~value ())
+  </div>
+
+let progress_example () =
+  let value = Signal.make 30 in
+  <div className="max-w-sm space-y-3">
+    (Progress.make ~value ())
+    <div className="flex gap-2">
+      (Button.make ~variant:`secondary
+         ~on_click:(fun _ -> Signal.update value (fun v -> if v > 10 then v - 10 else 0))
+         ~children:[ txt "\xe2\x88\x9210" ] ())
+      (Button.make ~variant:`secondary
+         ~on_click:(fun _ -> Signal.update value (fun v -> if v < 90 then v + 10 else 100))
+         ~children:[ txt "+10" ] ())
+    </div>
+  </div>
+
+let spinner_example () =
+  <div className="flex items-center gap-4 text-neutral-700">
+    (Spinner.make ~size:"size-4" ())
+    (Spinner.make ~size:"size-6" ())
+    (Spinner.make ~size:"size-8" ())
+    <span className="text-sm text-neutral-500">("Loading\xe2\x80\xa6")</span>
+  </div>
+
+let skeleton_example () =
+  <div className="max-w-sm space-y-3">
+    <div className="flex items-center gap-3">
+      (Skeleton.make ~shape:`circle ~extra_class:"size-10" ())
+      <div className="flex-1 space-y-2">
+        (Skeleton.make ~extra_class:"w-1/2" ())
+        (Skeleton.make ~extra_class:"w-1/3" ())
+      </div>
+    </div>
+    (Skeleton.make ~extra_class:"w-full" ())
+    (Skeleton.make ~extra_class:"w-5/6" ())
+  </div>
+
+let separator_example () =
+  <div className="max-w-sm text-sm text-neutral-700">
+    <p>("Above the line")</p>
+    (Separator.make ~extra_class:"my-3" ())
+    <div className="flex items-center gap-3">
+      <span>("Home")</span>
+      (Separator.make ~orientation:`vertical ())
+      <span>("Docs")</span>
+      (Separator.make ~orientation:`vertical ())
+      <span>("About")</span>
+    </div>
+  </div>
+
+let kbd_example () =
+  <div className="flex items-center gap-2 text-sm text-neutral-700">
+    <span>("Open search")</span>
+    (Kbd.make ~children:[ txt "\xe2\x8c\x98" ] ())
+    (Kbd.make ~children:[ txt "K" ] ())
+  </div>
+
+let icon_example () =
+  <div className="flex flex-wrap items-center gap-4 text-neutral-700">
+    (Icon.make ~name:"search" ~size:`lg ())
+    (Icon.make ~name:"bell" ~size:`lg ())
+    (Icon.make ~name:"settings" ~size:`lg ())
+    (Icon.make ~name:"heart" ~size:`lg ())
+    (Icon.make ~name:"star" ~size:`lg ())
+    (Icon.make ~name:"github" ~size:`lg ())
+  </div>
+
+let icon_button_example () =
+  <div className="flex items-center gap-2">
+    (IconButton.make ~label:"Edit" ~children:[ Icon.make ~name:"edit" () ] ())
+    (IconButton.make ~label:"Copy" ~children:[ Icon.make ~name:"copy" () ] ())
+    (IconButton.make ~label:"Delete" ~children:[ Icon.make ~name:"trash" () ] ())
+    (IconButton.make ~label:"More options" ~variant:`solid
+       ~children:[ Icon.make ~name:"more-horizontal" () ] ())
+  </div>
+
+let input_otp_example () =
+  let code = Signal.make "" in
+  InputOtp.make ~value:code ()
+
+let link_example () =
+  <div className="max-w-sm space-y-3 text-sm text-neutral-700">
+    <p>
+      ("Read our ")
+      (Link_.make ~href:"#" ~children:[ txt "getting-started guide" ] ())
+      (" to begin.")
+    </p>
+    <div className="flex gap-4">
+      (Link_.make ~href:"#" ~variant:`muted ~children:[ txt "Docs" ] ())
+      (Link_.make ~href:"#" ~variant:`muted ~children:[ txt "Pricing" ] ())
+      (Link_.make ~href:"#" ~new_tab:true ~extra_class:"inline-flex items-center gap-1"
+         ~children:[ txt "Changelog"; Icon.make ~name:"external-link" ~size:`xs () ] ())
+    </div>
+  </div>
+
+let radio_group_example () =
+  let value = Signal.make "express" in
+  let opts =
+    [
+      ("standard", "Standard", "3\xe2\x80\x935 business days");
+      ("express", "Express", "1\xe2\x80\x932 business days");
+      ("overnight", "Overnight", "Next business day");
+    ]
+  in
+  RadioGroup.make ~value ~options:opts ~legend:"Shipping speed" ~extra_class:"max-w-sm" ()
+
+let scroll_area_example () =
+  let rows = List.init 24 (fun i -> "Row " ^ string_of_int (i + 1)) in
+  ScrollArea.make ~extra_class:"h-44 w-64 rounded-md border border-neutral-200"
+    ~children:
+      [
+        View.element
+          ~attrs:[ View.Attr.className (View.static "divide-y divide-neutral-100 text-sm") ]
+          "ul"
+          (List.map
+             (fun r ->
+               View.element
+                 ~attrs:[ View.Attr.className (View.static "px-3 py-2 text-neutral-700") ]
+                 "li" [ txt r ])
+             rows);
+      ]
+    ()
+
+let toggle_example () =
+  let on = Signal.make true in
+  Toggle.make ~pressed:on ~children:[ <span className="italic">("B")</span> ] ()
+
+let toggle_group_example () =
+  let value = Signal.make [ "center" ] in
+  let format = Signal.make [ "bold" ] in
+  let opts = [ ("left", "Left"); ("center", "Center"); ("right", "Right") ] in
+  <div className="space-y-3">
+    (ToggleGroup.make ~value ~options:opts ())
+    (ToggleGroup.make ~type_:`multiple ~value:format
+       ~options:[ ("bold", "Bold"); ("italic", "Italic"); ("underline", "Underline") ] ())
+  </div>
+
+let aspect_ratio_example () =
+  let box = "flex h-full items-center justify-center text-sm font-medium text-neutral-500" in
+  <div className="flex flex-wrap items-start gap-4">
+    <div className="w-56">
+      (AspectRatio.make ~ratio:"16/9" ~extra_class:"rounded-lg bg-neutral-200"
+         ~children:[ <div className=box>("16 : 9")</div> ] ())
+    </div>
+    <div className="w-32">
+      (AspectRatio.make ~ratio:"1/1" ~extra_class:"rounded-lg bg-neutral-200"
+         ~children:[ <div className=box>("1 : 1")</div> ] ())
+    </div>
+  </div>
+
+(* ------------------------------------------------------------------ *)
+(* components                                                          *)
+(* ------------------------------------------------------------------ *)
+
+let alert_example () =
+  <div className="max-w-md space-y-3">
+    (Alert.make ~variant:`info ~title:"Heads up" ~description:"Your trial ends in 3 days." ())
+    (Alert.make ~variant:`success ~title:"Changes saved" ~description:"Your profile has been updated." ())
+    (Alert.make ~variant:`warning ~title:"Storage almost full" ~description:"You've used 90% of your quota." ())
+    (Alert.make ~variant:`danger ~title:"Payment failed"
+       ~description:"Update your card to keep your subscription active." ())
+  </div>
+
+let tabs_example () =
+  let value = Signal.make "account" in
+  let content () =
+    match Signal.get value with
+    | "account" -> "Manage your account details and profile information."
+    | "password" -> "Change your password and configure two-factor authentication."
+    | _ -> "Invite teammates and manage their roles and access."
+  in
+  <div className="w-96">
+    (Tabs.make ~value ~tabs:[ ("account", "Account"); ("password", "Password"); ("team", "Team") ] ())
+    <p className="p-4 text-sm text-neutral-600">(View.dyn_text content)</p>
+  </div>
+
+let accordion_example () =
+  let value = Signal.make [ "what" ] in
+  let items =
+    [
+      ("what", "What is a spec?", "A technology-agnostic definition of a UI pattern, described in words.");
+      ("framework", "Is it tied to a framework?",
+       "No. Each spec maps onto any stack \xe2\x80\x94 this site happens to use Xote.");
+      ("contribute", "Can I contribute?",
+       "Yes. Copy the template, fill every section, and open a pull request.");
+    ]
+  in
+  Accordion.make ~value ~items ()
+
+let collapsible_example () =
+  let open_ = Signal.make false in
+  Collapsible.make ~open_ ~label:"Show details"
+    ~children:[ txt "Secondary content revealed on demand, pushing the layout below it." ]
+    ()
+
+let dialog_example () =
+  let open_ = Signal.make false in
+  <div className="relative flex h-64 w-full max-w-lg items-center justify-center">
+    (Button.make ~variant:`primary
+       ~on_click:(fun _ -> Signal.set open_ true)
+       ~children:[ txt "Edit profile" ] ())
+    (Dialog.make ~open_ ~title:"Edit profile" ~description:"Make changes and save when you're done."
+       ~children:
+         [
+           <div className="mt-4">
+             (Field.make ~label:"Name" ~for_:"dlg-name"
+                ~children:[ Input.make ~id:"dlg-name" ~value:"Ada Lovelace" () ] ())
+           </div>;
+           <div className="mt-5 flex justify-end gap-2">
+             (Button.make ~variant:`secondary
+                ~on_click:(fun _ -> Signal.set open_ false)
+                ~children:[ txt "Cancel" ] ())
+             (Button.make ~variant:`primary
+                ~on_click:(fun _ -> Signal.set open_ false)
+                ~children:[ txt "Save" ] ())
+           </div>;
+         ]
+       ())
+  </div>
+
+let tooltip_example () =
+  <div className="flex h-24 items-center justify-center">
+    (Tooltip.make ~content:"Add to library"
+       ~children:[ Button.make ~variant:`secondary ~children:[ txt "Hover me" ] () ] ())
+  </div>
+
+let field_example () =
+  let value = Signal.make "nope" in
+  let invalid () = not (String.contains (Signal.get value) '@') in
+  let cls () =
+    Ui.input_base ^ (if invalid () then " border-neutral-900 ring-1 ring-neutral-900" else "")
+  in
+  <div className="max-w-sm">
+    (Field.make ~label:"Work email" ~for_:"fld-email"
+       ~children:
+         [
+           View.element
+             ~attrs:
+               [
+                 View.Attr.id (View.static "fld-email");
+                 View.Attr.value (View.static "nope");
+                 View.Attr.class_reactive cls;
+               ]
+             ~events:[ View.On.input (fun e -> Signal.set value (Ui.input_value e)) ]
+             "input" [];
+           View.show
+             ~fallback:(<p className="text-xs text-neutral-500">("We'll only use this to contact you.")</p>)
+             (fun () -> invalid ())
+             (<p className="text-xs font-medium text-neutral-900">("Enter a valid email address.")</p>);
+         ]
+       ())
+  </div>
+
+let select_example () =
+  let value = Signal.make "Medium" in
+  Select.make ~value ~options:[ "Small"; "Medium"; "Large"; "Extra large" ] ()
+
+(* ------------------------------------------------------------------ *)
+(* blocks                                                              *)
+(* ------------------------------------------------------------------ *)
+
+let page_header_example () =
+  <div className="w-full max-w-2xl">
+    (PageHeader.make ~title:"Deployments"
+       ~description:"Everything your team shipped in the last 30 days."
+       ~breadcrumb:[ ("Acme", "#"); ("Production", "#"); ("Deployments", "") ]
+       ~children:
+         [
+           Button.make ~variant:`secondary ~size:`sm ~children:[ txt "Export" ] ();
+           Button.make ~variant:`primary ~size:`sm ~children:[ txt "New deploy" ] ();
+         ]
+       ())
+  </div>
+
+let stat_grid_example () =
+  let loading = Signal.make false in
+  let stats =
+    [
+      ("Revenue", "$48.2k", "+12% vs. last month", `up);
+      ("Active users", "1,203", "+3% vs. last month", `up);
+      ("Signups", "312", "\xe2\x88\x925% vs. last month", `down);
+      ("Uptime", "99.98%", "flat vs. last month", `flat);
+    ]
+  in
+  <div className="w-full max-w-2xl space-y-3">
+    (View.show
+       ~fallback:(StatGrid.make ~heading:"This month" ~stats ())
+       (fun () -> Signal.get loading)
+       (StatGrid.make ~heading:"This month" ~stats ~loading:true ()))
+    (Button.make ~variant:`secondary ~size:`sm
+       ~on_click:(fun _ ->
+         Signal.set loading true;
+         Ui.set_timeout (fun () -> Signal.set loading false) 1500)
+       ~children:[ txt "Simulate loading" ] ())
+  </div>
+
+let logo_cloud_example () =
+  <div className="w-full max-w-2xl">
+    (LogoCloud.make ~heading:"Trusted by teams at"
+       ~logos:[ "Acme"; "Northwind"; "Globex"; "Initech"; "Umbrella"; "Aperture" ] ())
+  </div>
+
+let steps_example () =
+  let steps =
+    [
+      ("Connect your repo", "Authorize once; we pick up every branch automatically.");
+      ("Push a commit", "Each push builds, tests, and previews in isolation.");
+      ("Ship it", "Promote the preview to production with one click.");
+    ]
+  in
+  <div className="w-full max-w-2xl">(Steps.make ~heading:"How it works" ~steps ())</div>
+
+let contact_section_example () =
+  <div className="w-full max-w-2xl">
+    (ContactSection.make ~heading:"Talk to us"
+       ~description:"Questions about specs, tokens, or the agent skill? We reply within one business day."
+       ~details:
+         [
+           ("mail", "hello@acme.dev", "mailto:hello@acme.dev");
+           ("github", "acme/support", "https://github.com");
+         ]
+       ())
+  </div>
+
+let newsletter_example () =
+  <div className="w-full max-w-xl">
+    (Newsletter.make ~heading:"Get the monthly digest"
+       ~description:"One email a month: new specs, patterns, and releases. No spam."
+       ~consent:"By subscribing you agree to the privacy policy. Unsubscribe anytime." ())
+  </div>
+
+let announcement_bar_example () =
+  <div className="w-full max-w-2xl space-y-3">
+    (AnnouncementBar.make ~variant:`accent ~message:"v2 ships May 4 \xe2\x80\x94 everything gets faster."
+       ~action_label:"See what's new" ())
+    (AnnouncementBar.make ~variant:`neutral ~message:"We've updated our terms of service."
+       ~action_label:"Read the changes" ())
+    (AnnouncementBar.make ~variant:`warning
+       ~message:"Scheduled maintenance Sunday 02:00\xe2\x80\x9304:00 UTC." ())
+  </div>
+
+(* ------------------------------------------------------------------ *)
+(* registry + mount entry (the JS surface consumed by the website)     *)
+(* ------------------------------------------------------------------ *)
+
+let example_for = function
+  | "aspect-ratio" -> aspect_ratio_example ()
+  | "avatar" -> avatar_example ()
+  | "badge" -> badge_example ()
+  | "button" -> button_example ()
+  | "checkbox" -> checkbox_example ()
+  | "icon" -> icon_example ()
+  | "icon-button" -> icon_button_example ()
+  | "input" -> input_example ()
+  | "input-otp" -> input_otp_example ()
+  | "kbd" -> kbd_example ()
+  | "link" -> link_example ()
+  | "progress" -> progress_example ()
+  | "radio-group" -> radio_group_example ()
+  | "scroll-area" -> scroll_area_example ()
+  | "separator" -> separator_example ()
+  | "skeleton" -> skeleton_example ()
+  | "slider" -> slider_example ()
+  | "spinner" -> spinner_example ()
+  | "switch" -> switch_example ()
+  | "textarea" -> textarea_example ()
+  | "toggle" -> toggle_example ()
+  | "toggle-group" -> toggle_group_example ()
+  | "accordion" -> accordion_example ()
+  | "alert" -> alert_example ()
+  | "collapsible" -> collapsible_example ()
+  | "dialog" -> dialog_example ()
+  | "field" -> field_example ()
+  | "select" -> select_example ()
+  | "tabs" -> tabs_example ()
+  | "tooltip" -> tooltip_example ()
+  | "announcement-bar" -> announcement_bar_example ()
+  | "contact-section" -> contact_section_example ()
+  | "logo-cloud" -> logo_cloud_example ()
+  | "newsletter" -> newsletter_example ()
+  | "page-header" -> page_header_example ()
+  | "stat-grid" -> stat_grid_example ()
+  | "steps" -> steps_example ()
+  | _ -> View.empty
+
+(* Mount the reativa example for [spec_id] into the element with id
+   [container_id]. The container is cleared first so re-selecting the tab
+   re-mounts cleanly instead of stacking copies. Called from ReScript via the
+   esbuild-bundled ES module (see website/src/ReativaExamples.res). *)
+let mount_example spec_id container_id =
+  match Dom.by_id container_id with
+  | None -> ()
+  | Some el ->
+    Dom.set_text_content el "";
+    View.mount el (example_for spec_id)
+
+(* The spec ids that have a reativa implementation, exposed to the website so it
+   knows which specs get a "Reativa" tab. *)
+let example_ids =
+  [|
+    "aspect-ratio"; "avatar"; "badge"; "button"; "checkbox"; "icon"; "icon-button"; "input";
+    "input-otp"; "kbd"; "link"; "progress"; "radio-group"; "scroll-area"; "separator"; "skeleton";
+    "slider"; "spinner"; "switch"; "textarea"; "toggle"; "toggle-group"; "accordion"; "alert";
+    "collapsible"; "dialog"; "field"; "select"; "tabs"; "tooltip"; "announcement-bar";
+    "contact-section"; "logo-cloud"; "newsletter"; "page-header"; "stat-grid"; "steps";
+  |]
+
+(* Distinguishes the real compiled bundle from the checked-in placeholder. *)
+let built = true

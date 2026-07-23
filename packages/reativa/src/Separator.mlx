@@ -1,0 +1,21 @@
+[@@@warning "-a"]
+
+(* Separator — a hairline divider, horizontal or vertical. Reused by menus,
+   cards, and toolbars. [role="separator"] is not one of the attributes the mlx
+   element helper exposes, so the root is built with [View.element ~attrs]. *)
+
+open Reativa
+
+let make ?(orientation : Contracts.Separator.orientation = `horizontal) ?(extra_class = "") () =
+  let base =
+    match orientation with
+    | `horizontal -> "h-px w-full bg-neutral-200"
+    | `vertical -> "h-4 w-px bg-neutral-200"
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.className (View.static (Ui.cx base extra_class));
+        View.Attr.make "role" (View.static "separator");
+      ]
+    "div" []

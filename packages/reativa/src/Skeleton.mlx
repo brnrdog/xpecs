@@ -1,0 +1,16 @@
+[@@@warning "-a"]
+
+(* Skeleton — a pulsing placeholder block that mirrors content while it loads.
+   Compose several to sketch a layout. Implements the `skeleton` spec. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(shape : Contracts.Skeleton.shape = `text) ?(extra_class = "") () =
+  let shape_cls =
+    match shape with
+    | `text -> "h-3 rounded"
+    | `circle -> "rounded-full"
+    | `rect -> "rounded-lg"
+  in
+  <div className=(Ui.cx ("animate-pulse bg-neutral-200 " ^ shape_cls) extra_class) />

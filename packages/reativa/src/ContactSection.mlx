@@ -1,0 +1,105 @@
+[@@@warning "-a"]
+
+(* Contact Section — a short message form beside direct contact channels. Field
+   values live in internal signals; submit prevents the default, hands
+   (name, email, message) to [on_submit], and shows the success confirmation in
+   place with a status region so the outcome is announced. Each detail is
+   (icon, label, href) and renders as a real link. Reuses Field, Input, Textarea,
+   Button, Icon. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(description = "") ?(details = []) ?on_submit ~heading () =
+  let name = Signal.make "" in
+  let email = Signal.make "" in
+  let message = Signal.make "" in
+  let sent = Signal.make false in
+  let submit ev =
+    Ui.prevent_default ev;
+    (match on_submit with
+     | Some f -> f (Signal.get name, Signal.get email, Signal.get message)
+     | None -> ());
+    Signal.set sent true
+  in
+  let detail_row (icon, label, href) =
+    View.element ~attrs:[] "li"
+      [
+        View.element
+          ~attrs:
+            [
+              View.Attr.href (View.static href);
+              View.Attr.className (View.static "group inline-flex items-center gap-3 text-sm text-ink");
+            ]
+          "a"
+          [
+            <span className="flex size-9 items-center justify-center rounded-lg border border-border bg-surface text-muted">
+              (Icon.make ~name:icon ())
+            </span>;
+            <span className="group-hover:underline">(label)</span>;
+          ];
+      ]
+  in
+  let form_node =
+    View.element
+      ~attrs:[ View.Attr.className (View.static "mt-6 space-y-4") ]
+      ~events:[ View.On.submit submit ]
+      "form"
+      [
+        <div className="grid gap-4 sm:grid-cols-2">
+          (Field.make ~label:"Name" ~for_:"contact-name"
+             ~children:
+               [
+                 Input.make ~id:"contact-name" ~placeholder:"Ada Lovelace" ~required:true
+                   ~on_input:(fun e -> Signal.set name (Ui.input_value e))
+                   ();
+               ]
+             ())
+          (Field.make ~label:"Email" ~for_:"contact-email"
+             ~children:
+               [
+                 Input.make ~id:"contact-email" ~type_:"email" ~placeholder:"ada@example.com"
+                   ~required:true
+                   ~on_input:(fun e -> Signal.set email (Ui.input_value e))
+                   ();
+               ]
+             ())
+        </div>;
+        (Field.make ~label:"Message" ~for_:"contact-message"
+           ~children:
+             [
+               Textarea.make ~id:"contact-message" ~rows:4 ~required:true ~extra_class:"resize-none"
+                 ~placeholder:"How can we help?" ~value:message ();
+             ]
+           ());
+        (Button.make ~type_:`submit ~variant:`primary
+           ~children:[ View.text (View.static "Send message") ] ());
+        (View.element
+           ~attrs:[ View.Attr.make "role" (View.static "status") ]
+           "div"
+           [
+             View.show
+               (fun () -> Signal.get sent)
+               (<p className="rounded-md bg-action-subtle px-3 py-2 text-sm text-ink">
+                  ("Thanks \xe2\x80\x94 your message is on its way. We reply within one business day.")
+                </p>);
+           ]);
+      ]
+  in
+  View.element
+    ~attrs:[ View.Attr.className (View.static "grid w-full gap-10 md:grid-cols-5") ]
+    "section"
+    [
+      <div className="md:col-span-3">
+        <h2 className="text-2xl font-semibold tracking-tight text-ink">(heading)</h2>
+        (if description = "" then View.empty
+         else <p className="mt-2 text-sm text-muted">(description)</p>)
+        (form_node)
+      </div>;
+      (if details = [] then View.empty
+       else
+         View.element
+           ~attrs:[ View.Attr.className (View.static "space-y-4 md:col-span-2 md:pt-12") ]
+           "ul"
+           (List.map detail_row details));
+    ]

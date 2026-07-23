@@ -1,0 +1,57 @@
+[@@@warning "-a"]
+
+(* Checkbox — a controlled tick box bound to a signal, with an optional label and
+   description. Implements the `checkbox` spec.
+
+   [indeterminate] is a property-only DOM state (announced as "mixed"), so an
+   indeterminate box gets a generated id and the property is set after render.
+   The browser clears it on the first user toggle, as the spec expects. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+(* Unique ids for indeterminate boxes — the DOM property is set post-render. *)
+let seq = ref 0
+
+let make ?(indeterminate = false) ?(disabled = false) ?(required = false) ?(label = "")
+    ?(description = "") ?on_change ~checked () =
+  let handle ev =
+    Signal.set checked (Ui.checked ev);
+    match on_change with Some f -> f ev | None -> ()
+  in
+  let id =
+    if indeterminate then begin
+      incr seq;
+      let id = "xpecs-reativa-checkbox-" ^ string_of_int !seq in
+      Ui.set_indeterminate_by_id id true;
+      Some id
+    end
+    else None
+  in
+  let input_attrs =
+    [
+      View.Attr.type_ (View.static "checkbox");
+      View.Attr.checked (View.dynamic (fun () -> Signal.get checked));
+      View.Attr.className (View.static "mt-0.5 size-4 accent-neutral-900 disabled:opacity-40");
+      View.Attr.disabled (fun () -> disabled);
+      View.Attr.toggle "required" (fun () -> required);
+    ]
+  in
+  let input_attrs =
+    match id with Some i -> View.Attr.id (View.static i) :: input_attrs | None -> input_attrs
+  in
+  let input_node = View.element ~attrs:input_attrs ~events:[ View.On.change handle ] "input" [] in
+  let text_node =
+    if label = "" && description = "" then View.empty
+    else
+      <span>
+        (if label = "" then View.empty
+         else <span className="block text-sm font-medium text-neutral-800">(label)</span>)
+        (if description = "" then View.empty
+         else <span className="block text-xs text-neutral-500">(description)</span>)
+      </span>
+  in
+  <label className="flex items-start gap-3">
+    (input_node)
+    (text_node)
+  </label>

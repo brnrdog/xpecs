@@ -1,0 +1,12 @@
+[@@@warning "-a"]
+
+(* AspectRatio — constrains its content to a fixed width:height proportion.
+   Implements the `aspect-ratio` spec. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(ratio = "16/9") ?(extra_class = "") ~children () =
+  <div className=(Ui.cx "overflow-hidden" extra_class) style=("aspect-ratio: " ^ ratio)>
+    (View.fragment children)
+  </div>

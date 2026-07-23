@@ -1,0 +1,24 @@
+[@@@warning "-a"]
+
+(* Textarea — a multi-line text field. Left visually uncontrolled so typing
+   stays smooth; writes its text to the given signal on input. Implements the
+   `textarea` spec. *)
+
+open Reativa
+
+let make ?(placeholder = "") ?(rows = 3) ?(required = false) ?id ?(extra_class = "") ?on_input
+    ~value () =
+  let handle ev =
+    Signal.set value (Ui.input_value ev);
+    match on_input with Some f -> f ev | None -> ()
+  in
+  let attrs =
+    [
+      View.Attr.make "rows" (View.static (string_of_int rows));
+      View.Attr.placeholder (View.static placeholder);
+      View.Attr.className (View.static (Ui.cx (Ui.input_base ^ " resize-y") extra_class));
+      View.Attr.toggle "required" (fun () -> required);
+    ]
+  in
+  let attrs = match id with Some i -> View.Attr.id (View.static i) :: attrs | None -> attrs in
+  View.element ~attrs ~events:[ View.On.input handle ] "textarea" []

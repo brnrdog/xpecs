@@ -1,0 +1,49 @@
+[@@@warning "-a"]
+
+(* InputOtp — a segmented one-time-code field bound to a signal. A single
+   transparent input captures keystrokes; the cells mirror the entered digits.
+   Implements the `input-otp` spec. *)
+
+open Reativa
+
+let digits_only s =
+  let r = ref "" in
+  String.iter (fun c -> if c >= '0' && c <= '9' then r := !r ^ String.make 1 c) s;
+  !r
+
+let make ?(length = 6) ?(disabled = false) ~value () =
+  let input_node =
+    View.element
+      ~attrs:
+        [
+          View.Attr.className
+            (View.static "absolute inset-0 z-10 cursor-pointer opacity-0 disabled:cursor-not-allowed");
+          View.Attr.type_ (View.static "text");
+          View.Attr.make "maxlength" (View.static (string_of_int length));
+          View.Attr.disabled (fun () -> disabled);
+        ]
+      ~events:
+        [
+          View.On.input (fun ev ->
+              let d = digits_only (Ui.input_value ev) in
+              let d = if String.length d > length then String.sub d 0 length else d in
+              Signal.set value d);
+        ]
+      "input" []
+  in
+  let cell i =
+    let cls () =
+      let len = String.length (Signal.get value) in
+      "flex size-11 items-center justify-center rounded-md border text-lg font-semibold text-neutral-900 "
+      ^ if len = i then "border-neutral-900 ring-1 ring-neutral-900" else "border-neutral-300"
+    in
+    let ch () =
+      let v = Signal.get value in
+      if i < String.length v then String.make 1 v.[i] else ""
+    in
+    View.element ~attrs:[ View.Attr.class_reactive cls ] "span" [ View.text (View.dynamic ch) ]
+  in
+  let cells = List.init length cell in
+  View.element
+    ~attrs:[ View.Attr.className (View.static "relative inline-flex gap-2") ]
+    "label" (input_node :: cells)

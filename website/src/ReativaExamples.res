@@ -1,6 +1,6 @@
-// Bridges the reativa (OCaml + Melange) example implementations into the
-// ReScript/Xote website. The examples live in
-// website/reativa/xpecs_reativa.mlx and are compiled + bundled to
+// Bridges the reativa (OCaml + Melange) component implementations into the
+// ReScript/Xote website. The components live in the @xpecs/reativa package
+// (packages/reativa/src/*.mlx) and are compiled + bundled to
 // website/src/reativa.bundle.js by `npm run reativa`.
 //
 // Until that bundle is built, a checked-in placeholder stands in with
@@ -8,12 +8,13 @@
 // short build hint instead of the live components.
 
 @module("./reativa.bundle.js") external built: bool = "built"
+@module("./reativa.bundle.js") external exampleIds: array<string> = "example_ids"
 @module("./reativa.bundle.js")
 external mountExampleRaw: (string, string) => unit = "mount_example"
 
-// The specs that have a reativa implementation — these get a "Reativa" tab in
-// the example block, shown alongside the Xote "Preview".
-let ids = ["button", "badge", "alert", "cta-section"]
+// The specs that have a reativa implementation — these get a "Reativa" preview
+// alongside the Xote one. Sourced from the bundle so the two never drift.
+let ids = exampleIds
 let has = id => ids->Array.includes(id)
 
 // The dom id of the container the reativa runtime mounts a spec's example into.

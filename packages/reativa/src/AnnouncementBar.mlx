@@ -1,0 +1,56 @@
+[@@@warning "-a"]
+
+(* Announcement Bar — a slim, page-width strip carrying one timely message, with
+   an optional action link and a dismiss control. The [variant] type comes from
+   the spec's `## API` contract (Contracts.ml). Dismissal hides the bar and
+   notifies [on_dismiss] so the owner can persist the choice. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(variant : Contracts.AnnouncementBar.variant = `neutral) ?(action_label = "")
+    ?(action_href = "#") ?on_dismiss ~message () =
+  let open_ = Signal.make true in
+  let dismiss _ =
+    Signal.set open_ false;
+    match on_dismiss with Some f -> f () | None -> ()
+  in
+  let surface, icon_name, icon_cls =
+    match variant with
+    | `neutral -> ("border-b border-border bg-surface text-ink", "info", "text-muted")
+    | `accent -> ("bg-accent text-accent-contrast", "zap", "text-accent-contrast")
+    | `warning ->
+      ("border-b border-status-warning bg-surface text-ink", "alert-triangle", "text-status-warning")
+  in
+  let link_cls =
+    match variant with
+    | `accent -> "font-medium underline underline-offset-2 hover:opacity-80"
+    | `neutral | `warning ->
+      "font-medium text-ink underline underline-offset-2 hover:text-muted"
+  in
+  View.show
+    (fun () -> Signal.get open_)
+    (View.element
+       ~attrs:
+         [
+           View.Attr.className
+             (View.static
+                ("flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-sm "
+               ^ surface));
+         ]
+       "div"
+       [
+         <span className=("shrink-0 " ^ icon_cls)>(Icon.make ~name:icon_name ~size:`sm ())</span>;
+         <p>(message)</p>;
+         (if action_label = "" then View.empty
+          else
+            View.element
+              ~attrs:
+                [ View.Attr.href (View.static action_href); View.Attr.className (View.static link_cls) ]
+              "a"
+              [ View.text (View.static action_label) ]);
+         <span className="ms-auto">
+           (IconButton.make ~label:"Dismiss announcement" ~variant:`ghost ~on_click:dismiss
+              ~children:[ Icon.make ~name:"x" ~size:`sm () ] ())
+         </span>;
+       ])

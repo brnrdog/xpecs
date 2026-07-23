@@ -1,0 +1,14 @@
+[@@@warning "-a"]
+
+(* Avatar — a person/entity glyph with an initials fallback. Reused by hover-card
+   and others. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(size = "size-10 text-sm") ~initials () =
+  <span
+    className=("inline-flex items-center justify-center overflow-hidden rounded-full bg-neutral-200 font-medium text-neutral-700 ring-2 ring-white "
+              ^ size)>
+    (initials)
+  </span>

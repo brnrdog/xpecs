@@ -647,57 +647,77 @@ module NotFound = {
 module ExampleBlock = {
   @jsx.component
   let make = (~a: spec) => {
-    let mode = Signal.make("preview")
+    // Two independent tab strips: `view` picks the representation
+    // (preview / playground / code); `impl` picks which implementation renders
+    // in the preview (Xote or reativa). Code/playground stay Xote-only.
+    let view = Signal.make("preview")
+    let impl = Signal.make("xote")
     let copied = Signal.make(false)
     let full = Signal.make(false)
     let snippet = ExampleSource.get(a.id)
     let hasExample = Examples.get(a.id)->Option.isSome
     let hasReativa = ReativaExamples.has(a.id)
     let playground = Playground.get(a.id)
-    let tabCls = target =>
+    // Segmented-control button classes, driven by the given signal + target.
+    let segCls = (get, target) =>
       Computed.make(() =>
         "rounded-md px-3 py-1 text-xs font-medium transition-colors " ++ (
-          Signal.get(mode) == target ? "bg-action text-on-action" : "text-neutral-600 hover:text-neutral-900"
+          get() == target ? "bg-action text-on-action" : "text-neutral-600 hover:text-neutral-900"
         )
       )
-    let isPreview = Computed.make(() => Signal.get(mode) == "preview")
-    let isCode = Computed.make(() => Signal.get(mode) == "code")
-    let isPlay = Computed.make(() => Signal.get(mode) == "play")
-    let isReativa = Computed.make(() => Signal.get(mode) == "reativa")
+    let viewCls = target => segCls(() => Signal.get(view), target)
+    let implCls = target => segCls(() => Signal.get(impl), target)
+    let isCode = Computed.make(() => Signal.get(view) == "code")
+    let isPlay = Computed.make(() => Signal.get(view) == "play")
+    // In Preview, the implementation strip picks which library renders: Xote by
+    // default (or whenever there's no reativa build), reativa when selected.
+    let xotePreview = Computed.make(() =>
+      Signal.get(view) == "preview" && (!hasReativa || Signal.get(impl) == "xote")
+    )
+    let reativaPreview = Computed.make(() =>
+      hasReativa && Signal.get(view) == "preview" && Signal.get(impl) == "reativa"
+    )
     // Close fullscreen on Escape while it is open.
     Effect.run(() => Signal.get(full) ? Some(Ui.onEscape(() => Signal.set(full, false))) : None)
-    // When the Reativa tab is active, imperatively mount the OCaml/Melange
+    // While the reativa preview is showing, imperatively mount the OCaml/Melange
     // example into its container (the reativa runtime owns that subtree).
     Effect.run(() => {
-      if Signal.get(isReativa) && ReativaExamples.built {
+      if Signal.get(reativaPreview) && ReativaExamples.built {
         ReativaExamples.mount(a.id)
       }
       None
     })
     <div class="mt-10">
-      <div class="mb-3 flex items-center justify-between">
-        <div class="inline-flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5">
-          <button class={Prop.signal(tabCls("preview"))} onClick={_ => Signal.set(mode, "preview")}>
-            <View.Text> "Preview" </View.Text>
-          </button>
-          {switch playground {
-          | Some(_) =>
-            <button class={Prop.signal(tabCls("play"))} onClick={_ => Signal.set(mode, "play")}>
-              <View.Text> "Playground" </View.Text>
+      <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5">
+            <button class={Prop.signal(viewCls("preview"))} onClick={_ => Signal.set(view, "preview")}>
+              <View.Text> "Preview" </View.Text>
             </button>
-          | None => View.null()
-          }}
-          {switch snippet {
-          | Some(_) =>
-            <button class={Prop.signal(tabCls("code"))} onClick={_ => Signal.set(mode, "code")}>
-              <View.Text> "Code" </View.Text>
-            </button>
-          | None => View.null()
-          }}
-          {hasReativa
-            ? <button class={Prop.signal(tabCls("reativa"))} onClick={_ => Signal.set(mode, "reativa")}>
-                <View.Text> "Reativa" </View.Text>
+            {switch playground {
+            | Some(_) =>
+              <button class={Prop.signal(viewCls("play"))} onClick={_ => Signal.set(view, "play")}>
+                <View.Text> "Playground" </View.Text>
               </button>
+            | None => View.null()
+            }}
+            {switch snippet {
+            | Some(_) =>
+              <button class={Prop.signal(viewCls("code"))} onClick={_ => Signal.set(view, "code")}>
+                <View.Text> "Code" </View.Text>
+              </button>
+            | None => View.null()
+            }}
+          </div>
+          {hasReativa
+            ? <div class="inline-flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5">
+                <button class={Prop.signal(implCls("xote"))} onClick={_ => Signal.set(impl, "xote")}>
+                  <View.Text> "Xote" </View.Text>
+                </button>
+                <button class={Prop.signal(implCls("reativa"))} onClick={_ => Signal.set(impl, "reativa")}>
+                  <View.Text> "Reativa" </View.Text>
+                </button>
+              </div>
             : View.null()}
         </div>
         <div class="flex items-center gap-3">
@@ -716,11 +736,11 @@ module ExampleBlock = {
           </a>
         </div>
       </div>
-      <View.Show when_={Prop.signal(isPreview)}>
+      <View.Show when_={Prop.signal(xotePreview)}>
         <Preview id={a.id} />
       </View.Show>
       {hasReativa
-        ? <View.Show when_={Prop.signal(isReativa)}>
+        ? <View.Show when_={Prop.signal(reativaPreview)}>
             {ReativaExamples.built
               ? // The reativa runtime mounts the OCaml/Melange example here.
                 <div class="preview-surface flex min-h-48 items-center justify-center rounded-2xl border border-neutral-200 p-10 shadow-sm">

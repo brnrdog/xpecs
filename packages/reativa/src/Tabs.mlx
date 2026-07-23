@@ -1,0 +1,34 @@
+[@@@warning "-a"]
+
+(* Tabs — a tablist whose selected tab drives a panel. Controlled via a [value]
+   signal (the active tab id); [orientation] comes from the contract type. The
+   panel is rendered by the caller from the same signal. [role] isn't a mlx
+   element attribute, so each tab uses [View.element]. *)
+
+open Reativa
+
+let make ?(orientation : Contracts.Tabs.orientation = `horizontal) ~value ~tabs () =
+  let list_cls =
+    match orientation with
+    | `horizontal -> "flex gap-1 border-b border-neutral-200"
+    | `vertical -> "flex flex-col gap-1 border-r border-neutral-200"
+  in
+  let render (id, label) =
+    let cls () =
+      let active = Signal.get value = id in
+      "-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors "
+      ^
+      if active then "border-neutral-900 text-neutral-900"
+      else "border-transparent text-neutral-500 hover:text-neutral-800"
+    in
+    View.element
+      ~attrs:[ View.Attr.make "role" (View.static "tab"); View.Attr.class_reactive cls ]
+      ~events:[ View.On.click (fun _ -> Signal.set value id) ]
+      "button"
+      [ View.text (View.static label) ]
+  in
+  View.element
+    ~attrs:
+      [ View.Attr.make "role" (View.static "tablist"); View.Attr.className (View.static list_cls) ]
+    "div"
+    (List.map render tabs)

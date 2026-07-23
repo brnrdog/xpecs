@@ -1,0 +1,97 @@
+[@@@warning "-a"]
+
+(* RadioGroup — mutually exclusive options bound to a signal. Each option is a
+   (value, label, description) triple. Implements the `radio-group` spec: every
+   row wraps a visually-hidden native radio so the group gets native semantics —
+   shared [name] grouping, arrow-key navigation, and checked announcements. *)
+
+open Reativa
+
+(* Fallback names so ungrouped instances never collide with each other. *)
+let seq = ref 0
+
+let make ?(legend = "") ?(name = "") ?(orientation : Contracts.RadioGroup.orientation = `vertical)
+    ?(disabled = false) ?(extra_class = "") ~value ~options () =
+  let group_name =
+    if name = "" then begin
+      incr seq;
+      "xpecs-reativa-radio-group-" ^ string_of_int !seq
+    end
+    else name
+  in
+  let list_cls =
+    match orientation with `vertical -> "space-y-2" | `horizontal -> "flex flex-wrap gap-2"
+  in
+  let render (id, title, desc) =
+    let is_checked () = Signal.get value = id in
+    let row_cls () =
+      "flex cursor-pointer items-start gap-3 rounded-md border p-3 transition-colors "
+      ^
+      if Signal.get value = id then "border-neutral-900 bg-neutral-50"
+      else "border-neutral-200 hover:border-neutral-300"
+    in
+    let ring () =
+      "mt-0.5 flex size-4 items-center justify-center rounded-full border peer-focus-visible:ring-2 \
+       peer-focus-visible:ring-action peer-focus-visible:ring-offset-2 "
+      ^ if Signal.get value = id then "border-neutral-900" else "border-neutral-300"
+    in
+    let dot () =
+      "size-2 rounded-full " ^ if Signal.get value = id then "bg-neutral-900" else "bg-transparent"
+    in
+    let input_node =
+      View.element
+        ~attrs:
+          [
+            View.Attr.type_ (View.static "radio");
+            View.Attr.make "name" (View.static group_name);
+            View.Attr.value (View.static id);
+            View.Attr.className (View.static "peer sr-only");
+            View.Attr.checked (View.dynamic is_checked);
+            View.Attr.disabled (fun () -> disabled);
+          ]
+        ~events:[ View.On.change (fun _ -> Signal.set value id) ]
+        "input" []
+    in
+    let text_node =
+      View.element ~attrs:[] "span"
+        [
+          View.element
+            ~attrs:[ View.Attr.className (View.static "block text-sm font-medium text-neutral-800") ]
+            "span"
+            [ View.text (View.static title) ];
+          (if desc = "" then View.empty
+           else
+             View.element
+               ~attrs:[ View.Attr.className (View.static "block text-xs text-neutral-500") ]
+               "span"
+               [ View.text (View.static desc) ]);
+        ]
+    in
+    View.element ~attrs:[ View.Attr.class_reactive row_cls ] "label"
+      [
+        input_node;
+        View.element ~attrs:[ View.Attr.class_reactive ring ] "span"
+          [ View.element ~attrs:[ View.Attr.class_reactive dot ] "span" [] ];
+        text_node;
+      ]
+  in
+  let fieldset_cls = extra_class ^ if disabled then " pointer-events-none opacity-50" else "" in
+  let legend_node =
+    if legend = "" then View.empty
+    else
+      View.element
+        ~attrs:[ View.Attr.className (View.static "mb-1 text-sm font-medium text-neutral-800") ]
+        "legend"
+        [ View.text (View.static legend) ]
+  in
+  let list_node =
+    View.element ~attrs:[ View.Attr.className (View.static list_cls) ] "div" (List.map render options)
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.className (View.static fieldset_cls);
+        View.Attr.make "role" (View.static "radiogroup");
+      ]
+    "fieldset"
+    [ legend_node; list_node ]

@@ -1,0 +1,30 @@
+[@@@warning "-a"]
+
+(* Dialog — a modal overlay focusing the user on a self-contained task.
+   Controlled via the [open_] signal (the contract prop); the header/body/footer
+   are passed as children. Backdrop click dismisses. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(description = "") ~open_ ~title ~children () =
+  View.show
+    (fun () -> Signal.get open_)
+    (<div className="absolute inset-0 z-10 flex items-center justify-center">
+       <div className="absolute inset-0 bg-neutral-900/40" onClick=(fun _ -> Signal.set open_ false) />
+       (View.element
+          ~attrs:
+            [
+              View.Attr.make "role" (View.static "dialog");
+              View.Attr.className
+                (View.static
+                   "relative z-20 w-80 rounded-lg border border-neutral-200 bg-surface p-5 shadow-2xl");
+            ]
+          "div"
+          [
+            <h3 className="text-lg font-semibold text-neutral-900">(title)</h3>;
+            (if description = "" then View.empty
+             else <p className="mt-1 text-sm text-neutral-500">(description)</p>);
+            View.fragment children;
+          ])
+     </div>)
