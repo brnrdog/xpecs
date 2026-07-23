@@ -1,4 +1,4 @@
-# Xpecs — Website
+# Prescriptive — Website
 
 An interactive catalogue for the specs in this repository. Browse every
 spec in the sidebar and see a **live implementation rendered with
@@ -60,17 +60,17 @@ Specs without an example fall back to a graceful placeholder.
 
 ## Xote / Reativa implementations
 
-Every element, component, and block that `@xpecs/xote` implements is **also**
+Every element, component, and block that `@prescriptive/xote` implements is **also**
 implemented in OCaml with [reativa](https://github.com/brnrdog/reativa) — the
 signal-based sibling of Xote — in the
-[`@xpecs/reativa`](../packages/reativa) package. The example block has two tab
+[`@prescriptive/reativa`](../packages/reativa) package. The example block has two tab
 strips: one picks the **view** (Preview / Playground / Code) and one picks the
 **implementation** rendered in the preview (**Xote** or **Reativa**), so the two
 render the same spec from the same design tokens, side by side.
 
 The reativa build is a self-contained Melange workspace, kept **separate** from
 this ReScript/Vite build (it needs opam + melange, the website doesn't).
-`npm run reativa` builds `@xpecs/reativa` and copies its bundle to
+`npm run reativa` builds `@prescriptive/reativa` and copies its bundle to
 `src/reativa.bundle.js`; a checked-in placeholder keeps the site compiling until
 then. See [`packages/reativa/README.md`](../packages/reativa/README.md).
 
@@ -107,14 +107,14 @@ SPA fallback and `.nojekyll`, and publishes `website/dist`.
 live at:
 
 ```
-https://brnrdog.github.io/ux-archetypes/
+https://brnrdog.github.io/prescriptive/
 ```
 
 Notes:
 
 - The build injects the base path; `Router.init(~basePath=…)` reads Vite's
   `BASE_URL`, so client-side routing and deep links resolve under the subpath.
-- Deep links (e.g. `/ux-archetypes/a/button`) are served through `404.html`
+- Deep links (e.g. `/prescriptive/a/button`) are served through `404.html`
   (a copy of `index.html`), which boots the app and lets the router take over —
   the standard SPA pattern for a static host.
 - For a custom domain / user site served from `/`, no base is needed; the same

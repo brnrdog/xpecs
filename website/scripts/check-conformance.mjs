@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const specsDir = join(here, "..", "..", "specs");
-// The component implementations live in the @xpecs/xote package.
+// The component implementations live in the @prescriptive/xote package.
 const srcDir = join(here, "..", "..", "packages", "xote", "src");
 const layers = ["elements", "components", "blocks", "pages", "flows"];
 

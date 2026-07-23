@@ -1,12 +1,12 @@
-# @xpecs/xote
+# @prescriptive/xote
 
 Accessible UI components for [Xote](https://xote.dev) / ReScript that implement
-the [Xpecs](https://github.com/brnrdog/ux-archetypes) contracts. Each
+the [Prescriptive](https://github.com/brnrdog/prescriptive) contracts. Each
 component's prop types are **generated from the spec's `## API` contract**
 (`Contracts.res`), so the compiler enforces that the implementation can't drift
 from the spec's allowed values.
 
-Styled against [`@xpecs/tokens`](../tokens) via the semantic utilities
+Styled against [`@prescriptive/tokens`](../tokens) via the semantic utilities
 (`bg-action`, `text-ink`, …), so re-theming is a token change, not a code change.
 
 ## Components
@@ -40,7 +40,7 @@ an ancestor tints the icon. Icon paths are adapted from
 ## Install
 
 ```sh
-npm install @xpecs/xote @xpecs/tokens
+npm install @prescriptive/xote @prescriptive/tokens
 ```
 
 Peer dependencies: `rescript`, `@rescript/core`, `rescript-signals`, `xote`.
@@ -51,7 +51,7 @@ Add it to your `rescript.json` dependencies (the package builds `namespace:false
 so its modules are available unqualified):
 
 ```json
-{ "dependencies": ["@rescript/core", "rescript-signals", "xote", "@xpecs/xote"] }
+{ "dependencies": ["@rescript/core", "rescript-signals", "xote", "@prescriptive/xote"] }
 ```
 
 ```rescript
@@ -60,11 +60,11 @@ so its modules are available unqualified):
 </Button>
 ```
 
-Import the token CSS once at your app entry (see `@xpecs/tokens`):
+Import the token CSS once at your app entry (see `@prescriptive/tokens`):
 
 ```css
 @import "tailwindcss";
-@import "@xpecs/tokens/tailwind.css";
+@import "@prescriptive/tokens/tailwind.css";
 ```
 
 ## Build

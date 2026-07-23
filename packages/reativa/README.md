@@ -1,11 +1,11 @@
-# @xpecs/reativa
+# @prescriptive/reativa
 
 Accessible UI components for **[reativa](https://github.com/brnrdog/reativa)**
-(OCaml + Melange) that implement the [Xpecs](https://github.com/brnrdog/ux-archetypes)
+(OCaml + Melange) that implement the [Prescriptive](https://github.com/brnrdog/prescriptive)
 contracts — the ReasonML/OCaml sibling of
-[`@xpecs/xote`](../xote). Every element, component, and block is written in
+[`@prescriptive/xote`](../xote). Every element, component, and block is written in
 `.mlx` (JSX-for-OCaml) over `Reativa.View`, styled against
-[`@xpecs/tokens`](../tokens), so a re-theme cascades through these exactly like
+[`@prescriptive/tokens`](../tokens), so a re-theme cascades through these exactly like
 it does through the Xote components.
 
 There is no virtual DOM: `View.mount` builds real DOM nodes once and only the
@@ -13,7 +13,7 @@ reactive regions (driven by signals) update in place.
 
 ## What's implemented
 
-The same set `@xpecs/xote` covers — 22 elements, 8 components, and 7 blocks:
+The same set `@prescriptive/xote` covers — 22 elements, 8 components, and 7 blocks:
 
 | Layer | Specs |
 | ----- | ----- |
@@ -54,7 +54,7 @@ opam install dune melange mlx
 Then:
 
 ```bash
-npm run build --workspace @xpecs/reativa   # contracts → melange → esbuild bundle
+npm run build --workspace @prescriptive/reativa   # contracts → melange → esbuild bundle
 ```
 
 To move to a newer reativa, bump `REATIVA_REF` in `scripts/build.mjs`.

@@ -1,5 +1,5 @@
 // Bridges the reativa (OCaml + Melange) component implementations into the
-// ReScript/Xote website. The components live in the @xpecs/reativa package
+// ReScript/Xote website. The components live in the @prescriptive/reativa package
 // (packages/reativa/src/*.mlx) and are compiled + bundled to
 // website/src/reativa.bundle.js by `npm run reativa`.
 //

@@ -73,7 +73,7 @@ function themeValueFor(tok) {
 
 // --- variables.css : the --ux-* custom properties ---------------------------
 const rootLines = Object.entries(flat).map(([p, t]) => `  ${uxVar(p)}: ${uxValueFor(t)};`);
-const banner = `/* GENERATED — @xpecs/tokens. Source: framework tokens.json (DTCG). */`;
+const banner = `/* GENERATED — @prescriptive/tokens. Source: framework tokens.json (DTCG). */`;
 writeFileSync(join(dist, "variables.css"), `${banner}\n:root {\n${rootLines.join("\n")}\n}\n`);
 
 // --- tailwind.css : Tailwind v4 @theme preset + the --ux-* mirror -----------
@@ -142,5 +142,5 @@ copyFileSync(srcTokens, join(dist, "tokens.json"));
 copyFileSync(srcThemes, join(dist, "themes.json"));
 
 console.log(
-  `@xpecs/tokens: ${Object.keys(flat).length} tokens, ${themeList.length} themes → dist/`,
+  `@prescriptive/tokens: ${Object.keys(flat).length} tokens, ${themeList.length} themes → dist/`,
 );

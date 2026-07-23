@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const srcDir = join(here, "..", "src");
-// Reusable components now live in the @xpecs/xote package.
+// Reusable components now live in the @prescriptive/xote package.
 const compDir = join(here, "..", "..", "packages", "xote", "src");
 const examplesSrc = readFileSync(join(srcDir, "Examples.res"), "utf8");
 const outFile = join(srcDir, "ExampleSource.res");
