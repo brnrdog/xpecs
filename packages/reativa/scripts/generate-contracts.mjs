@@ -5,7 +5,7 @@
 // sync with the contract's allowed values.
 //
 // This is the OCaml counterpart of packages/xote/scripts/generate-contracts.mjs
-// (which emits ReScript polymorphic variants for @xpecs/xote); both read the
+// (which emits ReScript polymorphic variants for @prescriptive/xote); both read the
 // same specs so the two implementations expose the same contract types.
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join, dirname, basename } from "node:path";

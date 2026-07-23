@@ -4,7 +4,7 @@
    navbar, and other examples. Its [variant]/[size]/[type_] prop types come from
    the spec's `## API` contract (Contracts.ml, generated), so the compiler
    enforces that this implementation stays in sync with the spec's allowed
-   values — exactly as @xpecs/xote's Button does. *)
+   values — exactly as @prescriptive/xote's Button does. *)
 
 open Reativa
 

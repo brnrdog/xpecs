@@ -1,5 +1,5 @@
 {
-  "name": "@xpecs/tokens",
+  "name": "@prescriptive/tokens",
   "version": "0.1.0",
   "description": "Design tokens for Xpecs — CSS custom properties, a Tailwind v4 preset, theme overlays, and a typed JS export. Generated from the framework's W3C DTCG tokens.",
   "license": "MIT",

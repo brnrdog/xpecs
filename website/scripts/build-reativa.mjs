@@ -1,7 +1,7 @@
 // Build the reativa (OCaml + Melange) component bundle consumed by the website's
 // "Reativa" preview, and drop it next to the website sources.
 //
-// The components live in the @xpecs/reativa package (packages/reativa); this
+// The components live in the @prescriptive/reativa package (packages/reativa); this
 // script just delegates to that package's build (clone reativa → dune build
 // @melange → esbuild bundle) and copies the resulting dist/reativa.bundle.js
 // into website/src/reativa.bundle.js, overwriting the checked-in placeholder.
@@ -19,9 +19,9 @@ const websiteDir = resolve(fileURLToPath(import.meta.url), "../..");
 const repoRoot = resolve(websiteDir, "..");
 const pkgDir = resolve(repoRoot, "packages/reativa");
 
-// 1. Build @xpecs/reativa (generates Contracts.ml, compiles with Melange, and
+// 1. Build @prescriptive/reativa (generates Contracts.ml, compiles with Melange, and
 //    bundles to packages/reativa/dist/reativa.bundle.js).
-execFileSync("npm", ["run", "build", "--workspace", "@xpecs/reativa"], {
+execFileSync("npm", ["run", "build", "--workspace", "@prescriptive/reativa"], {
   cwd: repoRoot,
   stdio: "inherit",
 });

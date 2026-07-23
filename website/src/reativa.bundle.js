@@ -1,6 +1,6 @@
 // PLACEHOLDER — not the real bundle.
 //
-// The reativa (OCaml + Melange) Xpecs components live in the @xpecs/reativa
+// The reativa (OCaml + Melange) Xpecs components live in the @prescriptive/reativa
 // package (packages/reativa/src/*.mlx). Building them needs the OCaml toolchain
 // (opam + melange), which isn't part of the ReScript/Vite website build, so this
 // checked-in stub keeps the site building and the "Reativa" tab present (showing
@@ -10,7 +10,7 @@
 //
 //     cd website && npm run reativa
 //
-// which builds @xpecs/reativa and copies its dist/reativa.bundle.js here.
+// which builds @prescriptive/reativa and copies its dist/reativa.bundle.js here.
 // See packages/reativa/README.md for the toolchain setup.
 
 export const built = false;

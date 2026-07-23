@@ -1,7 +1,7 @@
 {
-  "name": "@xpecs/reativa",
+  "name": "@prescriptive/reativa",
   "version": "0.1.0",
-  "description": "Accessible UI components for Reativa (OCaml + Melange) that implement the Xpecs contracts — the ReasonML/OCaml sibling of @xpecs/xote. Styled against @xpecs/tokens; prop types are generated from the spec API contracts, so the implementation can't drift from the spec.",
+  "description": "Accessible UI components for Reativa (OCaml + Melange) that implement the Xpecs contracts — the ReasonML/OCaml sibling of @prescriptive/xote. Styled against @prescriptive/tokens; prop types are generated from the spec API contracts, so the implementation can't drift from the spec.",
   "license": "MIT",
   "author": "brnrdog",
   "keywords": [
@@ -27,7 +27,7 @@
     "prepack": "npm run contracts"
   },
   "dependencies": {
-    "@xpecs/tokens": "^0.1.0"
+    "@prescriptive/tokens": "^0.1.0"
   },
   "repository": {
     "type": "git",

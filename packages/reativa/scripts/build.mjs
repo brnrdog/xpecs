@@ -1,4 +1,4 @@
-// Build the @xpecs/reativa component bundle (consumed by the website's Reativa
+// Build the @prescriptive/reativa component bundle (consumed by the website's Reativa
 // tab). reativa's core library is a *private* dune library (no public_name), so
 // it can't be consumed as an installed opam library — its own demo works only
 // because it lives inside the reativa dune project. We do the same: clone
@@ -10,7 +10,7 @@
 // Requires: an opam switch with `dune`, `melange`, `mlx` installed, plus git and
 // esbuild. Not part of `npm run build:packages`/the website's default build
 // (it needs opam/melange, which the rest of the build does not) — invoked
-// explicitly by `npm run build --workspace @xpecs/reativa`, and by CI so PRs
+// explicitly by `npm run build --workspace @prescriptive/reativa`, and by CI so PRs
 // compile the components and Pages ships the real bundle.
 
 import { execFileSync } from "node:child_process";
@@ -88,4 +88,4 @@ sh(
   pkgDir,
 );
 
-console.log(`\n✓ @xpecs/reativa bundle written to ${outfile}`);
+console.log(`\n✓ @prescriptive/reativa bundle written to ${outfile}`);

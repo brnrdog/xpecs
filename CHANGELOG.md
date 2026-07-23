@@ -25,7 +25,7 @@ follows [Semantic Versioning](https://semver.org/) and the format of
   - `announcement-bar` — a slim, dismissible, page-width strip for one
     timely message (a launch, promotion, or notice).
 - **First block-level Xote components.** All seven new blocks ship with
-  `implementation:`-mapped components in `@xpecs/xote` (`PageHeader`,
+  `implementation:`-mapped components in `@prescriptive/xote` (`PageHeader`,
   `StatGrid`, `LogoCloud`, `Steps`, `ContactSection`, `Newsletter`,
   `AnnouncementBar`), so the conformance gate now checks blocks too. The
   `steps` and `announcement-bar` enum props are compiler-enforced via the

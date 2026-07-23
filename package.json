@@ -10,8 +10,8 @@
   "scripts": {
     "index": "node scripts/generate-index.mjs",
     "skill": "node scripts/generate-skill.mjs",
-    "build:tokens": "npm run build --workspace @xpecs/tokens",
-    "build:packages": "npm run build --workspace @xpecs/tokens && npm run build --workspace @xpecs/xote && npm run build --workspace @xpecs/skill",
+    "build:tokens": "npm run build --workspace @prescriptive/tokens",
+    "build:packages": "npm run build --workspace @prescriptive/tokens && npm run build --workspace @prescriptive/xote && npm run build --workspace @prescriptive/skill",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "npm run build:packages && changeset publish"

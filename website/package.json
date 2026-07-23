@@ -29,8 +29,8 @@
     "smoke": "node scripts/smoke-all.mjs"
   },
   "dependencies": {
-    "@xpecs/tokens": "*",
-    "@xpecs/xote": "*",
+    "@prescriptive/tokens": "*",
+    "@prescriptive/xote": "*",
     "rescript-signals": "3.1.1",
     "xote": "7.0.0"
   },

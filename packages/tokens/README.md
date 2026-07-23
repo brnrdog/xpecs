@@ -1,4 +1,4 @@
-# @xpecs/tokens
+# @prescriptive/tokens
 
 The design tokens of [Xpecs](https://github.com/brnrdog/ux-archetypes)
 as ready-to-consume artifacts — CSS custom properties, a Tailwind v4 preset,
@@ -8,7 +8,7 @@ source of truth, so they never drift from the specs.
 ## Install
 
 ```sh
-npm install @xpecs/tokens
+npm install @prescriptive/tokens
 ```
 
 ## Use
@@ -16,7 +16,7 @@ npm install @xpecs/tokens
 **Plain CSS** — every token as a `--ux-*` custom property:
 
 ```css
-@import "@xpecs/tokens/variables.css";
+@import "@prescriptive/tokens/variables.css";
 
 .button { background: var(--ux-color-action-default); color: var(--ux-color-action-onAction); }
 ```
@@ -26,14 +26,14 @@ npm install @xpecs/tokens
 
 ```css
 @import "tailwindcss";
-@import "@xpecs/tokens/tailwind.css";
+@import "@prescriptive/tokens/tailwind.css";
 ```
 
 **Theming** — opt into a named theme and light/dark by setting attributes on any
 ancestor (usually `<html>`); the overlays re-point the token variables:
 
 ```css
-@import "@xpecs/tokens/themes.css";
+@import "@prescriptive/tokens/themes.css";
 ```
 ```html
 <html data-theme="ocean" data-mode="dark">
@@ -42,7 +42,7 @@ ancestor (usually `<html>`); the overlays re-point the token variables:
 **JS / TS** — the resolved values as data:
 
 ```js
-import { tokens, flat, themes } from "@xpecs/tokens";
+import { tokens, flat, themes } from "@prescriptive/tokens";
 
 flat["color.action.default"]; // "#1b1917"
 tokens.color.neutral["900"];  // "#1b1917"

@@ -1,5 +1,5 @@
 {
-  "name": "@xpecs/skill",
+  "name": "@prescriptive/skill",
   "version": "0.1.0",
   "description": "The Xpecs Agent Skill — UI specs, traits, design tokens, and the responsive vocabulary compiled into a reference an AI coding agent loads to implement UI to the contracts.",
   "license": "MIT",

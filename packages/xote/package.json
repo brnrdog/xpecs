@@ -1,7 +1,7 @@
 {
-  "name": "@xpecs/xote",
+  "name": "@prescriptive/xote",
   "version": "0.1.0",
-  "description": "Accessible UI components for Xote/ReScript that implement the Xpecs contracts. Styled against @xpecs/tokens; prop types are generated from the spec API contracts, so the implementation can't drift from the spec.",
+  "description": "Accessible UI components for Xote/ReScript that implement the Xpecs contracts. Styled against @prescriptive/tokens; prop types are generated from the spec API contracts, so the implementation can't drift from the spec.",
   "license": "MIT",
   "author": "brnrdog",
   "keywords": [
@@ -32,7 +32,7 @@
     "xote": ">=7.0.0"
   },
   "dependencies": {
-    "@xpecs/tokens": "^0.1.0"
+    "@prescriptive/tokens": "^0.1.0"
   },
   "repository": {
     "type": "git",

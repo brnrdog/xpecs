@@ -60,17 +60,17 @@ Specs without an example fall back to a graceful placeholder.
 
 ## Xote / Reativa implementations
 
-Every element, component, and block that `@xpecs/xote` implements is **also**
+Every element, component, and block that `@prescriptive/xote` implements is **also**
 implemented in OCaml with [reativa](https://github.com/brnrdog/reativa) — the
 signal-based sibling of Xote — in the
-[`@xpecs/reativa`](../packages/reativa) package. The example block has two tab
+[`@prescriptive/reativa`](../packages/reativa) package. The example block has two tab
 strips: one picks the **view** (Preview / Playground / Code) and one picks the
 **implementation** rendered in the preview (**Xote** or **Reativa**), so the two
 render the same spec from the same design tokens, side by side.
 
 The reativa build is a self-contained Melange workspace, kept **separate** from
 this ReScript/Vite build (it needs opam + melange, the website doesn't).
-`npm run reativa` builds `@xpecs/reativa` and copies its bundle to
+`npm run reativa` builds `@prescriptive/reativa` and copies its bundle to
 `src/reativa.bundle.js`; a checked-in placeholder keeps the site compiling until
 then. See [`packages/reativa/README.md`](../packages/reativa/README.md).
 
