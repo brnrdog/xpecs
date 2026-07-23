@@ -1,0 +1,203 @@
+(* Reativa (OCaml + Melange) implementations of a handful of Xpecs specs.
+
+   This is the ReasonML/OCaml counterpart to the ReScript + Xote examples in
+   [website/src/Examples.res]. The two render the *same* specs, side by side,
+   from the same design tokens — the website shows the Xote version under the
+   "Preview" tab and this Melange version under the "Reativa" tab.
+
+   Everything below is written in .mlx (JSX-for-OCaml, transformed by mlx-pp)
+   over [Reativa.View]. There is no virtual DOM: [View.mount] builds real DOM
+   nodes once and only reactive regions (driven by signals) update in place.
+
+   Classes are the shared, token-driven Tailwind utilities (bg-action,
+   text-on-action, border-status-*, …) so a re-theme cascades through these
+   exactly like it does through the Xote components. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+(* ------------------------------------------------------------------ *)
+(* element: button                                                     *)
+(* ------------------------------------------------------------------ *)
+
+module Button = struct
+  type variant =
+    | Primary
+    | Secondary
+    | Ghost
+    | Destructive
+
+  (* Layout core shared by every variant (mirrors Ui.btnCore / Ui.btnMd). *)
+  let core =
+    "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm \
+     font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 \
+     focus-visible:ring-action focus-visible:ring-offset-2 \
+     focus-visible:ring-offset-surface disabled:opacity-40 \
+     disabled:pointer-events-none"
+
+  let colors = function
+    | Primary -> "bg-action text-on-action hover:bg-action-hover"
+    | Secondary -> "border border-border bg-surface text-ink hover:bg-action-subtle"
+    | Ghost -> "text-ink hover:bg-action-subtle"
+    | Destructive -> "bg-status-danger text-on-action hover:opacity-90"
+
+  let component = fun ~variant ~label ->
+    <button className=(core ^ " " ^ colors variant)>(label)</button>
+end
+
+let button_example () =
+  <div className="flex flex-wrap items-center gap-3">
+    <Button variant=Button.Primary label="Primary" />
+    <Button variant=Button.Secondary label="Secondary" />
+    <Button variant=Button.Ghost label="Ghost" />
+    <Button variant=Button.Destructive label="Delete" />
+  </div>
+
+(* ------------------------------------------------------------------ *)
+(* element: badge                                                      *)
+(* ------------------------------------------------------------------ *)
+
+module Badge = struct
+  type variant =
+    | Solid
+    | Soft
+    | Outline
+
+  let base = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium "
+
+  let tone = function
+    | Solid -> "bg-neutral-900 text-neutral-0"
+    | Soft -> "bg-neutral-200 text-neutral-800"
+    | Outline -> "border border-neutral-300 text-neutral-700"
+
+  let component = fun ~variant ~label ->
+    <span className=(base ^ tone variant)>(label)</span>
+end
+
+let badge_example () =
+  <div className="flex flex-wrap items-center gap-2">
+    <Badge variant=Badge.Solid label="Default" />
+    <Badge variant=Badge.Soft label="Secondary" />
+    <Badge variant=Badge.Outline label="Outline" />
+    <Badge variant=Badge.Solid label="99+" />
+  </div>
+
+(* ------------------------------------------------------------------ *)
+(* component: alert (dismissible — demonstrates signals)               *)
+(* ------------------------------------------------------------------ *)
+
+module Alert = struct
+  type variant =
+    | Info
+    | Success
+    | Warning
+    | Danger
+
+  let border = function
+    | Info -> "border-status-info"
+    | Success -> "border-status-success"
+    | Warning -> "border-status-warning"
+    | Danger -> "border-status-danger"
+
+  let icon_color = function
+    | Info -> "text-status-info"
+    | Success -> "text-status-success"
+    | Warning -> "text-status-warning"
+    | Danger -> "text-status-danger"
+
+  (* [role="alert"] is not one of the props the mlx element helper exposes, so
+     the root is built with the lower-level [View.div ~attrs] API. A local
+     [visible] signal drives the dismiss behaviour — the whole node is removed
+     from the DOM when it flips, with no re-render of anything else. *)
+  let component = fun ~variant ~title ~description ->
+    let visible = Signal.make true in
+    View.show
+      (fun () -> Signal.get visible)
+      (View.div
+         ~attrs:
+           [ View.Attr.make "role" (View.static "alert");
+             View.Attr.className
+               (View.static
+                  ("flex items-start gap-3 rounded-lg border bg-surface p-4 text-sm text-ink "
+                  ^ border variant)) ]
+         [ <span className=("mt-0.5 text-base leading-none " ^ icon_color variant)>("\xe2\x97\x8f")</span>;
+           <div className="min-w-0 flex-1">
+             <p className="font-medium text-ink">(title)</p>
+             <p className="text-muted">(description)</p>
+           </div>;
+           <button
+             className="-mr-1 -mt-1 ml-auto rounded-md p-1 leading-none text-muted hover:bg-action-subtle hover:text-ink"
+             aria_label="Dismiss"
+             onClick=(fun _ -> Signal.set visible false)
+           >("\xc3\x97")</button> ])
+end
+
+let alert_example () =
+  <div className="w-full max-w-md space-y-3">
+    <Alert variant=Alert.Info title="Heads up" description="Your trial ends in 3 days." />
+    <Alert variant=Alert.Success title="Changes saved" description="Your profile has been updated." />
+    <Alert variant=Alert.Warning title="Storage almost full" description="You've used 90% of your quota." />
+    <Alert
+      variant=Alert.Danger
+      title="Payment failed"
+      description="Update your card to keep your subscription active."
+    />
+  </div>
+
+(* ------------------------------------------------------------------ *)
+(* block: cta-section (reactive email input)                           *)
+(* ------------------------------------------------------------------ *)
+
+let cta_example () =
+  let email = Signal.make "" in
+  (* A Computed read directly in the JSX below (Signal.get can_submit) so the
+     mlx transform tracks it and the button restyles reactively as you type. *)
+  let can_submit = Computed.make (fun () -> String.length (String.trim (Signal.get email)) > 0) in
+  <div className="w-full max-w-2xl rounded-lg bg-neutral-900 px-8 py-10 text-center text-neutral-0">
+    <h2 className="text-2xl font-bold">("Start building today")</h2>
+    <p className="mt-2 text-sm text-neutral-300">
+      ("Join thousands of teams shipping faster. Free for 14 days.")
+    </p>
+    <div className="mx-auto mt-5 flex max-w-md gap-2">
+      <input
+        className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 px-3 py-2 text-sm text-neutral-0 placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        placeholder="you@example.com"
+        value=(Signal.get email)
+        onInput=(fun ev -> Signal.set email (Dom.target_value ev))
+      />
+      <button
+        className=(
+          if Signal.get can_submit then
+            "rounded-md bg-surface px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-200"
+          else "rounded-md bg-neutral-700 px-4 py-2 text-sm font-medium text-neutral-400")
+        disabled=(not (Signal.get can_submit))
+      >("Get started")</button>
+    </div>
+  </div>
+
+(* ------------------------------------------------------------------ *)
+(* registry + mount entry (the JS surface consumed by the website)     *)
+(* ------------------------------------------------------------------ *)
+
+(* Mount the reativa example for [spec_id] into the element with id
+   [container_id]. The container is cleared first so re-selecting the tab
+   re-mounts cleanly instead of stacking copies. Called from ReScript via the
+   esbuild-bundled ES module (see website/src/ReativaExamples.res). *)
+let mount_example spec_id container_id =
+  match Dom.by_id container_id with
+  | None -> ()
+  | Some el ->
+    Dom.set_text_content el "";
+    (match spec_id with
+     | "button" -> View.mount el (button_example ())
+     | "badge" -> View.mount el (badge_example ())
+     | "alert" -> View.mount el (alert_example ())
+     | "cta-section" -> View.mount el (cta_example ())
+     | _ -> ())
+
+(* The spec ids that have a reativa implementation, exposed to the website so
+   it knows which specs get a "Reativa" tab. *)
+let example_ids = [| "button"; "badge"; "alert"; "cta-section" |]
+
+(* Distinguishes the real compiled bundle from the checked-in placeholder. *)
+let built = true

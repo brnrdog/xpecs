@@ -652,6 +652,7 @@ module ExampleBlock = {
     let full = Signal.make(false)
     let snippet = ExampleSource.get(a.id)
     let hasExample = Examples.get(a.id)->Option.isSome
+    let hasReativa = ReativaExamples.has(a.id)
     let playground = Playground.get(a.id)
     let tabCls = target =>
       Computed.make(() =>
@@ -662,8 +663,17 @@ module ExampleBlock = {
     let isPreview = Computed.make(() => Signal.get(mode) == "preview")
     let isCode = Computed.make(() => Signal.get(mode) == "code")
     let isPlay = Computed.make(() => Signal.get(mode) == "play")
+    let isReativa = Computed.make(() => Signal.get(mode) == "reativa")
     // Close fullscreen on Escape while it is open.
     Effect.run(() => Signal.get(full) ? Some(Ui.onEscape(() => Signal.set(full, false))) : None)
+    // When the Reativa tab is active, imperatively mount the OCaml/Melange
+    // example into its container (the reativa runtime owns that subtree).
+    Effect.run(() => {
+      if Signal.get(isReativa) && ReativaExamples.built {
+        ReativaExamples.mount(a.id)
+      }
+      None
+    })
     <div class="mt-10">
       <div class="mb-3 flex items-center justify-between">
         <div class="inline-flex items-center gap-1 rounded-lg border border-neutral-200 bg-neutral-50 p-0.5">
@@ -684,6 +694,11 @@ module ExampleBlock = {
             </button>
           | None => View.null()
           }}
+          {hasReativa
+            ? <button class={Prop.signal(tabCls("reativa"))} onClick={_ => Signal.set(mode, "reativa")}>
+                <View.Text> "Reativa" </View.Text>
+              </button>
+            : View.null()}
         </div>
         <div class="flex items-center gap-3">
           {hasExample
@@ -704,6 +719,25 @@ module ExampleBlock = {
       <View.Show when_={Prop.signal(isPreview)}>
         <Preview id={a.id} />
       </View.Show>
+      {hasReativa
+        ? <View.Show when_={Prop.signal(isReativa)}>
+            {ReativaExamples.built
+              ? // The reativa runtime mounts the OCaml/Melange example here.
+                <div class="preview-surface flex min-h-48 items-center justify-center rounded-2xl border border-neutral-200 p-10 shadow-sm">
+                  <div id={ReativaExamples.containerId(a.id)} />
+                </div>
+              : <div class="flex min-h-48 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-neutral-300 p-10 text-center">
+                  <span class="text-sm font-medium text-neutral-600">
+                    <View.Text> "Reativa preview not built" </View.Text>
+                  </span>
+                  <span class="max-w-sm text-xs text-neutral-400">
+                    <View.Text>
+                      "This spec also has an OCaml + Melange (reativa) implementation. Run npm run reativa in website/ to compile it and render it here, alongside the Xote version."
+                    </View.Text>
+                  </span>
+                </div>}
+          </View.Show>
+        : View.null()}
       {switch playground {
       | Some(def) =>
         <View.Show when_={Prop.signal(isPlay)}>
