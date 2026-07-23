@@ -1,6 +1,5 @@
 ---
 "@xpecs/xote": minor
-"xpecs": minor
 ---
 
 Add a modern SVG icon library with an `Icon` component.
