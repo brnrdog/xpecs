@@ -1,0 +1,16 @@
+[@@@warning "-a"]
+
+(* ScrollArea — a container that scrolls its overflowing content. Implements the
+   `scroll-area` spec. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(orientation : Contracts.ScrollArea.orientation = `vertical) ?(extra_class = "") ~children () =
+  let overflow =
+    match orientation with
+    | `vertical -> "overflow-y-auto"
+    | `horizontal -> "overflow-x-auto"
+    | `both -> "overflow-auto"
+  in
+  <div className=(Ui.cx overflow extra_class)>(View.fragment children)</div>

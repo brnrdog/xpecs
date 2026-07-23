@@ -1,0 +1,37 @@
+[@@@warning "-a"]
+
+(* Button — the reusable action control. Reused by the card, dialog, form,
+   navbar, and other examples. Its [variant]/[size]/[type_] prop types come from
+   the spec's `## API` contract (Contracts.ml, generated), so the compiler
+   enforces that this implementation stays in sync with the spec's allowed
+   values — exactly as @xpecs/xote's Button does. *)
+
+open Reativa
+
+let make ?(variant : Contracts.Button.variant = `primary) ?(size : Contracts.Button.size = `md)
+    ?(type_ : Contracts.Button.type_ = `button) ?(disabled = false) ?(loading = false) ?on_click
+    ?(extra_class = "") ~children () =
+  let type_str = match type_ with `button -> "button" | `submit -> "submit" | `reset -> "reset" in
+  let size_cls = match size with `sm -> Ui.btn_sm | `md -> Ui.btn_md | `lg -> Ui.btn_lg in
+  let colors =
+    match variant with
+    | `primary -> Ui.btn_primary_colors
+    | `secondary -> Ui.btn_secondary_colors
+    | `ghost -> Ui.btn_ghost_colors
+    | `destructive -> Ui.btn_destructive_colors
+  in
+  (* Dark-surface variants need an on-accent spinner; light ones use ink. *)
+  let spinner_tone =
+    match variant with `primary | `destructive -> `on_accent | `secondary | `ghost -> `ink
+  in
+  let cls = Ui.cx (Ui.btn_core ^ " " ^ size_cls ^ " " ^ colors) extra_class in
+  let attrs =
+    [
+      View.Attr.type_ (View.static type_str);
+      View.Attr.className (View.static cls);
+      View.Attr.disabled (fun () -> disabled || loading);
+    ]
+  in
+  let events = match on_click with Some f -> [ View.On.click f ] | None -> [] in
+  let spinner = if loading then Spinner.make ~tone:spinner_tone () else View.empty in
+  View.element ~attrs ~events "button" [ spinner; View.fragment children ]

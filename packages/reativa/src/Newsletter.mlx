@@ -1,0 +1,69 @@
+[@@@warning "-a"]
+
+(* Newsletter — a one-field email-capture band. Submit prevents the default,
+   hands the address to [on_subscribe], and swaps the form for an announced
+   confirmation — the spec's success state. The visible heading and an explicit
+   aria-label keep the field labelled without a floating label. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(description = "") ?(consent = "") ?on_subscribe ~heading () =
+  let email = Signal.make "" in
+  let done_ = Signal.make false in
+  let submit ev =
+    Ui.prevent_default ev;
+    (match on_subscribe with Some f -> f (Signal.get email) | None -> ());
+    Signal.set done_ true
+  in
+  let form_node =
+    View.element
+      ~attrs:
+        [
+          View.Attr.className
+            (View.static "mx-auto mt-5 flex w-full max-w-md flex-col gap-2 sm:flex-row");
+        ]
+      ~events:[ View.On.submit submit ]
+      "form"
+      [
+        View.element
+          ~attrs:
+            [
+              View.Attr.type_ (View.static "email");
+              View.Attr.toggle "required" (fun () -> true);
+              View.Attr.make "aria-label" (View.static "Email address");
+              View.Attr.placeholder (View.static "you@example.com");
+              View.Attr.className (View.static (Ui.input_base ^ " flex-1"));
+            ]
+          ~events:[ View.On.input (fun e -> Signal.set email (Ui.input_value e)) ]
+          "input" [];
+        (Button.make ~type_:`submit ~variant:`primary
+           ~children:[ View.text (View.static "Subscribe") ] ());
+      ]
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.className
+          (View.static "w-full rounded-2xl border border-border bg-surface p-8 text-center");
+      ]
+    "section"
+    [
+      <h2 className="text-xl font-semibold tracking-tight text-ink">(heading)</h2>;
+      (if description = "" then View.empty
+       else <p className="mt-1 text-sm text-muted">(description)</p>);
+      (View.show (fun () -> not (Signal.get done_)) form_node);
+      (View.element
+         ~attrs:[ View.Attr.make "role" (View.static "status") ]
+         "div"
+         [
+           View.show
+             (fun () -> Signal.get done_)
+             (<p className="mx-auto mt-5 flex max-w-md items-center justify-center gap-2 text-sm text-ink">
+                <span className="text-status-success">(Icon.make ~name:"check-circle" ())</span>
+                ("Almost there \xe2\x80\x94 check your inbox to confirm.")
+              </p>);
+         ]);
+      (if consent = "" then View.empty
+       else <p className="mt-3 text-xs text-muted">(consent)</p>);
+    ]

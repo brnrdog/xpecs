@@ -1,0 +1,21 @@
+[@@@warning "-a"]
+
+(* Input — a single-line text field. Reused by form, field, dialog, and filters.
+   Left visually uncontrolled; hand it an [on_input] to observe changes. *)
+
+open Reativa
+
+let make ?(type_ = "text") ?id ?(placeholder = "") ?value ?(required = false) ?on_input
+    ?(extra_class = "") () =
+  let attrs =
+    [
+      View.Attr.type_ (View.static type_);
+      View.Attr.placeholder (View.static placeholder);
+      View.Attr.className (View.static (Ui.cx Ui.input_base extra_class));
+      View.Attr.toggle "required" (fun () -> required);
+    ]
+  in
+  let attrs = match id with Some i -> View.Attr.id (View.static i) :: attrs | None -> attrs in
+  let attrs = match value with Some v -> View.Attr.value (View.static v) :: attrs | None -> attrs in
+  let events = match on_input with Some f -> [ View.On.input f ] | None -> [] in
+  View.element ~attrs ~events "input" []

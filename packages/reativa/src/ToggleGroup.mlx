@@ -1,0 +1,46 @@
+[@@@warning "-a"]
+
+(* ToggleGroup — a segmented control bound to a signal. Each option is an
+   (id, label) pair. Implements the `toggle-group` spec: [type_] picks between
+   single select (segmented control) and multiple select (independent toggles),
+   so the bound value is a list of selected ids — one entry in single mode.
+   [aria-pressed] isn't a mlx element attribute, so each toggle uses
+   [View.element]. *)
+
+open Reativa
+
+let make ?(type_ : Contracts.ToggleGroup.type_ = `single) ?(disabled = false) ~value ~options () =
+  let toggle id =
+    match type_ with
+    | `single -> Signal.set value [ id ]
+    | `multiple ->
+      Signal.update value (fun v ->
+          if List.mem id v then List.filter (fun x -> x <> id) v else v @ [ id ])
+  in
+  let render (id, label) =
+    let cls () =
+      "border-l border-neutral-300 px-4 py-2 text-sm transition-colors first:border-l-0 "
+      ^
+      if List.mem id (Signal.get value) then "bg-action text-on-action"
+      else "bg-surface text-neutral-700 hover:bg-neutral-100"
+    in
+    let pressed () = if List.mem id (Signal.get value) then "true" else "false" in
+    View.element
+      ~attrs:
+        [
+          View.Attr.type_ (View.static "button");
+          View.Attr.make "aria-pressed" (View.dynamic pressed);
+          View.Attr.class_reactive cls;
+        ]
+      ~events:[ View.On.click (fun _ -> toggle id) ]
+      "button"
+      [ View.text (View.static label) ]
+  in
+  let wrap_cls =
+    "inline-flex overflow-hidden rounded-md border border-neutral-300"
+    ^ if disabled then " pointer-events-none opacity-50" else ""
+  in
+  View.element
+    ~attrs:[ View.Attr.make "role" (View.static "group"); View.Attr.className (View.static wrap_cls) ]
+    "div"
+    (List.map render options)

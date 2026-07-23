@@ -1,0 +1,56 @@
+[@@@warning "-a"]
+
+(* Page Header — opens an application view: an optional breadcrumb trail, the
+   view's single h1 with a line of context, and the view's actions (passed as
+   children, e.g. Buttons), aligned opposite the title. A breadcrumb entry with
+   an empty href renders as the current page. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(description = "") ?(breadcrumb = []) ~title ~children () =
+  let crumb_item (label, href) =
+    let inner =
+      if href = "" then <span className="font-medium text-ink">(label)</span>
+      else
+        <span className="flex items-center gap-1.5">
+          <a href=href className="transition-colors hover:text-ink">(label)</a>
+          <span className="text-neutral-300">(Icon.make ~name:"chevron-right" ~size:`xs ())</span>
+        </span>
+    in
+    <li className="flex items-center gap-1.5">(inner)</li>
+  in
+  let breadcrumb_node =
+    if breadcrumb = [] then View.empty
+    else
+      View.element
+        ~attrs:
+          [
+            View.Attr.make "aria-label" (View.static "Breadcrumb");
+            View.Attr.className (View.static "mb-1.5");
+          ]
+        "nav"
+        [
+          View.element
+            ~attrs:[ View.Attr.className (View.static "flex items-center gap-1.5 text-xs text-muted") ]
+            "ul"
+            (List.map crumb_item breadcrumb);
+        ]
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.className
+          (View.static
+             "flex w-full flex-wrap items-start justify-between gap-x-6 gap-y-4 border-b border-border pb-5");
+      ]
+    "header"
+    [
+      <div className="min-w-0">
+        (breadcrumb_node)
+        <h1 className="truncate text-2xl font-semibold tracking-tight text-ink">(title)</h1>
+        (if description = "" then View.empty
+         else <p className="mt-1 text-sm text-muted">(description)</p>)
+      </div>;
+      <div className="flex shrink-0 items-center gap-2">(View.fragment children)</div>;
+    ]

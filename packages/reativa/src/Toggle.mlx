@@ -1,0 +1,21 @@
+[@@@warning "-a"]
+
+(* Toggle — a two-state button bound to a signal. Implements the `toggle` spec. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(disabled = false) ~pressed ~children () =
+  let cls () =
+    "inline-flex size-10 items-center justify-center rounded-md text-sm font-semibold transition-colors "
+    ^
+    if Signal.get pressed then "bg-neutral-900 text-neutral-0"
+    else "border border-neutral-300 bg-surface text-neutral-700 hover:bg-neutral-100"
+  in
+  <button
+    type_="button"
+    disabled=disabled
+    className=(dynamic cls)
+    onClick=(fun _ -> Signal.update pressed (fun v -> not v))>
+    (View.fragment children)
+  </button>

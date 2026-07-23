@@ -1,0 +1,50 @@
+[@@@warning "-a"]
+
+(* Alert — an inline message drawing attention to contextual information. The
+   [variant] type comes from the spec's `## API` contract (Contracts.ml), so the
+   compiler enforces the spec's allowed severities. Severity is conveyed by the
+   semantic status hues (and the glyph, so color is never the only cue). *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(variant : Contracts.Alert.variant = `info) ?(icon = "") ~title ~description () =
+  (* A per-variant default glyph, used when no explicit [icon] name is given. *)
+  let icon_name =
+    if icon = "" then
+      match variant with
+      | `info -> "info"
+      | `success -> "check-circle"
+      | `warning -> "alert-triangle"
+      | `danger -> "alert-circle"
+    else icon
+  in
+  let border =
+    match variant with
+    | `info -> "border-status-info"
+    | `success -> "border-status-success"
+    | `warning -> "border-status-warning"
+    | `danger -> "border-status-danger"
+  in
+  let icon_color =
+    match variant with
+    | `info -> "text-status-info"
+    | `success -> "text-status-success"
+    | `warning -> "text-status-warning"
+    | `danger -> "text-status-danger"
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.make "role" (View.static "alert");
+        View.Attr.className
+          (View.static ("flex gap-3 rounded-lg border bg-surface p-4 text-sm text-ink " ^ border));
+      ]
+    "div"
+    [
+      <span className=("mt-0.5 " ^ icon_color)>(Icon.make ~name:icon_name ())</span>;
+      <div>
+        <p className="font-medium text-ink">(title)</p>
+        <p className="text-muted">(description)</p>
+      </div>;
+    ]

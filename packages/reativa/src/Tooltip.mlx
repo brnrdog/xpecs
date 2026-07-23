@@ -1,0 +1,38 @@
+[@@@warning "-a"]
+
+(* Tooltip — a brief label revealed on hover/focus of its trigger. [content] is
+   the contract prop; the trigger is passed as children. Anchored above the
+   trigger. The hover/focus events aren't attributes the mlx element helper
+   exposes, so the wrapper is built with [View.element ~events] using bubbling
+   [mouseenter]/[mouseleave]/[focusin]/[focusout]. *)
+
+open Reativa
+
+let make ~content ~children () =
+  let open_ = Signal.make false in
+  View.element
+    ~attrs:[ View.Attr.className (View.static "relative inline-block") ]
+    ~events:
+      [
+        View.On.on "mouseenter" (fun _ -> Signal.set open_ true);
+        View.On.on "mouseleave" (fun _ -> Signal.set open_ false);
+        View.On.on "focusin" (fun _ -> Signal.set open_ true);
+        View.On.on "focusout" (fun _ -> Signal.set open_ false);
+      ]
+    "span"
+    [
+      View.fragment children;
+      View.show
+        (fun () -> Signal.get open_)
+        (View.element
+           ~attrs:
+             [
+               View.Attr.make "role" (View.static "tooltip");
+               View.Attr.className
+                 (View.static
+                    "absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md \
+                     bg-neutral-900 px-2 py-1 text-xs text-neutral-0");
+             ]
+           "span"
+           [ View.text (View.static content) ]);
+    ]

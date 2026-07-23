@@ -1,0 +1,29 @@
+[@@@warning "-a"]
+
+(* Collapsible — a single region that expands/collapses to show or hide content.
+   Controlled via an [open_] signal (the contract's `open` prop); the trigger
+   label and the collapsible content are passed in. Reuses Button. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ~open_ ~label ~children () =
+  let caret () = if Signal.get open_ then "\xe2\x8c\x83" else "\xe2\x8c\x84" in
+  <div className="w-80 space-y-2">
+    (Button.make ~variant:`secondary ~extra_class:"w-full justify-between"
+       ~on_click:(fun _ -> Signal.update open_ (fun v -> not v))
+       ~children:
+         [
+           View.text (View.static label);
+           View.element
+             ~attrs:[ View.Attr.className (View.static "text-neutral-400") ]
+             "span"
+             [ View.dyn_text caret ];
+         ]
+       ())
+    (View.show
+       (fun () -> Signal.get open_)
+       (<div className="rounded-md border border-neutral-200 p-3 text-sm text-neutral-600">
+          (View.fragment children)
+        </div>))
+  </div>

@@ -1,0 +1,10 @@
+[@@@warning "-a"]
+
+(* Backdrop — a full-screen click-catcher that dismisses an open overlay. Reused
+   by Select, dropdown-menu, popover, and others. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ~on_close () =
+  <div className="fixed inset-0 z-10" onClick=(fun _ -> on_close ()) />

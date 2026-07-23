@@ -1,0 +1,35 @@
+[@@@warning "-a"]
+
+(* Accordion — a stack of headers that expand/collapse their panels. [type_]
+   (from the contract) selects single- vs multiple-open behavior; [collapsible]
+   controls whether the open panel can be closed again. Open state is the list of
+   open ids held in the [value] signal. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(type_ : Contracts.Accordion.type_ = `single) ?(collapsible = true) ~value ~items () =
+  let toggle id =
+    Signal.update value (fun cur ->
+        let is_open = List.mem id cur in
+        match (type_, is_open) with
+        | _, true -> if collapsible then List.filter (fun x -> x <> id) cur else cur
+        | `single, false -> [ id ]
+        | `multiple, false -> cur @ [ id ])
+  in
+  let render (id, header, panel) =
+    let is_open () = List.mem id (Signal.get value) in
+    let mark () = if List.mem id (Signal.get value) then "\xe2\x88\x92" else "+" in
+    <div>
+      <button
+        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-neutral-800 hover:bg-neutral-50"
+        onClick=(fun _ -> toggle id)>
+        (header)
+        <span className="text-neutral-400">(View.dyn_text mark)</span>
+      </button>
+      (View.show is_open (<p className="px-4 pb-3 text-sm text-neutral-500">(panel)</p>))
+    </div>
+  in
+  <div className="w-96 divide-y divide-neutral-200 rounded-lg border border-neutral-200">
+    (View.fragment (List.map render items))
+  </div>

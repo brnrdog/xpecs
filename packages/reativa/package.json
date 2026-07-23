@@ -1,0 +1,40 @@
+{
+  "name": "@xpecs/reativa",
+  "version": "0.1.0",
+  "description": "Accessible UI components for Reativa (OCaml + Melange) that implement the Xpecs contracts — the ReasonML/OCaml sibling of @xpecs/xote. Styled against @xpecs/tokens; prop types are generated from the spec API contracts, so the implementation can't drift from the spec.",
+  "license": "MIT",
+  "author": "brnrdog",
+  "keywords": [
+    "ocaml",
+    "reason",
+    "melange",
+    "reativa",
+    "components",
+    "ui",
+    "design-system",
+    "ux-archetypes",
+    "accessibility"
+  ],
+  "type": "module",
+  "files": [
+    "src",
+    "dune",
+    "README.md"
+  ],
+  "scripts": {
+    "contracts": "node scripts/generate-contracts.mjs",
+    "build": "npm run contracts && node scripts/build.mjs",
+    "prepack": "npm run contracts"
+  },
+  "dependencies": {
+    "@xpecs/tokens": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brnrdog/ux-archetypes",
+    "directory": "packages/reativa"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

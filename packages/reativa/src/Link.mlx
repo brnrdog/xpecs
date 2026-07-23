@@ -1,0 +1,27 @@
+[@@@warning "-a"]
+
+(* Link — the reusable navigation control. Reused by navbar, breadcrumb, footer,
+   sign-in, and pagination. [new_tab] opens in a new tab; [target] is not one of
+   the attributes the mlx element helper exposes, so the anchor is built with the
+   lower-level [View.element ~attrs] API when needed. *)
+
+open Reativa
+
+let make ?(href = "#") ?(variant : Contracts.Link.variant = `default) ?(new_tab = false)
+    ?(extra_class = "") ~children () =
+  let base =
+    match variant with
+    | `default ->
+      "text-neutral-900 underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-900"
+    | `muted -> "text-neutral-500 transition-colors hover:text-neutral-900"
+  in
+  let attrs =
+    [
+      View.Attr.href (View.static href);
+      View.Attr.className (View.static (Ui.cx base extra_class));
+    ]
+  in
+  let attrs =
+    if new_tab then View.Attr.make "target" (View.static "_blank") :: attrs else attrs
+  in
+  View.element ~attrs "a" [ View.fragment children ]

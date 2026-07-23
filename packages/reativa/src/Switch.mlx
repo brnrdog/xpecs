@@ -1,0 +1,41 @@
+[@@@warning "-a"]
+
+(* Switch — a controlled on/off toggle bound to a signal. Implements the `switch`
+   spec: [checked] drives the visual state and the aria-checked announcement,
+   [disabled] blocks interaction. [role]/[aria-checked] aren't attributes the mlx
+   element helper exposes, so the control is built with [View.element]. *)
+
+open Reativa
+open Reativa.View.Mlx
+
+let make ?(label = "") ?(disabled = false) ~checked () =
+  let track () =
+    "relative inline-flex h-6 w-11 items-center rounded-full transition-colors "
+    ^ (if Signal.get checked then "bg-action" else "bg-neutral-300")
+    ^ if disabled then " opacity-40" else ""
+  in
+  let knob () =
+    "inline-block size-5 transform rounded-full bg-surface shadow transition-transform "
+    ^ if Signal.get checked then "translate-x-5" else "translate-x-0.5"
+  in
+  let aria_checked () = if Signal.get checked then "true" else "false" in
+  let knob_node = View.element ~attrs:[ View.Attr.class_reactive knob ] "span" [] in
+  let control =
+    View.element
+      ~attrs:
+        [
+          View.Attr.type_ (View.static "button");
+          View.Attr.make "role" (View.static "switch");
+          View.Attr.make "aria-checked" (View.dynamic aria_checked);
+          View.Attr.disabled (fun () -> disabled);
+          View.Attr.class_reactive track;
+        ]
+      ~events:
+        [ View.On.click (fun _ -> if disabled then () else Signal.update checked (fun v -> not v)) ]
+      "button" [ knob_node ]
+  in
+  let label_cls = if disabled then "flex items-center gap-3 cursor-not-allowed" else "flex items-center gap-3" in
+  <label className=label_cls>
+    (control)
+    (if label = "" then View.empty else <span className="text-sm text-neutral-800">(label)</span>)
+  </label>

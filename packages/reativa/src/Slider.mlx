@@ -1,0 +1,26 @@
+[@@@warning "-a"]
+
+(* Slider — a controlled range input bound to an int signal. Implements the
+   `slider` spec. *)
+
+open Reativa
+
+let make ?(min = 0) ?(max = 100) ?(step = 1) ?(disabled = false) ?on_change ~value () =
+  let handle ev =
+    let n = match int_of_string_opt (Ui.input_value ev) with Some n -> n | None -> 0 in
+    Signal.set value n;
+    match on_change with Some f -> f ev | None -> ()
+  in
+  View.element
+    ~attrs:
+      [
+        View.Attr.type_ (View.static "range");
+        View.Attr.make "min" (View.static (string_of_int min));
+        View.Attr.make "max" (View.static (string_of_int max));
+        View.Attr.make "step" (View.static (string_of_int step));
+        View.Attr.value (View.dynamic (fun () -> string_of_int (Signal.get value)));
+        View.Attr.disabled (fun () -> disabled);
+        View.Attr.className (View.static "w-full accent-neutral-900 disabled:opacity-40");
+      ]
+    ~events:[ View.On.input handle ]
+    "input" []
